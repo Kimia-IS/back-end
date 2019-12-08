@@ -1,14 +1,8 @@
 import bcrypt
-from flask import Flask, request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint
 from auth.models import lecturer, admin
 
-app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-app.secret_key = "GB981UA7YT91"
-
 auth_blueprint = Blueprint('auth_blueprint', __name__)
-
 lecturer = lecturer
 admin = admin
 
