@@ -35,3 +35,33 @@ def lecturer_login():
         'message': 'You are not Authorized to Logging In'
     }
     return ret
+
+
+@auth_blueprint.route('/auth/admin/register', methods=['POST'])
+def admin_register():
+    auth_id = request.json['auth_id']
+    password = bcrypt.hashpw(request.json['password'].encode('utf-8'), bcrypt.gensalt())
+    email = request.json['email']
+    name = request.json['name']
+    role = request.json['role']
+    new_admin = admin(auth_id=auth_id, password=password, email=email, name=name, role=role)
+    res = new_admin.save()
+    return jsonify(res)
+
+
+@auth_blueprint.route('/auth/lecturer/login', methods=['POST'])
+def admin_login():
+    search_admin = admin()
+    res = search_admin.search(request.json['password'], request.json['auth_id'])
+    if res['status']:
+        ret = {
+            'status': 200,
+            'message': 'Berhasil Log In '+res['admin'].name
+        }
+        return jsonify(ret)
+
+    ret = {
+        'status': 401,
+        'message': 'You are not Authorized to Logging In'
+    }
+    return ret
