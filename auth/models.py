@@ -41,7 +41,68 @@ class lecturer(db.Model):
             }
             return ret
 
-    def search(self, password, nip):
+    def edit(self, nip, request):
+        try:
+            selected_lecturer = sess.query(lecturer).filter(lecturer.nip == nip).first()
+            if selected_lecturer is not None:
+                data = {}
+                for k in request.keys():
+                    param = k
+                    if param == "password":
+                        data[k] = bcrypt.hashpw(request[param].encode('utf-8'), bcrypt.gensalt())
+                    else:
+                        data[k] = request[param]
+                edit = sess.query(lecturer).filter(lecturer.nip == nip).update(data, synchronize_session=False)
+                sess.commit()
+                if edit == 1:
+                    ret = {
+                        'status': 200,
+                        'message': 'Data updated!'
+                    }
+                else:
+                    ret = {
+                        'status': 500,
+                        'message': "Something's wrong with our server. Please try again later!"
+                    }
+                return ret
+            else:
+                ret = {
+                    'status': 200,
+                    'message': "NIP is not registered"
+                }
+                return ret
+        except Exception as e:
+            ret = {
+                'status': 200,
+                'message': e.args
+            }
+            return ret
+
+    def delete(self, nip):
+        try:
+            selected_lecturer = sess.query(lecturer).filter(lecturer.nip == nip).first()
+            if selected_lecturer is not None:
+                sess.delete(selected_lecturer)
+                sess.commit()
+                ret = {
+                    'status': 200,
+                    'message': 'Data deleted!'
+                }
+                return ret
+            else:
+                ret = {
+                    'status': 200,
+                    'message': "NIP is not registered"
+                }
+                return ret
+        except Exception as e:
+            ret = {
+                'status': 200,
+                'message': e.args
+            }
+            return ret
+
+    def login(self, password, nip):
         try:
             selected_lecturer = sess.query(lecturer).filter(lecturer.nip == nip).first()
             if selected_lecturer is not None:
@@ -110,7 +171,68 @@ class admin(db.Model):
             }
             return ret
 
-    def search(self, password, auth_id):
+    def edit(self, auth_id, request):
+        try:
+            selected_admin = sess.query(admin).filter(admin.auth_id == auth_id).first()
+            if selected_admin is not None:
+                data = {}
+                for k in request.keys():
+                    param = k
+                    if param == "password":
+                        data[k] = bcrypt.hashpw(request[param].encode('utf-8'), bcrypt.gensalt())
+                    else:
+                        data[k] = request[param]
+                tes = sess.query(admin).filter(admin.auth_id == auth_id).update(data, synchronize_session=False)
+                sess.commit()
+                if tes == 1:
+                    ret = {
+                        'status': 200,
+                        'message': 'Data updated!'
+                    }
+                else:
+                    ret = {
+                        'status': 500,
+                        'message': "Something's wrong with our server. Please try again later!"
+                    }
+                return ret
+            else:
+                ret = {
+                    'status': False,
+                    'message': "Auth_ID is not registered"
+                }
+                return ret
+        except Exception as e:
+            ret = {
+                'status': False,
+                'message': e.args
+            }
+            return ret
+
+    def delete(self, auth_id):
+        try:
+            selected_admin = sess.query(admin).filter(admin.auth_id == auth_id).first()
+            if selected_admin is not None:
+                sess.delete(selected_admin)
+                sess.commit()
+                ret = {
+                    'status': 200,
+                    'message': 'Data deleted!'
+                }
+                return ret
+            else:
+                ret = {
+                    'status': 200,
+                    'message': "Auth_ID is not registered"
+                }
+                return ret
+        except Exception as e:
+            ret = {
+                'status': 200,
+                'message': e.args
+            }
+            return ret
+
+    def login(self, password, auth_id):
         try:
             selected_admin = sess.query(admin).filter(admin.auth_id == auth_id).first()
             if selected_admin is not None:

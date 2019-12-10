@@ -23,17 +23,45 @@ def lecturer_register():
     role = request.json['role']
 
     # build new lecturer object
-    new_lecturer = lecturer(nip=nip, password=password, email=email, name=name, role=role)
+    selected_lecturer = lecturer(nip=nip, password=password, email=email, name=name, role=role)
 
     # store new lecturer to database via Lecturer model
-    res = new_lecturer.save()
+    res = selected_lecturer.save()
+    return jsonify(res)
+
+
+@auth_blueprint.route('/auth/lecturer/edit/<nip>', methods=['POST'])
+def lecturer_edit(nip):
+
+    # build new lecturer object
+    selected_lecturer = lecturer()
+
+    # get response from edit lecturer method
+    res = selected_lecturer.edit(nip, request.json)
+    return jsonify(res)
+
+
+@auth_blueprint.route('/auth/lecturer/delete/<nip>', methods=['POST'])
+def lecturer_delete(nip):
+
+    # build new lecturer object
+    selected_lecturer = lecturer()
+
+    # get response from delete lecturer method
+    res = selected_lecturer.delete(nip)
     return jsonify(res)
 
 
 @auth_blueprint.route('/auth/lecturer/login', methods=['POST'])
 def lecturer_login():
-    search_lecturer = lecturer()
-    res = search_lecturer.search(request.json['password'], request.json['nip'])
+
+    # build new lecturer object
+    selected_lecturer = lecturer()
+
+    # get response from login lecturer method
+    res = selected_lecturer.login(request.json['password'], request.json['nip'])
+
+    # if found, loggin in
     if res['status']:
         ret = {
             'status': 200,
@@ -41,6 +69,7 @@ def lecturer_login():
         }
         return jsonify(ret)
 
+    # else, not found
     ret = {
         'status': 200,
         'message': res['message']
@@ -57,17 +86,45 @@ def admin_register():
     role = request.json['role']
 
     # build new admin object
-    new_admin = admin(auth_id=auth_id, password=password, email=email, name=name, role=role)
+    selected_admin = admin(auth_id=auth_id, password=password, email=email, name=name, role=role)
 
     # store new admin to database via Admin model
-    res = new_admin.save()
+    res = selected_admin.save()
+    return jsonify(res)
+
+
+@auth_blueprint.route('/auth/admin/edit/<auth_id>', methods=['POST'])
+def admin_edit(auth_id):
+
+    # build new admin object
+    selected_admin = admin()
+
+    # get response from edit admin method
+    res = selected_admin.edit(auth_id, request.json)
+    return jsonify(res)
+
+
+@auth_blueprint.route('/auth/admin/delete/<auth_id>', methods=['POST'])
+def admin_delete(auth_id):
+
+    # build new admin object
+    selected_admin = admin()
+
+    # get response from delete admin method
+    res = selected_admin.delete(auth_id)
     return jsonify(res)
 
 
 @auth_blueprint.route('/auth/lecturer/login', methods=['POST'])
 def admin_login():
-    search_admin = admin()
-    res = search_admin.search(request.json['password'], request.json['nip'])
+
+    # build new admin object
+    selected_admin = admin()
+
+    # get response from delete lecturer method
+    res = selected_admin.login(request.json['password'], request.json['nip'])
+
+    # if found, logging in
     if res['status']:
         ret = {
             'status': 200,
@@ -75,6 +132,7 @@ def admin_login():
         }
         return jsonify(ret)
 
+    # else, not found
     ret = {
         'status': 200,
         'message': res['message']
