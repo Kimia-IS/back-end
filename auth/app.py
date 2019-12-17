@@ -5,8 +5,6 @@ from flask import request, jsonify, Blueprint
 from auth.models import lecturer, admin
 
 auth_blueprint = Blueprint('auth_blueprint', __name__)
-lecturer = lecturer
-admin = admin
 
 
 def generatePassword():

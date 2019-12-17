@@ -62,7 +62,7 @@ class lecturer(db.Model):
                 else:
                     ret = {
                         'status': 500,
-                        'message': "Something's wrong with our server. Please try again later!"
+                        'message': "Something's went wrong with our server. Please try again later!"
                     }
                 return ret
             else:
