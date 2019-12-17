@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/academic/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/academic/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +108,7 @@
       <workItem from="1575785072186" duration="9175000" />
       <workItem from="1575964091882" duration="1115000" />
       <workItem from="1575966900835" duration="9951000" />
-      <workItem from="1576561304723" duration="5041000" />
+      <workItem from="1576561304723" duration="5714000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
@@ -146,22 +141,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="python dependencies" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1575998118726">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1576569638609">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1575998118726" />
-    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1575998118725">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1576569638609" />
+    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1576569638609">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1575998118725" />
-    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1575998118725">
+    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1576569638609" />
+    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1576569638608">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1575998118725" />
-    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1575998118725">
+    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1576569638608" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1576569638609">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1575998118725" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1576569638609" />
     <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1576561351492">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
