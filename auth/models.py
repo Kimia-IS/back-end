@@ -31,7 +31,7 @@ class lecturer(db.Model):
             ret = {
                 'status': 200,
                 'message': 'Lecturer Registered',
-                'new_lecturer': new_lecturer
+                'results': new_lecturer
             }
             return ret
         except Exception as e:
@@ -52,9 +52,9 @@ class lecturer(db.Model):
                         data[k] = bcrypt.hashpw(request[param].encode('utf-8'), bcrypt.gensalt())
                     else:
                         data[k] = request[param]
-                edit = sess.query(lecturer).filter(lecturer.nip == nip).update(data, synchronize_session=False)
+                check = sess.query(lecturer).filter(lecturer.nip == nip).update(data, synchronize_session=False)
                 sess.commit()
-                if edit == 1:
+                if check == 1:
                     ret = {
                         'status': 200,
                         'message': 'Data updated!'
@@ -110,7 +110,7 @@ class lecturer(db.Model):
                     ret = {
                         'status': True,
                         'message': 'Login successful',
-                        'lecturer': selected_lecturer
+                        'results': selected_lecturer
                     }
                     return ret
                 ret = {
@@ -161,7 +161,7 @@ class admin(db.Model):
             ret = {
                 'status': 200,
                 'message': 'Admin Registered',
-                'new_lecturer': new_admin
+                'results': new_admin
             }
             return ret
         except Exception as e:
@@ -182,9 +182,9 @@ class admin(db.Model):
                         data[k] = bcrypt.hashpw(request[param].encode('utf-8'), bcrypt.gensalt())
                     else:
                         data[k] = request[param]
-                tes = sess.query(admin).filter(admin.auth_id == auth_id).update(data, synchronize_session=False)
+                check = sess.query(admin).filter(admin.auth_id == auth_id).update(data, synchronize_session=False)
                 sess.commit()
-                if tes == 1:
+                if check == 1:
                     ret = {
                         'status': 200,
                         'message': 'Data updated!'
@@ -240,7 +240,7 @@ class admin(db.Model):
                     ret = {
                         'status': True,
                         'message': 'Login successful',
-                        'admin': selected_admin
+                        'results': selected_admin
                     }
                     return ret
                 ret = {

@@ -28,7 +28,7 @@ def lecturer_register():
     return jsonify(res)
 
 
-@auth_blueprint.route('/auth/lecturer/edit/<nip>', methods=['POST'])
+@auth_blueprint.route('/auth/lecturer/edit/<nip>', methods=['PUT'])
 def lecturer_edit(nip):
 
     # build new lecturer object
@@ -39,7 +39,7 @@ def lecturer_edit(nip):
     return jsonify(res)
 
 
-@auth_blueprint.route('/auth/lecturer/delete/<nip>', methods=['POST'])
+@auth_blueprint.route('/auth/lecturer/delete/<nip>', methods=['DELETE'])
 def lecturer_delete(nip):
 
     # build new lecturer object

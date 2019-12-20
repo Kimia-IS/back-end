@@ -1,21 +1,25 @@
 from db_config import db, sess
+from auth.models import lecturer
 import json
+
 
 class academic (db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    course_id = db.Column(db.String, unique=True, nullable=False)
-    course_name = db.Column(db.String, nullable=False)
+    course_id = db.Column(db.String(255), unique=True, nullable=False)
+    course_name = db.Column(db.String(255), nullable=False)
     total_credit = db.Column(db.Integer, nullable=False)
 
     def get(self):
         try:
-            datas =sess.query(academic).all()
+            datas =sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.lecturer_nip == lecturer.nip).filter(academic.course_id == academic_lecturer.course_id).all()
             res = []
             for data in datas:
                 temp = {
-                    'course_id': data.course_id,
-                    'course_name': data.course_name,
-                    'total_credit': data.total_credit
+                    'course_id': data.academic.course_id,
+                    'course_name': data.academic.course_name,
+                    'class': data.academic_lecturer.course_class,
+                    'lecturer(s)': data.lecturer.name,
+                    'total_credit': data.academic.total_credit
                 }
                 res.append(temp)
             ret = {
@@ -51,7 +55,7 @@ class academic (db.Model):
             ret = {
                 'status': 200,
                 'message': 'Course Registered',
-                'new_course': new_course
+                'results': new_course
             }
             return ret
         except Exception as e:
@@ -119,3 +123,10 @@ class academic (db.Model):
             }
             return ret
 
+
+class academic_lecturer(db.Model):
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    course_id = db.Column(db.String(255), unique=True, nullable=False)
+    course_class = db.Column(db.Integer, unique=True, nullable=False)
+    lecturer_nip = db.Column(db.String(255), unique=True, nullable=False)
+    lecturer_credit = db.Column(db.String(255), nullable=False)
