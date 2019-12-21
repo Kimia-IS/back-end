@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from academic.models import academic, get_all_lecturer
+from academic.models import academic, academic_lecturer,get_all_lecturer
 from announcement import announcement
 
 academic_blueprint = Blueprint('academic_blueprint', __name__)
@@ -12,12 +12,59 @@ def getCourses():
     return jsonify(hasil)
 
 
-@academic_blueprint.route('/academic/lecturer', methods=['GET'])
+@academic_blueprint.route('/academic/lecturer', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def get_lecturer():
+    # check request method
+    # if request method = POST
+    if request.method == 'GET':
+        # call get all lecturer method from academic module
+        # send parameter request to check nip query in URL is exist or not
+        return jsonify(get_all_lecturer(request))
 
-    # call get all lecturer method from academic module
-    # send parameter request to check nip query in URL is exist or not
-    return jsonify(get_all_lecturer(request))
+    # if request method = POST
+    elif request.method == 'POST':
+
+        # get data from json request
+        course_id = request.json['course_id']
+        course_class = request.json['course_class']
+        lecturer_nip = request.json['lecturer_nip']
+        lecturer_credit = request.json['lecturer_credit']
+
+        # build new academic lecturer object with initial value
+        new_academic_lecturer = academic_lecturer(course_id=course_id, course_class=course_class, lecturer_nip=lecturer_nip, lecturer_credit=lecturer_credit)
+
+        # call the save method from academic lecturer object
+        ret = new_academic_lecturer.save()
+        return jsonify(ret)
+
+    # if request method = PUT
+    elif request.method == 'PUT':
+
+        # get id from query
+        id = request.args.get('id')
+
+        # build new academic lecturer object
+        academic_lecturer_object = academic_lecturer()
+
+        # call the edit method from academic lecturer object
+        ret = academic_lecturer_object.edit(id, request.json)
+        return jsonify(ret)
+
+    # if request method = DELETE
+    elif request.method == 'DELETE':
+        # get id from query
+        id = request.args.get('id')
+
+        # build new announcement object
+        academic_lecturer_object = academic_lecturer()
+
+        # call the delete method from announcement object
+        ret = academic_lecturer_object.delete(id)
+        return jsonify(ret)
+
+    # if request method is unknown
+    else:
+        return jsonify({'status': 500, 'message': 'Sorry, your request method is not recognized!'})
 
 
 @academic_blueprint.route('/academic/announcements', methods=['GET', 'POST', 'PUT', 'DELETE'])
