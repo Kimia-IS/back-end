@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/academic/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/academic/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +32,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="docker-deploy" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Docker.Dockerfile">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="app_v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -76,8 +84,24 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="buildCliOptions" value="" />
+          <option name="command" value="" />
+          <option name="containerName" value="kimia-is" />
+          <option name="entrypoint" value="" />
+          <option name="imageTag" value="" />
+          <option name="publishAllPorts" value="true" />
+          <option name="commandLineOptions" value="" />
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.models" />
       </list>
@@ -88,7 +112,17 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Docker" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Docker" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Not Started" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -110,7 +144,10 @@
       <workItem from="1575964091882" duration="1115000" />
       <workItem from="1575966900835" duration="9951000" />
       <workItem from="1576561304723" duration="9550000" />
-      <workItem from="1576842901569" duration="6285000" />
+      <workItem from="1576842901569" duration="6550000" />
+      <workItem from="1576863971548" duration="194000" />
+      <workItem from="1576903125482" duration="1991000" />
+      <workItem from="1576931288357" duration="3545000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
@@ -143,6 +180,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="python dependencies" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="275" y="28" key="#Deployment" timestamp="1576904737261">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="28" key="#Deployment/0.0.1366.738@0.0.1366.738" timestamp="1576904737261" />
+    <state x="402" y="0" key="#Dockerfile" timestamp="1576904225847">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="402" y="0" key="#Dockerfile/0.0.1366.738@0.0.1366.738" timestamp="1576904225847" />
+    <state x="363" y="104" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576863576843">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="363" y="104" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1576863576843" />
+    <state x="462" y="111" key="FileChooserDialogImpl" timestamp="1576904162485">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="462" y="111" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1576904162485" />
     <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1576862940138">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -159,10 +212,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1576862940137" />
-    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1576842903559">
+    <state x="424" y="111" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize" timestamp="1576904212577">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1576842903559" />
+    <state x="424" y="111" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize/0.0.1366.738@0.0.1366.738" timestamp="1576904212577" />
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1576931306137">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1576931306137" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/app_v2$main.coverage" NAME="main Coverage Results" MODIFIED="1576862558360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

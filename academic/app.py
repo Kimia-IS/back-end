@@ -1,6 +1,5 @@
-from flask import request, jsonify, Blueprint, Response
-from academic.models import academic
-import json
+from flask import request, jsonify, Blueprint
+from academic.models import academic, get_all_lecturer
 from announcement import announcement
 
 academic_blueprint = Blueprint('academic_blueprint', __name__)
@@ -11,6 +10,14 @@ def getCourses():
     courses = academic()
     hasil = courses.get()
     return jsonify(hasil)
+
+
+@academic_blueprint.route('/academic/lecturer', methods=['GET'])
+def get_lecturer():
+
+    # call get all lecturer method from academic module
+    # send parameter request to check nip query in URL is exist or not
+    return jsonify(get_all_lecturer(request))
 
 
 @academic_blueprint.route('/academic/announcements', methods=['GET', 'POST', 'PUT', 'DELETE'])
