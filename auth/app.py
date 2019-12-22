@@ -2,7 +2,7 @@ import bcrypt
 import random
 import string
 from flask import request, jsonify, Blueprint
-from auth.models import lecturer, admin
+from auth.models import lecturer, admin, get_all_admin, get_all_lecturer
 
 auth_blueprint = Blueprint('auth_blueprint', __name__)
 
@@ -136,3 +136,19 @@ def admin_login():
         'message': res['message']
     }
     return jsonify(ret)
+
+
+@auth_blueprint.route('/lecturers', methods=['GET'])
+def get_lecturers():
+
+    # call get all lecturer method from academic module
+    # send parameter request to check nip query in URL is exist or not
+    return jsonify(get_all_lecturer(request))
+
+
+@auth_blueprint.route('/admins', methods=['GET'])
+def get_admins():
+
+    # call get all admin method from academic module
+    # send parameter request to check id query in URL is exist or not
+    return jsonify(get_all_admin(request))

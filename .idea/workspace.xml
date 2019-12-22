@@ -4,6 +4,9 @@
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/academic/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/academic/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +149,7 @@
       <workItem from="1576842901569" duration="6550000" />
       <workItem from="1576863971548" duration="194000" />
       <workItem from="1576903125482" duration="1991000" />
-      <workItem from="1576931288357" duration="4702000" />
+      <workItem from="1576931288357" duration="6639000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>

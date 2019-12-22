@@ -2,37 +2,11 @@ from db_config import db, sess
 from auth.models import lecturer
 
 
-class academic (db.Model):
+class academic(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     course_id = db.Column(db.String(255), unique=True, nullable=False)
     course_name = db.Column(db.String(255), nullable=False)
     total_credit = db.Column(db.Integer, nullable=False)
-
-    def get(self):
-        try:
-            datas =sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.lecturer_nip == lecturer.nip).filter(academic.course_id == academic_lecturer.course_id).all()
-            res = []
-            for data in datas:
-                temp = {
-                    'course_id': data.academic.course_id,
-                    'course_name': data.academic.course_name,
-                    'class': data.academic_lecturer.course_class,
-                    'lecturer(s)': data.lecturer.name,
-                    'total_credit': data.academic.total_credit
-                }
-                res.append(temp)
-            ret = {
-                'status': 200,
-                'message': 'This are the registered courses',
-                'results': res
-            }
-            return ret
-        except Exception as e:
-            ret = {
-                'status': 200,
-                'message': e.args,
-            }
-            return ret
 
     def save(self):
         try:
@@ -139,7 +113,8 @@ class academic_lecturer(db.Model):
                     'message': "Course is not registered yet, try again another Course"
                 }
                 return ret
-            check_lecturer = sess.query(academic_lecturer).filter(academic_lecturer.course_id == self.course_id, academic_lecturer.lecturer_nip == self.lecturer_nip).first()
+            check_lecturer = sess.query(academic_lecturer).filter(academic_lecturer.course_id == self.course_id,
+                                                                  academic_lecturer.lecturer_nip == self.lecturer_nip).first()
             if check_lecturer is not None:
                 ret = {
                     'status': 200,
@@ -229,32 +204,30 @@ class academic_lecturer(db.Model):
             return ret
 
 
-def get_all_lecturer(request):
+def get_all_academic_lecturer():
     try:
-        if request.args.get('nip') is not None:
-            nip = request.args.get('nip')
-            lecturers = sess.query(lecturer).filter(lecturer.nip == nip).first()
-        else:
-            lecturers = sess.query(lecturer).all()
+        datas = sess.query(academic, lecturer, academic_lecturer).filter(
+            academic_lecturer.lecturer_nip == lecturer.nip).filter(
+            academic.course_id == academic_lecturer.course_id).all()
         res = []
-        for data in lecturers:
+        for data in datas:
             temp = {
-                'id': data.id,
-                'name': data.name,
-                'role': data.role,
-                'nip': data.nip,
-                'email': data.email
+                'course_id': data.academic.course_id,
+                'course_name': data.academic.course_name,
+                'class': data.academic_lecturer.course_class,
+                'lecturer(s)': data.lecturer.name,
+                'total_credit': data.academic.total_credit
             }
             res.append(temp)
         ret = {
             'status': 200,
-            'message': 'This are the registered Lecturer(s)',
+            'message': 'This are the registered academic lecturer',
             'results': res
         }
         return ret
     except Exception as e:
         ret = {
             'status': 200,
-            'message': e.args
+            'message': e.args,
         }
         return ret

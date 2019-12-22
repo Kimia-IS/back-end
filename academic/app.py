@@ -1,25 +1,17 @@
 from flask import request, jsonify, Blueprint
-from academic.models import academic, academic_lecturer,get_all_lecturer
+from academic.models import academic, academic_lecturer, get_all_academic_lecturer
 from announcement import announcement
 
 academic_blueprint = Blueprint('academic_blueprint', __name__)
 
 
-@academic_blueprint.route('/academic', methods=['GET'])
-def getCourses():
-    courses = academic()
-    hasil = courses.get()
-    return jsonify(hasil)
-
-
 @academic_blueprint.route('/academic/lecturer', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def get_lecturer():
+def process_academic_lecturer():
     # check request method
     # if request method = POST
     if request.method == 'GET':
-        # call get all lecturer method from academic module
-        # send parameter request to check nip query in URL is exist or not
-        return jsonify(get_all_lecturer(request))
+        # call get all academic lecturer method from academic module
+        return jsonify(get_all_academic_lecturer())
 
     # if request method = POST
     elif request.method == 'POST':
@@ -86,7 +78,7 @@ def process_announcements():
         # get data from json request
         title = request.json['title']
         content = request.json['content']
-        author = 'Admin Kimia'
+        author = request.json['author']
         module = 1
         created_at = '2019-12-12'
 

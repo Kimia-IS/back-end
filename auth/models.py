@@ -132,6 +132,37 @@ class lecturer(db.Model):
             return ret
 
 
+def get_all_lecturer(request):
+    try:
+        if request.args.get('nip') is not None:
+            nip = request.args.get('nip')
+            lecturers = sess.query(lecturer).filter(lecturer.nip == nip).first()
+        else:
+            lecturers = sess.query(lecturer).all()
+        res = []
+        for data in lecturers:
+            temp = {
+                'id': data.id,
+                'name': data.name,
+                'role': data.role,
+                'nip': data.nip,
+                'email': data.email
+            }
+            res.append(temp)
+        ret = {
+            'status': 200,
+            'message': 'This are the registered Lecturer(s)',
+            'results': res
+        }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
 class admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
@@ -260,3 +291,34 @@ class admin(db.Model):
                 'message': e.args
             }
             return ret
+
+
+def get_all_admin(request):
+    try:
+        if request.args.get('id') is not None:
+            auth_id = request.args.get('id')
+            admins = sess.query(admin).filter(admin.auth_id == auth_id).first()
+        else:
+            admins = sess.query(admin).all()
+        res = []
+        for data in admins:
+            temp = {
+                'id': data.id,
+                'name': data.name,
+                'role': data.role,
+                'auth_id': data.auth_id,
+                'email': data.email
+            }
+            res.append(temp)
+        ret = {
+            'status': 200,
+            'message': 'This are the registered Lecturer(s)',
+            'results': res
+        }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
