@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/finalTask/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/academic/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/academic/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finalProject/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalTask/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finalProject/models.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +150,9 @@
       <workItem from="1576842901569" duration="6550000" />
       <workItem from="1576863971548" duration="194000" />
       <workItem from="1576903125482" duration="1991000" />
-      <workItem from="1576931288357" duration="6639000" />
+      <workItem from="1576931288357" duration="8734000" />
+      <workItem from="1577267577582" duration="1875000" />
+      <workItem from="1578028221815" duration="5485000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
@@ -218,10 +221,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="424" y="111" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize/0.0.1366.738@0.0.1366.738" timestamp="1576904212577" />
-    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1576931306137">
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1578028237550">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1576931306137" />
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1578028237549" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/app_v2$main.coverage" NAME="main Coverage Results" MODIFIED="1576862558360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

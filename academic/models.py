@@ -231,3 +231,28 @@ def get_all_academic_lecturer():
             'message': e.args,
         }
         return ret
+
+
+def get_all_courses():
+    try:
+        datas = sess.query(academic).all()
+        res = []
+        for data in datas:
+            temp = {
+                'course_id': data.course_id,
+                'course_name': data.course_name,
+                'total_credit': data.total_credit
+            }
+            res.append(temp)
+        ret = {
+            'status': 200,
+            'message': 'This are the registered courses',
+            'results': res
+        }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
