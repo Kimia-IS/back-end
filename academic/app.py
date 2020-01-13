@@ -5,7 +5,7 @@ from announcement import announcement
 academic_blueprint = Blueprint('academic_blueprint', __name__)
 
 
-@academic_blueprint.route('/academic/courses', methids=['GET', 'POST', 'PUT', 'DELETE'])
+@academic_blueprint.route('/academic/courses', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def process_academic_courses():
     # check request method
     # if request method = POST
