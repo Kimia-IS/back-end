@@ -13,10 +13,12 @@ def process_final_task():
     elif request.method == 'POST':
         try:
             if request.files:
-                file = request.files['final_task_file']
-                if not os.path.exists('datas/files/finalTasks'):
-                    os.makedirs('datas/files/finalTasks')
-                file.save(os.path.join('datas/files/finalTasks', file.filename))
+                files = request.files.getlist('final_task_file')
+                print(files)
+                for file in files:
+                    if not os.path.exists('datas/files/finalTasks'):
+                        os.makedirs('datas/files/finalTasks')
+                    file.save(os.path.join('datas/files/finalTasks', file.filename))
                 return "SAVED"
             else:
                 return "KOSONG"
