@@ -13,8 +13,8 @@ class finalTask(db.Model):
 
     def save(self):
         try:
-            db.add(self)
-            db.commit()
+            sess.add(self)
+            sess.commit()
             new_final_task = {
                 'id': self.id,
                 'student_name': self.student_name,
@@ -47,8 +47,8 @@ class finalTask_lecturer(db.Model):
 
     def save(self):
         try:
-            db.add(self)
-            db.commit()
+            sess.add(self)
+            sess.commit()
             new_final_task_lecturer = {
                 'id': self.id,
                 'final_task_id': self.final_task_id,
@@ -77,8 +77,8 @@ class finalTask_file(db.Model):
 
     def save(self):
         try:
-            db.add(self)
-            db.commit()
+            sess.add(self)
+            sess.commit()
             new_final_task_path = {
                 'id': self.id,
                 'final_task_id': self.final_task_id,
@@ -130,3 +130,7 @@ def get_all_final_task():
             'message': e.args,
         }
         return ret
+
+
+def count_final_task():
+    return sess.query(finalTask).count()
