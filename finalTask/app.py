@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from finalTask.models import finalTask, finalTask_lecturer, finalTask_file, get_all_final_task, count_final_task
+from finalTask.models import finalTask, finalTask_lecturer, finalTask_file, get_all_final_task, count_final_task, editAll, deleteTask
 from announcement import announcement
 import os
 
@@ -14,7 +14,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@final_task_blueprint.route('/finalTask', methods=['GET', 'POST'])
+@final_task_blueprint.route('/finalTask', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def process_final_task():
     # Check request method
     # if request method == GET
@@ -89,10 +89,35 @@ def process_final_task():
 
                 return jsonify(res)
             else:
-                return "KOSONG"
+                res = {
+                    'status': 200,
+                    'message': 'Please attach your final task file, required minimal 1'
+                }
+                return jsonify(res)
         except Exception as e:
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+
+    # if method == PUT
+    elif request.method == 'PUT':
+
+        # get id from query string
+        id = request.args.get('id')
+
+        # get result from editAll method
+        res = editAll(id, request.json)
+        return jsonify(res)
+
+    # if method == DELETE
+    elif request.method == 'DELETE':
+        # get id from query string
+        id = request.args.get('id')
+
+        # get result from deleteTask method
+        res = deleteTask(id)
+        return jsonify(res)
+
+

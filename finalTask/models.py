@@ -1,3 +1,4 @@
+from sqlalchemy import ForeignKey
 from db_config import db, sess
 
 
@@ -41,7 +42,7 @@ class finalTask(db.Model):
 class finalTask_lecturer(db.Model):
     __tablename__ = 'final_task_lecturer'
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    final_task_id = db.Column(db.Integer, nullable=False)
+    final_task_id = db.Column(db.Integer, ForeignKey("final_task.id"), nullable=False)
     lecturer_nip = db.Column(db.String(255), nullable=False)
     lecturer_position = db.Column(db.String(255), nullable=False)
 
@@ -72,7 +73,7 @@ class finalTask_lecturer(db.Model):
 class finalTask_file(db.Model):
     __tablename__ = 'final_task_file'
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    final_task_id = db.Column(db.Integer, nullable=False)
+    final_task_id = db.Column(db.Integer, ForeignKey("final_task.id"), nullable=False)
     file_path = db.Column(db.String(255), nullable=False)
 
     def save(self):
@@ -128,6 +129,71 @@ def get_all_final_task():
         ret = {
             'status': 200,
             'message': e.args,
+        }
+        return ret
+
+
+def editAll(id, request):
+    try:
+        selected_final_task = sess.query(finalTask, finalTask_file, finalTask_lecturer).filter(finalTask.id == id)\
+            .filter(finalTask_file.final_task_id == finalTask.id)\
+            .filter(finalTask_lecturer.final_task_id == finalTask.id).first()
+        if selected_final_task is not None:
+            data = {}
+            for k in request.keys():
+                param = k
+                data[k] = request[param]
+            edit = sess.query(finalTask, finalTask_file, finalTask_lecturer).filter(finalTask.id == id)\
+                .filter(finalTask_file.final_task_id == finalTask.id)\
+                .filter(finalTask_lecturer.final_task_id == finalTask.id).update(data, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
+                ret = {
+                    'status': 200,
+                    'message': 'Data updated!'
+                }
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Final Task is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def deleteTask(id):
+    try:
+        selected_final_task = sess.query(finalTask).filter(finalTask.id == id).first()
+        print(selected_final_task)
+        if selected_final_task is not None:
+            sess.delete(selected_final_task)
+            sess.commit()
+            ret = {
+                'status': 200,
+                'message': 'Data deleted!'
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Final Task is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
         }
         return ret
 
