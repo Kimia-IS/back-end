@@ -133,19 +133,86 @@ def get_all_final_task():
         return ret
 
 
-def editAll(id, request):
+def edit_final_task(id, request):
     try:
-        selected_final_task = sess.query(finalTask, finalTask_file, finalTask_lecturer).filter(finalTask.id == id)\
-            .filter(finalTask_file.final_task_id == finalTask.id)\
-            .filter(finalTask_lecturer.final_task_id == finalTask.id).first()
-        if selected_final_task is not None:
-            data = {}
+        selected_final_task = sess.query(finalTask).filter(finalTask.id == id)
+        if selected_final_task.first() is not None:
+            data_finalTask = {}
             for k in request.keys():
                 param = k
-                data[k] = request[param]
-            edit = sess.query(finalTask, finalTask_file, finalTask_lecturer).filter(finalTask.id == id)\
-                .filter(finalTask_file.final_task_id == finalTask.id)\
-                .filter(finalTask_lecturer.final_task_id == finalTask.id).update(data, synchronize_session=False)
+                data_finalTask[k] = request[param]
+            edit = selected_final_task.update(data_finalTask, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
+                ret = {
+                    'status': 200,
+                    'message': 'Data updated!'
+                }
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Final Task is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def edit_final_task_lecturer(id, request):
+    try:
+        print(request)
+        selected_final_task_lecturer = sess.query(finalTask_lecturer).filter(finalTask_lecturer.final_task_id == id)
+        if selected_final_task_lecturer.first() is not None:
+            data_finalTask = {}
+            for k in request.keys():
+                param = k
+                data_finalTask[k] = request[param]
+            edit = selected_final_task_lecturer.update(data_finalTask, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
+                ret = {
+                    'status': 200,
+                    'message': 'Data updated!'
+                }
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Final Task is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def edit_final_task_file(id, request):
+    try:
+        selected_final_task_file = sess.query(finalTask_file).filter(finalTask_file.final_task_id == id)
+        if selected_final_task_file.first() is not None:
+            data_finalTask = {}
+            for k in request.keys():
+                param = k
+                data_finalTask[k] = request[param]
+            edit = selected_final_task_file.update(data_finalTask, synchronize_session=False)
             sess.commit()
             if edit == 1:
                 ret = {
