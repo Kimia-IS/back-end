@@ -1,6 +1,6 @@
 from flask import request, jsonify, Blueprint
 from finalTask.models import finalTask, finalTask_lecturer, finalTask_file, get_all_final_task, count_final_task, \
-    edit_final_task, edit_final_task_file, edit_final_task_lecturer, deleteTask
+    edit_final_task, edit_final_task_file, edit_final_task_lecturer, deleteTask, deleteTask_file, deleteTask_lecturer
 from announcement import announcement
 import os
 
@@ -122,25 +122,48 @@ def process_final_task():
         return jsonify(res)
 
 
-@final_task_blueprint.route('/finalTask/<category>', methods=['PUT'])
+@final_task_blueprint.route('/finalTask/<category>', methods=['PUT', 'DELETE'])
 def edit_final_task_additional(category):
 
     # get id and category from query string
     id = request.args.get('id')
 
-    # check the category from path
-    # if category == lecturer
-    if category == 'lecturer':
-        # get result from edit
-        res = edit_final_task_lecturer(id, request.form)
+    if request.method == 'PUT':
+        # check the category from path
+        # if category == lecturer
+        if category == 'lecturer':
+            # get result from edit
+            res = edit_final_task_lecturer(id, request.form)
 
-    # if category == file
-    elif category == 'file':
-        # get result from edit
-        res = edit_final_task_file(id, request.form)
+        # if category == file
+        elif category == 'file':
+            # get result from edit
+            res = edit_final_task_file(id, request.form)
+        else:
+            res = {
+                'status': 200,
+                'message': 'Wrong path!'
+            }
+    elif request.method == 'DELETE':
+        # check the category from path
+        # if category == lecturer
+        if category == 'lecturer':
+            # get result from delete
+            res = deleteTask_lecturer(id)
+
+        # if category == file
+        elif category == 'file':
+            # get result from delete
+            res = deleteTask_file(id)
+
+        else:
+            res = {
+                'status': 200,
+                'message': 'Wrong path!'
+            }
     else:
         res = {
-            'status': 200,
-            'message': 'Wrong path!'
+            'status': 500,
+            'message': 'Sorry, your request method is not recognized!'
         }
     return jsonify(res)

@@ -242,7 +242,6 @@ def edit_final_task_file(id, request):
 def deleteTask(id):
     try:
         selected_final_task = sess.query(finalTask).filter(finalTask.id == id).first()
-        print(selected_final_task)
         if selected_final_task is not None:
             sess.delete(selected_final_task)
             sess.commit()
@@ -255,6 +254,57 @@ def deleteTask(id):
             ret = {
                 'status': 200,
                 'message': "Final Task is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def deleteTask_lecturer(id):
+    try:
+        selected_final_task_lecturer = sess.query(finalTask_lecturer).filter(finalTask_lecturer.final_task_id == id).first()
+        if selected_final_task_lecturer is not None:
+            sess.delete(selected_final_task_lecturer)
+            sess.commit()
+            ret = {
+                'status': 200,
+                'message': 'Data deleted!'
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Final Task Lecturer is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def deleteTask_file(id):
+    try:
+        selected_final_task_file = sess.query(finalTask_file).filter(finalTask_file.final_task_id == id).first()
+        if selected_final_task_file is not None:
+            sess.delete(selected_final_task_file)
+            sess.commit()
+
+            ret = {
+                'status': 200,
+                'message': 'Data deleted!'
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Final Task File is not registered"
             }
             return ret
     except Exception as e:
