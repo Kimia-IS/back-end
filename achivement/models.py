@@ -42,3 +42,91 @@ class achievement(db.Model):
                 'message': e.args
             }
             return ret
+
+
+def get_all_achievements():
+    try:
+        achievements = sess.query(achievement).all()
+        res = []
+        for data in achievements:
+            temp = {
+                'id': data.id,
+                'lecturer_nip': data.lecturer_nip,
+                'title': data.title,
+                'issuer': data.issuer,
+                'year': data.year,
+                'filepath': data.filepath
+            }
+            res.append(temp)
+        ret = {
+            'status': 200,
+            'message': 'This are the registered Achievements',
+            'results': res
+        }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def edit_achievement(id, request):
+    try:
+        selected_achievement = sess.query(achievement).filter(achievement.id == id).first()
+        if selected_achievement is not None:
+            data = {}
+            for k in request.keys():
+                param = k
+                data[k] = request[param]
+            edit = sess.query(achievement).filter(achievement.id == id).update(data, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
+                ret = {
+                    'status': 200,
+                    'message': 'Data updated!'
+                }
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Achievement is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def delete_achievement(id):
+    try:
+        selected_achievement = sess.query(achievement).filter(achievement.id == id).first()
+        if selected_achievement is not None:
+            sess.delete(selected_achievement)
+            sess.commit()
+            ret = {
+                'status': 200,
+                'message': 'Data deleted!'
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Achievement is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
