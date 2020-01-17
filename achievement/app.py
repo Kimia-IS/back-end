@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from achivement.models import achievement, get_all_achievements,edit_achievement,delete_achievement
+from achievement.models import achievement, get_all_achievements, edit_achievement, delete_achievement, get_achievement_byID
 import os
 
 achievement_blueprint = Blueprint('achievement_blueprint', __name__)
@@ -17,7 +17,11 @@ def process_achievements():
     # check the request method
     # if method == GET
     if request.method == 'GET':
-        return jsonify(get_all_achievements())
+
+        # check is there parameter ID
+        if request.args.get('id') is None:
+            return jsonify(get_all_achievements())
+        return jsonify(get_achievement_byID(request.args.get('id')))
 
     # if method == POST
     elif request.method == 'POST':

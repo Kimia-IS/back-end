@@ -72,6 +72,31 @@ def get_all_achievements():
         return ret
 
 
+def get_achievement_byID(id):
+    try:
+        data = sess.query(achievement).filter(achievement.id == id).first()
+        selected_achievement = {
+            'id': data.id,
+            'lecturer_nip': data.lecturer_nip,
+            'title': data.title,
+            'issuer': data.issuer,
+            'year': data.year,
+            'filepath': data.filepath
+        }
+        ret = {
+            'status': 200,
+            'message': 'This is the '+data.lecturer_nip+' Achievement',
+            'results': selected_achievement
+        }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
 def edit_achievement(id, request):
     try:
         selected_achievement = sess.query(achievement).filter(achievement.id == id).first()
