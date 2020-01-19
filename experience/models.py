@@ -136,7 +136,7 @@ def edit_experience(id, request):
         return ret
 
 
-def delete_achievement(id):
+def delete_experience(id):
     try:
         selected_experience = sess.query(experience).filter(experience.id == id).first()
         if selected_experience is not None:

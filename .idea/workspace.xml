@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/experience/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/achivement/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/achievement/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/achivement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/achievement/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/experience/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/history/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/experience/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/experience/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experience/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/experience/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -159,7 +156,9 @@
       <workItem from="1578902935013" duration="11086000" />
       <workItem from="1579001797962" duration="8189000" />
       <workItem from="1579055439799" duration="4490000" />
-      <workItem from="1579259167027" duration="6766000" />
+      <workItem from="1579259167027" duration="7208000" />
+      <workItem from="1579345026740" duration="1217000" />
+      <workItem from="1579456282464" duration="1486000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
@@ -200,10 +199,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="402" y="0" key="#Dockerfile/0.0.1366.738@0.0.1366.738" timestamp="1578919266660" />
-    <state x="363" y="104" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576863576843">
+    <state x="275" y="35" key="#Updates" timestamp="1579456310771">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="363" y="104" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1576863576843" />
+    <state x="275" y="35" key="#Updates/0.0.1366.738@0.0.1366.738" timestamp="1579456310771" />
+    <state x="363" y="104" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1579456312708">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="363" y="104" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1579456312708" />
     <state x="462" y="111" key="FileChooserDialogImpl" timestamp="1576904162485">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -228,10 +231,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="424" y="111" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize/0.0.1366.738@0.0.1366.738" timestamp="1576904212577" />
-    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1579259173871">
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1579456280036">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1579259173871" />
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1579456280036" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/app_v2$main.coverage" NAME="main Coverage Results" MODIFIED="1579090234495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
