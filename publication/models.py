@@ -208,6 +208,32 @@ def get_all_publication():
         return res
 
 
+def get_all_publication_byCat(cat):
+    try:
+        if cat == 'journal':
+            publications = sess.query(journal, journal_corresponding_author).\
+                filter(journal.id == journal_corresponding_author.journal_id).all()
+        else:
+            publications = sess.query(cat).all()
+
+        res = {
+            'status': 200,
+            'message': 'These are the registered publications',
+            'results': {
+                cat: publications
+            }
+        }
+
+        return res
+    except Exception as e:
+        res = {
+            'status': 200,
+            'message': e.args
+        }
+
+        return res
+
+
 def get_publication_byID(cat, id):
     try:
         selected_publication = sess.query(cat).filter(cat.id==id).first()
