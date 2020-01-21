@@ -301,7 +301,7 @@ def edit_publication(cat, id, request):
         return ret
 
 
-def delete_experience(cat, id):
+def delete_publication(cat, id):
     try:
         selected_publication = sess.query(cat).filter(cat.id == id).first()
         if selected_publication is not None:
@@ -324,3 +324,7 @@ def delete_experience(cat, id):
             'message': e.args
         }
         return ret
+
+
+def count_journal():
+    return sess.query(journal).count()
