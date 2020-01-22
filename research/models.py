@@ -25,7 +25,7 @@ class research(db.Model):
                     'id': self.id,
                     'lecturer_nip': self.lecturer_nip,
                     'title': self.title,
-                    'investor':  self.investor,
+                    'investor': self.investor,
                     'amount': self.amount,
                     'position': self.position,
                     'year': self.year,
@@ -78,24 +78,151 @@ def get_all_research():
 
         research_res = []
         for data in research_datas:
-             res = {
-                 'id': data.research.id,
-                 'lecturer_nip': data.research.lecturer_nip,
-                 'title': data.research.title,
-                 'investor': data.research.investor,
-                 'amount': data.research.amount,
-                 'position': data.research.position,
-                 'year': data.research.year,
-                 'term': data.research.term,
-                 'filepath':data.research_file_filepath
-             }
-             research_res.append(res)
+            res = {
+                'id': data.research.id,
+                'lecturer_nip': data.research.lecturer_nip,
+                'title': data.research.title,
+                'investor': data.research.investor,
+                'amount': data.research.amount,
+                'position': data.research.position,
+                'year': data.research.year,
+                'term': data.research.term,
+                'filepath': data.research_file_filepath
+            }
+            research_res.append(res)
         ret = {
             'status': 200,
             'message': 'These are the registered research',
             'results': research_res
         }
         return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def get_research_byID(id):
+    try:
+        research_datas = sess.query(research, research_file).filter(research.id == id). \
+            filter(research.id == research_file.research_id).all()
+
+        research_res = []
+        for data in research_datas:
+            res = {
+                'id': data.research.id,
+                'lecturer_nip': data.research.lecturer_nip,
+                'title': data.research.title,
+                'investor': data.research.investor,
+                'amount': data.research.amount,
+                'position': data.research.position,
+                'year': data.research.year,
+                'term': data.research.term,
+                'filepath': data.research_file_filepath
+            }
+            research_res.append(res)
+        ret = {
+            'status': 200,
+            'message': 'These are the registered research',
+            'results': research_res
+        }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def edit_research(id, request):
+    try:
+        selected_research = sess.query(research).filter(research.id == id).first()
+        if selected_research is not None:
+            data = {}
+            for k in request.keys():
+                param = k
+                data[k] = request[param]
+            edit = sess.query(research).filter(research.id == id).update(data, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
+                ret = {
+                    'status': 200,
+                    'message': 'Data updated!'
+                }
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Research is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def edit_research_file(id, filepath):
+    try:
+        selected_research = sess.query(research_file).filter(research_file.research_id == id).first()
+        if selected_research is not None:
+            data = {
+                'filepath': filepath
+            }
+            edit = sess.query(research_file).filter(research_file.research_id == id).update(data, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
+                ret = {
+                    'status': 200,
+                    'message': 'Data updated!'
+                }
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Research is not registered"
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def delete_research(id):
+    try:
+        selected_research = sess.query(research).filter(research.id == id).first()
+        if selected_research is not None:
+            sess.delete(selected_research)
+            sess.commit()
+            ret = {
+                'status': 200,
+                'message': 'Data deleted!'
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "Research is not registered"
+            }
+            return ret
     except Exception as e:
         ret = {
             'status': 200,
