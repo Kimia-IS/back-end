@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from auth.app import auth_blueprint
 from academic.app import academic_blueprint
 from finalTask.app import final_task_blueprint
@@ -11,6 +12,7 @@ from announcement import announcement_blueprint
 from db_config import db
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "GB981UA7YT91"
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(auth_blueprint)

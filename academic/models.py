@@ -25,7 +25,7 @@ class academic(db.Model):
                 'id': self.id,
                 'course_id': self.course_id,
                 'course_name': self.course_name,
-                'total_creadit': self.total_credit,
+                'total_credit': self.total_credit,
                 'total_classes': self.total_classes
             }
             ret = {
