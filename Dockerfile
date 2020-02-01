@@ -17,5 +17,5 @@ ENTRYPOINT [ "python3.8" ]
 
 CMD [ "main.py" ]
 
-# docker build -t digital-newspaper:latest .
-# docker run -d -p 5000:5000 digital-newspaper (running on http://0.0.0.0:5000)
+# docker build -t kimia-backend:latest .
+# docker run -d -p 5000:5000 kimia-backend (running on http://0.0.0.0:5000)
