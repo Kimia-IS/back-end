@@ -27,7 +27,7 @@ def process_socres():
             year = request.json['year']
             amount = request.json['amount']
             position = request.json['position']
-            other_parties = request.json.getlist('other_parties')
+            other_parties = request.json['other_parties']
 
             # get file data into a list
             files = request.files.getlist('socres_files')
@@ -57,8 +57,8 @@ def process_socres():
 
             # build new socres method
             new_socres = social_responsibility(lecturer_nip=lecturer_nip, year=year, title=title, investor=investor,
-                                               amount=amount, position=position, filepath=str(filepath),
-                                               other_parties=str(other_parties))
+                                               amount=amount, position=position, filepath=filepath,
+                                               other_parties=other_parties)
 
             # call save method from socres module
             res = new_socres.save()

@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/academic/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/achievement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/achievement/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experience/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/experience/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/publication/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/publication/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socres/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/socres/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socres/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/socres/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +168,7 @@
       <workItem from="1579659811928" duration="4953000" />
       <workItem from="1579780628902" duration="3668000" />
       <workItem from="1580546876364" duration="12605000" />
-      <workItem from="1580560984650" duration="6908000" />
+      <workItem from="1580560984650" duration="10776000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
@@ -226,22 +225,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="462" y="111" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1576904162485" />
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1580567403558">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1580569035406">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1580567403558" />
-    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1580567403558">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1580569035406" />
+    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1580569035406">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1580567403558" />
-    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1580567403557">
+    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1580569035406" />
+    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1580569035406">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1580567403557" />
-    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1580567403558">
+    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1580569035406" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1580569035406">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1580567403558" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1580569035406" />
     <state x="424" y="111" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize" timestamp="1576904212577">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

@@ -7,7 +7,7 @@ class journal(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     title = db.Column(db.String(255), unique=True)
     lecturer_nip = db.Column(db.String(255), ForeignKey('lecturer.nip'), unique=False)
-    year = db.Column(db.String(255), unique=False)
+    year = db.Column(db.String(5), unique=False)
     issue = db.Column(db.Integer, unique=False, nullable=True)
     type = db.Column(db.String(255), unique=False)
     doi = db.Column(db.String(255), unique=False, nullable=True)
@@ -83,7 +83,7 @@ class patent(db.Model):
     title = db.Column(db.String(255), unique=True)
     status = db.Column(db.String(255), unique=False)
     publisher = db.Column(db.String(255), unique=False)
-    year = db.Column(db.String(255), unique=False)
+    year = db.Column(db.String(5), unique=False)
     filepath = db.Column(db.String(255), unique=False)
 
     def save(self):
@@ -125,7 +125,7 @@ class other_publication(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     title = db.Column(db.String(255), unique=True)
     lecturer_nip = db.Column(db.String(255), ForeignKey('lecturer.nip'), unique=False)
-    date = db.Column(db.Date, unique=False)
+    year = db.Column(db.String(5), unique=False)
     publisher = db.Column(db.String(255), unique=False)
     filepath = db.Column(db.String(255), unique=False)
 

@@ -19,8 +19,13 @@ class social_responsibility(db.Model):
                 social_responsibility.lecturer_nip == self.lecturer_nip). \
                 filter(social_responsibility.title == self.title).first()
             if check_socres is None:
-                files = social_responsibility_file(socres_id=self.id, filepath=self.filepath)
-                other_parties = social_responsibility_other_parties(socres_id=self.id, name=self.other_parties)
+                save = True
+                for data in self.filepath:
+                    files = social_responsibility_file(socres_id=self.id, filepath=data)
+                    save = save and files.save()
+                for data in self.other_parties:
+                    other_parties = social_responsibility_other_parties(socres_id=self.id, name=data)
+                    save = save and other_parties.save()
                 new_socres = {
                     'id': self.id,
                     'lecturer_nip': self.lecturer_nip,
@@ -31,25 +36,19 @@ class social_responsibility(db.Model):
                     'year': self.year,
                     'term': self.term,
                 }
-                if files['message'] != 'aborted' and other_parties['message'] != 'aborted':
+                if save:
                     sess.add(new_socres)
                     sess.commit()
                     ret = {
                         'status': 200,
                         'message': 'New Social Responsibility Registered',
-                        'results': [new_socres, files.save(), other_parties.save()]
+                        'results': new_socres
                     }
                 else:
-                    if files['message'] == 'aborted':
-                        ret = {
-                            'status': 200,
-                            'message': files
-                        }
-                    else:
-                        ret = {
-                            'status': 200,
-                            'message': other_parties
-                        }
+                    ret = {
+                        'status': 200,
+                        'message': 'Saving failed'
+                    }
             else:
                 ret = {
                     'status': 200,
@@ -74,17 +73,9 @@ class social_responsibility_file(db.Model):
         try:
             sess.add(self)
             sess.commit()
-            ret = {
-                'socres_id': self.socres_id,
-                'filepath': self.filepath
-            }
-            return ret
+            return True
         except Exception as e:
-            ret = {
-                'message': 'aborted',
-                'error_saving_file': e.args
-            }
-            return ret
+            return False
 
 
 class social_responsibility_other_parties(db.Model):
@@ -96,17 +87,9 @@ class social_responsibility_other_parties(db.Model):
         try:
             sess.add(self)
             sess.commit()
-            ret = {
-                'socres_id': self.socres_id,
-                'filepath': self.filepath
-            }
-            return ret
+            return True
         except Exception as e:
-            ret = {
-                'message': 'aborted',
-                'error_saving_file': e.args
-            }
-            return ret
+            return False
 
     def save_additional_parties(self):
         try:
@@ -241,7 +224,7 @@ def edit_socres(id, request):
         else:
             ret = {
                 'status': 200,
-                'message': "Final Task is not registered"
+                'message': "Socres is not registered"
             }
             return ret
     except Exception as e:
