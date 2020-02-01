@@ -142,7 +142,7 @@ def edit_file(id):
         else:
             res = {
                 'status': 200,
-                'message': 'Please attach your final task file, required minimal 1'
+                'message': 'Please attach your research file, required minimal 1'
             }
             return jsonify(res)
     except Exception as e:

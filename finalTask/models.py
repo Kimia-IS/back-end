@@ -114,7 +114,7 @@ def get_all_final_task():
                 'title': data.finalTask.title,
                 'lecturer_nip': data.finalTask_lecturer.lecturer_nip,
                 'lecturer_position': data.finalTask_lecturer.lecturer_position,
-                'fila_path': data.finalTask_file.file_path,
+                'file_path': data.finalTask_file.file_path,
                 'starting_date': data.finalTask.starting_date,
                 'graduation_date': data.finalTask.graduation_date,
             }
