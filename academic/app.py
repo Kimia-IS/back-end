@@ -17,9 +17,9 @@ def process_academic_courses():
     elif request.method == 'POST':
 
         # get data from json request
-        course_id = request.json['course_id']
-        course_name = request.json['course_name']
-        total_credit = request.json['total_credit']
+        course_id = request.form['course_id']
+        course_name = request.form['course_name']
+        total_credit = request.form['total_credit']
 
         # build new academic object with initial value
         new_course = academic(course_id=course_id, course_name=course_name, total_credit=total_credit)
@@ -38,7 +38,7 @@ def process_academic_courses():
         academic_object = academic()
 
         # call the edit method from academic object
-        ret = academic_object.edit(id, request.json)
+        ret = academic_object.edit(id, request.form)
         return jsonify(ret)
 
     # if request method = DELETE
@@ -72,10 +72,10 @@ def process_academic_lecturer():
     elif request.method == 'POST':
 
         # get data from json request
-        course_id = request.json['course_id']
-        course_class = request.json['course_class']
-        lecturer_nip = request.json['lecturer_nip']
-        lecturer_credit = request.json['lecturer_credit']
+        course_id = request.form['course_id']
+        course_class = request.form['course_class']
+        lecturer_nip = request.form['lecturer_nip']
+        lecturer_credit = request.form['lecturer_credit']
 
         # build new academic lecturer object with initial value
         new_academic_lecturer = academic_lecturer(course_id=course_id, course_class=course_class, lecturer_nip=lecturer_nip, lecturer_credit=lecturer_credit)
@@ -94,7 +94,7 @@ def process_academic_lecturer():
         academic_lecturer_object = academic_lecturer()
 
         # call the edit method from academic lecturer object
-        ret = academic_lecturer_object.edit(id, request.json)
+        ret = academic_lecturer_object.edit(id, request.form)
         return jsonify(ret)
 
     # if request method = DELETE
