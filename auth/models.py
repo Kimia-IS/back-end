@@ -2,7 +2,7 @@ from db_config import db, sess
 from sqlalchemy import ForeignKey
 import bcrypt
 
-
+roles = ['','Super Admin', 'Admin Akademik', 'Admin Penelitian', 'Tendik', 'Dosen', 'Kaprodi']
 class lecturer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
@@ -131,37 +131,6 @@ class lecturer(db.Model):
                 'message': e.args
             }
             return ret
-
-
-def get_all_lecturer(request):
-    try:
-        if request.args.get('nip') is not None:
-            nip = request.args.get('nip')
-            lecturers = sess.query(lecturer).filter(lecturer.nip == nip).first()
-        else:
-            lecturers = sess.query(lecturer).all()
-        res = []
-        for data in lecturers:
-            temp = {
-                'id': data.id,
-                'name': data.name,
-                'role': data.role,
-                'nip': data.nip,
-                'email': data.email
-            }
-            res.append(temp)
-        ret = {
-            'status': 200,
-            'message': 'This are the registered Lecturer(s)',
-            'results': res
-        }
-        return ret
-    except Exception as e:
-        ret = {
-            'status': 200,
-            'message': e.args
-        }
-        return ret
 
 
 class admin(db.Model):
@@ -294,28 +263,91 @@ class admin(db.Model):
             return ret
 
 
-def get_all_admin(request):
+def getAll(cat):
     try:
-        if request.args.get('id') is not None:
-            auth_id = request.args.get('id')
-            admins = sess.query(admin).filter(admin.auth_id == auth_id).first()
-        else:
-            admins = sess.query(admin).all()
-        res = []
-        for data in admins:
-            temp = {
-                'id': data.id,
-                'name': data.name,
-                'role': data.role,
-                'auth_id': data.auth_id,
-                'email': data.email
+        if cat == 'lecturer':
+            lecturers = sess.query(lecturer).all()
+            hasil = []
+            for data in lecturers:
+                res = {
+                    'id': data.id,
+                    'name': data.name,
+                    'role': roles[data.role],
+                    'nip': data.nip,
+                    'email': data.email
+                }
+                hasil.append(res)
+            ret = {
+                'status': 200,
+                'results': hasil,
+                'message': 'These are the registered lecturers'
             }
-            res.append(temp)
+        elif cat == 'admin':
+            admins = sess.query(admin).all()
+            hasil = []
+            for data in admins:
+                res = {
+                    'id': data.id,
+                    'name': data.name,
+                    'role': roles[data.role],
+                    'auth_id': data.auth_id,
+                    'email': data.email
+                }
+                hasil.append(res)
+            ret = {
+                'status': 200,
+                'results': hasil,
+                'message': 'These are the registered admins'
+            }
+        else:
+            ret = {
+                'status': 200,
+                'message': 'Category not recognized'
+            }
+        return ret
+    except Exception as e:
         ret = {
             'status': 200,
-            'message': 'This are the registered Lecturer(s)',
-            'results': res
+            'message': e.args
         }
+        return ret
+
+
+def getByID(cat, id):
+    try:
+        if cat == 'lecturer':
+            lecturers = sess.query(lecturer).filter(lecturer.nip == id).first()
+            res = {
+                'id': lecturers.id,
+                'name': lecturers.name,
+                'role': roles[lecturers.role],
+                'nip': lecturers.nip,
+                'email': lecturers.email
+            }
+            ret ={
+                'status': 200,
+                'results': res,
+                'message': 'This is lecturer with NIP '+ lecturers.nip
+            }
+        elif cat == 'admin':
+            admins = sess.query(admin).filter(admin.auth_id == id).first()
+            res = {
+                'id': admins.id,
+                'name': admins.name,
+                'role': roles[admins.role],
+                'auth_id': admins.auth_id,
+                'email': admins.email
+            }
+            ret = {
+                'status': 200,
+                'results': res,
+                'message': 'This is admin with auth id ' + admins.auth_id
+            }
+        else:
+            ret = {
+                'status': 200,
+                'message': 'Category not recognized'
+            }
         return ret
     except Exception as e:
         ret = {
