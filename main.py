@@ -9,10 +9,8 @@ from research.app import research_blueprint
 from socres.app import socres_blueprint
 from announcement import announcement_blueprint
 from db_config import db
-from flask_migrate import Migrate
 
 app = Flask(__name__)
-Migrate(app, db)
 app.secret_key = "GB981UA7YT91"
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(auth_blueprint)
@@ -24,4 +22,4 @@ app.register_blueprint(publication_blueprint)
 app.register_blueprint(research_blueprint)
 app.register_blueprint(socres_blueprint)
 app.register_blueprint(announcement_blueprint)
-app.run(debug=True)
+app.run(debug = True) # host = '0.0.0.0' for local Docker running
