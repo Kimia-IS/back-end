@@ -8,6 +8,7 @@ class academic(db.Model):
     course_id = db.Column(db.String(255), unique=True, nullable=False, primary_key=True)
     course_name = db.Column(db.String(255), nullable=False)
     total_credit = db.Column(db.Integer, nullable=False)
+    total_classes = db.Column(db.Integer, nullable=False)
 
     def save(self):
         try:
@@ -24,7 +25,8 @@ class academic(db.Model):
                 'id': self.id,
                 'course_id': self.course_id,
                 'course_name': self.course_name,
-                'total_creadit': self.total_credit
+                'total_creadit': self.total_credit,
+                'total_classes': self.total_classes
             }
             ret = {
                 'status': 200,

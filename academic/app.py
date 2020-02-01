@@ -21,9 +21,10 @@ def process_academic_courses():
         course_id = request.json['course_id']
         course_name = request.json['course_name']
         total_credit = request.json['total_credit']
+        total_classes = request.json['total_classes']
 
         # build new academic object with initial value
-        new_course = academic(course_id=course_id, course_name=course_name, total_credit=total_credit)
+        new_course = academic(course_id=course_id, course_name=course_name, total_credit=total_credit, total_classes=total_classes)
 
         # call the save method from academic object
         ret = new_course.save()
