@@ -53,8 +53,9 @@ class journal(db.Model):
             return ret
 
 
-class journal_corresponding_author(db.Model):
-    id = db.Column(db.Integer, unique=False)
+class journalCorrespondingAuthor(db.Model):
+    __tablename__ = 'journal_corr_author'
+    id = db.Column(db.Integer, unique=False, primary_key=True)
     journal_id = db.Column(db.Integer, ForeignKey('journal.id'), unique=False)
     names = db.Column(db.String(255), unique=False)
 
@@ -184,7 +185,7 @@ class other_publication(db.Model):
 
 def get_all_publication():
     try:
-        journals = sess.query(journal, journal_corresponding_author).filter(journal.id == journal_corresponding_author.journal_id).all()
+        journals = sess.query(journal, journalCorrespondingAuthor).filter(journal.id == journalCorrespondingAuthor.journal_id).all()
         patents = sess.query(patent).all()
         others = sess.query(other_publication).all()
 
@@ -211,8 +212,8 @@ def get_all_publication():
 def get_all_publication_byCat(cat):
     try:
         if cat == 'journal':
-            publications = sess.query(journal, journal_corresponding_author).\
-                filter(journal.id == journal_corresponding_author.journal_id).all()
+            publications = sess.query(journal, journalCorrespondingAuthor).\
+                filter(journal.id == journalCorrespondingAuthor.journal_id).all()
         else:
             publications = sess.query(cat).all()
 
@@ -238,7 +239,7 @@ def get_publication_byID(cat, id):
     try:
         selected_publication = sess.query(cat).filter(cat.id==id).first()
         if cat == 'journal':
-            corresponding_author = sess.query(journal_corresponding_author).filter(journal_corresponding_author.journal_id == id).first()
+            corresponding_author = sess.query(journalCorrespondingAuthor).filter(journalCorrespondingAuthor.journal_id == id).first()
             res ={
                 'status': 200,
                 'message': 'This is the requested publication',

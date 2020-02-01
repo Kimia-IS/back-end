@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from publication.models import journal, journal_corresponding_author, patent, other_publication, \
+from publication.models import journal, journalCorrespondingAuthor, patent, other_publication, \
     get_all_publication_byCat, get_all_publication, get_publication_byID,edit_publication, delete_publication, \
     count_journal
 import os
@@ -40,6 +40,11 @@ def process_file_upload(cat, files):
 
     # return the filepath
     return str(filepath)
+
+
+@publication_blueprint.route('/publication', methods=['GET'])
+def get_pub():
+    return jsonify(get_all_publication())
 
 
 @publication_blueprint.route('/publication/<cat>', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -84,7 +89,7 @@ def process_publication(cat):
                                               total_page=total_page, type=type, doi=doi, link=link, filepath=filepath)
 
                     # build new journal corresponding author object
-                    new_journal_corresponding_author = journal_corresponding_author(journal_id=temp_id, names=str(names))
+                    new_journal_corresponding_author = journalCorrespondingAuthor(journal_id=temp_id, names=str(names))
 
                     # call save method
                     new_publication.save()

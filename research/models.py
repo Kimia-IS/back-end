@@ -107,26 +107,23 @@ def get_all_research():
 def get_research_byID(id):
     try:
         research_datas = sess.query(research, research_file).filter(research.id == id). \
-            filter(research.id == research_file.research_id).all()
+            filter(research.id == research_file.research_id).first()
 
-        research_res = []
-        for data in research_datas:
-            res = {
-                'id': data.research.id,
-                'lecturer_nip': data.research.lecturer_nip,
-                'title': data.research.title,
-                'investor': data.research.investor,
-                'amount': data.research.amount,
-                'position': data.research.position,
-                'year': data.research.year,
-                'term': data.research.term,
-                'filepath': data.research_file_filepath
-            }
-            research_res.append(res)
+        res = {
+            'id': research_datas.research.id,
+            'lecturer_nip': research_datas.research.lecturer_nip,
+            'title': research_datas.research.title,
+            'investor': research_datas.research.investor,
+            'amount': research_datas.research.amount,
+            'position': research_datas.research.position,
+            'year': research_datas.year,
+            'term': research_datas.research.term,
+            'filepath': research_datas.research_file.filepath
+        }
         ret = {
             'status': 200,
             'message': 'These are the registered research',
-            'results': research_res
+            'results': res
         }
         return ret
     except Exception as e:

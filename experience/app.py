@@ -2,7 +2,7 @@ from flask import request, jsonify, Blueprint
 from experience.models import experience, get_all_experiences, get_experience_byID, edit_experience, delete_experience
 import os
 
-experience_bluprint = Blueprint('experience_blueprint', __name__)
+experience_blueprint = Blueprint('experience_blueprint', __name__)
 # Allowed file extension
 ALLOWED_EXTENSIONS = {'docx', 'pdf'}
 
@@ -12,7 +12,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@experience_bluprint.route('/experiences', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@experience_blueprint.route('/experiences', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def process_experiences():
     try:
         # check the request method
