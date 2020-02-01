@@ -215,6 +215,7 @@ def get_all_academic_lecturer():
             temp = {
                 'course_id': data.academic.course_id,
                 'course_name': data.academic.course_name,
+                'total_credit': data.academic.total_credit,
                 'class': data.academic_lecturer.course_class,
                 'lecturer(s)': data.lecturer.name,
                 'lecturer_credit': data.academic_lecturer.lecturer_credit

@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/academic/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/academic/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +166,7 @@
       <workItem from="1579631389071" duration="2858000" />
       <workItem from="1579659811928" duration="4953000" />
       <workItem from="1579780628902" duration="3668000" />
-      <workItem from="1580546876364" duration="11157000" />
+      <workItem from="1580546876364" duration="12465000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
@@ -226,22 +223,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="462" y="111" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1576904162485" />
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1580559207043">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1580559344100">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1580559207043" />
-    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1580559207043">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1580559344100" />
+    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1580559344100">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1580559207043" />
-    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1580559207043">
+    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1580559344100" />
+    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1580559344100">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1580559207043" />
-    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1580559207043">
+    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1580559344100" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1580559344100">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1580559207043" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1580559344100" />
     <state x="424" y="111" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize" timestamp="1576904212577">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
