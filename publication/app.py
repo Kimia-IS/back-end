@@ -71,18 +71,18 @@ def process_publication(cat):
                     temp_id = count_journal() + 1
 
                     # get data from request json
-                    title = request.form['title']
-                    lecturer_nip = request.form['lecturer_nip']
-                    year = request.form['year']
-                    issue = request.form['issue']
-                    total_page = request.form['total_page']
-                    type = request.form['type']
-                    doi = request.form['doi']
-                    link = request.form['link']
+                    title = request.json['title']
+                    lecturer_nip = request.json['lecturer_nip']
+                    year = request.json['year']
+                    issue = request.json['issue']
+                    total_page = request.json['total_page']
+                    type = request.json['type']
+                    doi = request.json['doi']
+                    link = request.json['link']
                     filepath = process_file_upload(cat, request.files.getlist('publication_files'))
 
                     # data for corresponding author
-                    names = request.form['names']
+                    names = request.json['names']
 
                     # build new journal object
                     new_publication = journal(title=title, lecturer_nip=lecturer_nip, year=year, issue=issue,
@@ -100,11 +100,11 @@ def process_publication(cat):
                 elif cat == 'patent':
 
                     # get data from request json
-                    lecturer_nip = request.form['lecturer_nip']
-                    title = request.form['title']
-                    status = request.form['status']
-                    publisher = request.form['publisher']
-                    year = request.form['year']
+                    lecturer_nip = request.json['lecturer_nip']
+                    title = request.json['title']
+                    status = request.json['status']
+                    publisher = request.json['publisher']
+                    year = request.json['year']
                     filepath = process_file_upload(cat, request.files.getlist('publication_files'))
 
                     # build new patent object
@@ -118,10 +118,10 @@ def process_publication(cat):
                 elif cat == 'other':
 
                     # get data from request json
-                    title = request.form['title']
-                    lecturer_nip = request.form['lecturer_nip']
-                    date = request.form['date']
-                    publisher = request.form['publisher']
+                    title = request.json['title']
+                    lecturer_nip = request.json['lecturer_nip']
+                    date = request.json['date']
+                    publisher = request.json['publisher']
                     filepath = process_file_upload(cat, request.files.getlist('publication_files'))
 
                     # build new other publication object
@@ -151,7 +151,7 @@ def process_publication(cat):
             id = request.args.get('id')
 
             # call the edit method from experience module
-            res = edit_publication(cat, id, request.form)
+            res = edit_publication(cat, id, request.json)
             return jsonify(res)
 
         # if request method == DELETE

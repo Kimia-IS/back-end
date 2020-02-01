@@ -14,11 +14,11 @@ def generatePassword():
 
 @auth_blueprint.route('/auth/lecturer/register', methods=['POST'])
 def lecturer_register():
-    nip = request.form['nip']
+    nip = request.json['nip']
     password = bcrypt.hashpw(generatePassword().encode('utf-8'), bcrypt.gensalt())
-    email = request.form['email']
-    name = request.form['name']
-    role = request.form['role']
+    email = request.json['email']
+    name = request.json['name']
+    role = request.json['role']
 
     # build new lecturer object
     selected_lecturer = lecturer(nip=nip, password=password, email=email, name=name, role=role)
@@ -35,7 +35,7 @@ def lecturer_edit(nip):
     selected_lecturer = lecturer()
 
     # get response from edit lecturer method
-    res = selected_lecturer.edit(nip, request.form)
+    res = selected_lecturer.edit(nip, request.json)
     return jsonify(res)
 
 
@@ -77,11 +77,11 @@ def lecturer_login():
 
 @auth_blueprint.route('/auth/admin/register', methods=['POST'])
 def admin_register():
-    auth_id = request.form['auth_id']
+    auth_id = request.json['auth_id']
     password = bcrypt.hashpw(generatePassword().encode('utf-8'), bcrypt.gensalt())
-    email = request.form['email']
-    name = request.form['name']
-    role = request.form['role']
+    email = request.json['email']
+    name = request.json['name']
+    role = request.json['role']
 
     # build new admin object
     selected_admin = admin(auth_id=auth_id, password=password, email=email, name=name, role=role)
@@ -98,7 +98,7 @@ def admin_edit(auth_id):
     selected_admin = admin()
 
     # get response from edit admin method
-    res = selected_admin.edit(auth_id, request.form)
+    res = selected_admin.edit(auth_id, request.json)
     return jsonify(res)
 
 
@@ -120,7 +120,7 @@ def admin_login():
     selected_admin = admin()
 
     # get response from delete lecturer method
-    res = selected_admin.login(request.form['password'], request.form['nip'])
+    res = selected_admin.login(request.json['password'], request.json['nip'])
 
     # if found, logging in
     if res['status']:

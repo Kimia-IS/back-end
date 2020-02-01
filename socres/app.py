@@ -21,13 +21,13 @@ def process_socres():
     elif request.method == 'POST':
         if request.files:
             # get data from request form
-            lecturer_nip = request.form['lecturer_nip']
-            title = request.form['title']
-            investor = request.form['investor']
-            year = request.form['year']
-            amount = request.form['amount']
-            position = request.form['position']
-            other_parties = request.form.getlist('other_parties')
+            lecturer_nip = request.json['lecturer_nip']
+            title = request.json['title']
+            investor = request.json['investor']
+            year = request.json['year']
+            amount = request.json['amount']
+            position = request.json['position']
+            other_parties = request.json.getlist('other_parties')
 
             # get file data into a list
             files = request.files.getlist('socres_files')
@@ -74,7 +74,7 @@ def process_socres():
         id = request.args.get('id')
 
         # call the edit method from research module
-        res = edit_socres(id, request.form)
+        res = edit_socres(id, request.json)
         return jsonify(res)
     # if method == DELETE
     elif request.method == 'DELETE':

@@ -129,7 +129,6 @@ class academic_lecturer(db.Model):
                 'course_id': self.course_id,
                 'course_name': check_course.course_name,
                 'course_class': self.course_class,
-                'total_creadit': self.total_credit,
                 'lecturer_nip': self.lecturer_nip,
                 'lecturer_credit': self.lecturer_credit
             }

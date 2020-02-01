@@ -27,11 +27,11 @@ def process_experiences():
         # if method == POST
         elif request.method == 'POST':
             # get data from request json
-            lecturer_nip = request.form['lecturer_nip']
-            job_name = request.form['job_name']
-            job_type = request.form['job_type']
-            year = request.form['year']
-            term = request.form['term']
+            lecturer_nip = request.json['lecturer_nip']
+            job_name = request.json['job_name']
+            job_type = request.json['job_type']
+            year = request.json['year']
+            term = request.json['term']
 
             # get file data into a list
             files = request.files.getlist('experiences_files')
@@ -73,7 +73,7 @@ def process_experiences():
             id = request.args.get('id')
 
             # call the edit method from experience module
-            res = edit_experience(id, request.form)
+            res = edit_experience(id, request.json)
             return jsonify(res)
 
         # if method == DELETE

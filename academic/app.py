@@ -1,5 +1,6 @@
 from flask import request, jsonify, Blueprint
 from academic.models import academic, academic_lecturer, get_all_academic_lecturer, get_all_courses
+from ast import literal_eval as make_tuple
 from announcement import announcement
 
 academic_blueprint = Blueprint('academic_blueprint', __name__)
@@ -17,9 +18,9 @@ def process_academic_courses():
     elif request.method == 'POST':
 
         # get data from json request
-        course_id = request.form['course_id']
-        course_name = request.form['course_name']
-        total_credit = request.form['total_credit']
+        course_id = request.json['course_id']
+        course_name = request.json['course_name']
+        total_credit = request.json['total_credit']
 
         # build new academic object with initial value
         new_course = academic(course_id=course_id, course_name=course_name, total_credit=total_credit)
@@ -38,7 +39,7 @@ def process_academic_courses():
         academic_object = academic()
 
         # call the edit method from academic object
-        ret = academic_object.edit(id, request.form)
+        ret = academic_object.edit(id, request.json)
         return jsonify(ret)
 
     # if request method = DELETE
@@ -72,16 +73,20 @@ def process_academic_lecturer():
     elif request.method == 'POST':
 
         # get data from json request
-        course_id = request.form['course_id']
-        course_class = request.form['course_class']
-        lecturer_nip = request.form['lecturer_nip']
-        lecturer_credit = request.form['lecturer_credit']
+        course_id = request.json['course_id']
+        course_class = request.json['course_class']
+        lecturer = request.json.getlist('lecturer')
 
-        # build new academic lecturer object with initial value
-        new_academic_lecturer = academic_lecturer(course_id=course_id, course_class=course_class, lecturer_nip=lecturer_nip, lecturer_credit=lecturer_credit)
+        ret = []
+        for lecturer in lecturer:
+            data = make_tuple(lecturer)
+            # build new academic lecturer object with initial value
+            print(data[0])
+            print(data[1])
+            new_academic_lecturer = academic_lecturer(course_id=course_id, course_class=course_class, lecturer_nip=data[0], lecturer_credit=data[1])
 
-        # call the save method from academic lecturer object
-        ret = new_academic_lecturer.save()
+            # call the save method from academic lecturer object
+            ret.append(new_academic_lecturer.save())
         return jsonify(ret)
 
     # if request method = PUT
@@ -94,7 +99,7 @@ def process_academic_lecturer():
         academic_lecturer_object = academic_lecturer()
 
         # call the edit method from academic lecturer object
-        ret = academic_lecturer_object.edit(id, request.form)
+        ret = academic_lecturer_object.edit(id, request.json)
         return jsonify(ret)
 
     # if request method = DELETE

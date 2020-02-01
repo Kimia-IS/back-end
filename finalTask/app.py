@@ -35,14 +35,14 @@ def process_final_task():
                 temp_id = count_final_task()+1
 
                 # get data from json request
-                student_name = request.form['student_name']
-                student_nim = request.form['student_nim']
-                student_type = request.form['student_type']
-                title = request.form['title']
-                starting_date = request.form['starting_date']
-                graduation_date = request.form['graduation_date']
-                lecturer_nip = request.form['lecturer_nip']
-                lecturer_position = request.form['lecturer_position']
+                student_name = request.json['student_name']
+                student_nim = request.json['student_nim']
+                student_type = request.json['student_type']
+                title = request.json['title']
+                starting_date = request.json['starting_date']
+                graduation_date = request.json['graduation_date']
+                lecturer_nip = request.json['lecturer_nip']
+                lecturer_position = request.json['lecturer_position']
 
                 # get file data into a list
                 files = request.files.getlist('final_task_file')
@@ -109,7 +109,7 @@ def process_final_task():
         id = request.args.get('id')
 
         # get result from edit_final_task method
-        res = edit_final_task(id, request.form)
+        res = edit_final_task(id, request.json)
         return jsonify(res)
 
     # if method == DELETE
@@ -133,12 +133,12 @@ def edit_final_task_additional(category):
         # if category == lecturer
         if category == 'lecturer':
             # get result from edit
-            res = edit_final_task_lecturer(id, request.form)
+            res = edit_final_task_lecturer(id, request.json)
 
         # if category == file
         elif category == 'file':
             # get result from edit
-            res = edit_final_task_file(id, request.form)
+            res = edit_final_task_file(id, request.json)
         else:
             res = {
                 'status': 200,
