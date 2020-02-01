@@ -1,10 +1,11 @@
 from db_config import db, sess
 from auth.models import lecturer
-
+from sqlalchemy import ForeignKey
+import json
 
 class academic(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    course_id = db.Column(db.String(255), unique=True, nullable=False)
+    course_id = db.Column(db.String(255), unique=True, nullable=False, primary_key=True)
     course_name = db.Column(db.String(255), nullable=False)
     total_credit = db.Column(db.Integer, nullable=False)
 
@@ -99,9 +100,9 @@ class academic(db.Model):
 
 class academic_lecturer(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    course_id = db.Column(db.String(255), unique=True, nullable=False)
+    course_id = db.Column(db.String(255),ForeignKey("academic.course_id"), unique=True, nullable=False)
     course_class = db.Column(db.Integer, unique=True, nullable=False)
-    lecturer_nip = db.Column(db.String(255), unique=True, nullable=False)
+    lecturer_nip = db.Column(db.String(255), ForeignKey("lecturer.nip"), unique=True, nullable=False)
     lecturer_credit = db.Column(db.String(255), nullable=False)
 
     def save(self):
@@ -206,9 +207,9 @@ class academic_lecturer(db.Model):
 
 def get_all_academic_lecturer():
     try:
-        datas = sess.query(academic, lecturer, academic_lecturer).filter(
-            academic_lecturer.lecturer_nip == lecturer.nip).filter(
-            academic.course_id == academic_lecturer.course_id).all()
+        datas = sess.query(academic, lecturer, academic_lecturer).\
+            filter(academic.course_id == academic_lecturer.course_id).\
+            filter(lecturer.nip == academic_lecturer.lecturer_nip).all()
         res = []
         for data in datas:
             temp = {
@@ -216,7 +217,7 @@ def get_all_academic_lecturer():
                 'course_name': data.academic.course_name,
                 'class': data.academic_lecturer.course_class,
                 'lecturer(s)': data.lecturer.name,
-                'total_credit': data.academic.total_credit
+                'lecturer_credit': data.academic_lecturer.lecturer_credit
             }
             res.append(temp)
         ret = {
