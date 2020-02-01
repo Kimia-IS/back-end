@@ -7,7 +7,7 @@ class achievement(db.Model):
     lecturer_nip = db.Column(db.String(255), ForeignKey("lecturer.nip"), unique=False)
     title = db.Column(db.String(255), unique=False)
     issuer = db.Column(db.String(255), unique=False)
-    year = db.Column(db.String(255), unique=False)
+    year = db.Column(db.String(5), unique=False)
     filepath = db.Column(db.String(255), unique=True)
 
     def save(self):

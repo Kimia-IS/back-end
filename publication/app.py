@@ -86,14 +86,10 @@ def process_publication(cat):
 
                     # build new journal object
                     new_publication = journal(title=title, lecturer_nip=lecturer_nip, year=year, issue=issue,
-                                              total_page=total_page, type=type, doi=doi, link=link, filepath=filepath)
-
-                    # build new journal corresponding author object
-                    new_journal_corresponding_author = journalCorrespondingAuthor(journal_id=temp_id, names=str(names))
+                                              total_page=total_page, type=type, doi=doi, link=link, filepath=filepath, names=names)
 
                     # call save method
-                    new_publication.save()
-                    res = new_journal_corresponding_author.save()
+                    res = new_publication.save()
                     return jsonify(res)
 
                 # if category == patent

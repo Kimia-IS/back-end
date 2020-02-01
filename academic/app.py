@@ -76,7 +76,7 @@ def process_academic_lecturer():
         # get data from json request
         course_id = request.json['course_id']
         course_class = request.json['course_class']
-        lecturer = request.json.getlist('lecturer')
+        lecturer = request.json['lecturer']
 
         ret = []
         for lecturer in lecturer:

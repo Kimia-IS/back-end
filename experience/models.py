@@ -8,7 +8,7 @@ class experience(db.Model):
     job_name = db.Column(db.String(255), unique=False)
     job_type = db.Column(db.String(255), unique=False)
     year = db.Column(db.String(255), unique=False)
-    term = db.Column(db.String(255), unique=False)
+    term = db.Column(db.Integer, unique=False)
     filepath = db.Column(db.String(255), unique=False)
 
     def save(self):
