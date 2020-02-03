@@ -150,3 +150,34 @@ def get_lecturer_admin(cat):
 
         # call getAll method
         return jsonify(getAll(cat))
+
+@auth_blueprint.route('/auth/register', methods=['POST'])
+def register():
+    user_id = request.json['user_id']
+    password = bcrypt.hashpw(generatePassword().encode('utf-8'), bcrypt.gensalt())
+    email = request.json['email']
+    name = request.json['name']
+    role = request.json['role']
+
+    if (role == 4) or (role == 5) or (role == 6):
+        # build new lecturer object
+        selected_lecturer = lecturer(nip=user_id, password=password, email=email, name=name, role=role)
+
+        # store new lecturer to database via Lecturer model
+        res = selected_lecturer.save()
+        return jsonify(res)
+
+    elif (role == 1) or (role == 2) or (role == 3):
+        # build new admin object
+        selected_admin = admin(auth_id=user_id, password=password, email=email, name=name, role=role)
+
+        # store new admin to database via Admin model
+        res = selected_admin.save()
+        return jsonify(res)
+
+    else:
+        ret = {
+            'status': 400,
+            'message': 'Role is undefined',
+        }
+        return jsonify(ret)

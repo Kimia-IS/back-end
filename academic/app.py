@@ -20,7 +20,7 @@ def process_academic_courses():
         # get data from json request
         course_id = request.json['course_id']
         course_name = request.json['course_name']
-        total_credit = request.json['total_credit']
+        total_credit = request.json['total_credit'] # ini harusnya di academic/lecturer
         total_classes = request.json['total_classes']
 
         # build new academic object with initial value
