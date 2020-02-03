@@ -273,7 +273,7 @@ def getAll(cat):
                     'id': data.id,
                     'name': data.name,
                     'role': roles[data.role],
-                    'nip': data.nip,
+                    'user_id': data.nip,
                     'email': data.email
                 }
                 hasil.append(res)
@@ -290,7 +290,7 @@ def getAll(cat):
                     'id': data.id,
                     'name': data.name,
                     'role': roles[data.role],
-                    'auth_id': data.auth_id,
+                    'user_id': data.auth_id,
                     'email': data.email
                 }
                 hasil.append(res)
@@ -308,6 +308,48 @@ def getAll(cat):
     except Exception as e:
         ret = {
             'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def getAllUsersWithoutSuperAdmin():
+    try:
+        hasil = []
+
+        lecturers = sess.query(lecturer).all()
+        for data in lecturers:
+            res = {
+                'id': data.id,
+                'name': data.name,
+                'role': roles[data.role],
+                'nip': data.nip,
+                'email': data.email
+            }
+            hasil.append(res)
+
+        admins = sess.query(admin).all()
+        for data in admins:
+            res = {
+                'id': data.id,
+                'name': data.name,
+                'role': roles[data.role],
+                'auth_id': data.auth_id,
+                'email': data.email
+            }
+            if roles[data.role] != 'Super Admin':
+                hasil.append(res)
+
+        ret = {
+            'status': 200,
+            'results': hasil,
+            'message': 'These are the registered users without super admin'
+        }
+
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 500,
             'message': e.args
         }
         return ret

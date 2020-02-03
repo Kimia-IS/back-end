@@ -151,6 +151,13 @@ def get_lecturer_admin(cat):
         # call getAll method
         return jsonify(getAll(cat))
 
+
+@auth_blueprint.route('/auth/users/no-super-admin', methods=['GET'])
+def get_all_users_without_superadmin():
+
+    return jsonify(getAllUsersWithoutSuperAdmin())
+
+
 @auth_blueprint.route('/auth/register', methods=['POST'])
 def register():
     user_id = request.json['user_id']
