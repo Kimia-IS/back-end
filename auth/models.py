@@ -2,7 +2,7 @@ from db_config import db, sess
 from sqlalchemy import ForeignKey
 import bcrypt
 
-roles = ['','Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'Dosen', 'Kaprodi']
+roles = ['', 'Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'Dosen', 'Kaprodi']
 class lecturer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)

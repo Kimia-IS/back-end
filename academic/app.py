@@ -20,11 +20,11 @@ def process_academic_courses():
         # get data from json request
         course_id = request.json['course_id']
         course_name = request.json['course_name']
-        total_credit = request.json['total_credit'] # ini harusnya di academic/lecturer
+        
         total_classes = request.json['total_classes']
 
         # build new academic object with initial value
-        new_course = academic(course_id=course_id, course_name=course_name, total_credit=total_credit, total_classes=total_classes)
+        new_course = academic(course_id=course_id, course_name=course_name, total_classes=total_classes)
 
         # call the save method from academic object
         ret = new_course.save()
@@ -77,14 +77,13 @@ def process_academic_lecturer():
         course_id = request.json['course_id']
         course_class = request.json['course_class']
         lecturer = request.json['lecturer']
+        total_credit = request.json['total_credit']
 
         ret = []
         for lecturer in lecturer:
             data = make_tuple(lecturer)
             # build new academic lecturer object with initial value
-            print(data[0])
-            print(data[1])
-            new_academic_lecturer = academic_lecturer(course_id=course_id, course_class=course_class, lecturer_nip=data[0], lecturer_credit=data[1])
+            new_academic_lecturer = academic_lecturer(course_id=course_id, course_class=course_class, total_credit=total_credit, lecturer_nip=data[0], lecturer_credit=data[1])
 
             # call the save method from academic lecturer object
             ret.append(new_academic_lecturer.save())

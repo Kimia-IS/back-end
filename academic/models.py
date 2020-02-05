@@ -7,7 +7,6 @@ class academic(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     course_id = db.Column(db.String(255), unique=True, nullable=False, primary_key=True)
     course_name = db.Column(db.String(255), nullable=False)
-    total_credit = db.Column(db.Integer, nullable=False)
     total_classes = db.Column(db.Integer, nullable=False)
 
     def save(self):
@@ -25,7 +24,6 @@ class academic(db.Model):
                 'id': self.id,
                 'course_id': self.course_id,
                 'course_name': self.course_name,
-                'total_credit': self.total_credit,
                 'total_classes': self.total_classes
             }
             ret = {
@@ -106,6 +104,7 @@ class academic_lecturer(db.Model):
     course_class = db.Column(db.Integer, unique=True, nullable=False)
     lecturer_nip = db.Column(db.String(255), ForeignKey("lecturer.nip"), unique=True, nullable=False)
     lecturer_credit = db.Column(db.String(255), nullable=False)
+    total_credit = db.Column(db.Integer, nullable=False)
 
     def save(self):
         try:
@@ -132,7 +131,8 @@ class academic_lecturer(db.Model):
                 'course_name': check_course.course_name,
                 'course_class': self.course_class,
                 'lecturer_nip': self.lecturer_nip,
-                'lecturer_credit': self.lecturer_credit
+                'lecturer_credit': self.lecturer_credit,
+                'total_credit': self.total_credit,
             }
             ret = {
                 'status': 200,
@@ -214,9 +214,10 @@ def get_all_academic_lecturer():
         res = []
         for data in datas:
             temp = {
+                'id': data.academic_lecturer.id,
                 'course_id': data.academic.course_id,
                 'course_name': data.academic.course_name,
-                'total_credit': data.academic.total_credit,
+                'total_credit': data.academic_lecturer.total_credit,
                 'class': data.academic_lecturer.course_class,
                 'lecturer(s)': data.lecturer.name,
                 'lecturer_credit': data.academic_lecturer.lecturer_credit
@@ -242,9 +243,10 @@ def get_all_courses():
         res = []
         for data in datas:
             temp = {
+                'id': data.id,
                 'course_id': data.course_id,
                 'course_name': data.course_name,
-                'total_credit': data.total_credit
+                'total_classes': data.total_classes
             }
             res.append(temp)
         ret = {
