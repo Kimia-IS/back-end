@@ -139,7 +139,7 @@ def admin_login():
 
 
 @auth_blueprint.route('/auth/user', methods=['GET'])
-def get_lecturer_admin():
+def get_user_by_id():
     role = int(request.args.get('role'))
     if (role == 4) or (role == 5) or (role == 6):
         cat = 'lecturer'
@@ -160,8 +160,27 @@ def get_lecturer_admin():
 
     else:
 
+        ret = {
+            'status': 400,
+            'message': 'Id is undefined',
+        }
+        return jsonify(ret)
+
+@auth_blueprint.route('/auth/users/<cat>', methods=['GET'])
+def get_lecturer_admin(cat):
+    # check is the category parameter exist
+    if cat:
+
         # call getAll method
         return jsonify(getAll(cat))
+
+    else:
+
+        ret = {
+            'status': 400,
+            'message': 'Category is undefined',
+        }
+        return jsonify(ret)
 
 
 @auth_blueprint.route('/auth/users/no-super-admin', methods=['GET'])
