@@ -91,7 +91,7 @@ def admin_register():
     return jsonify(res)
 
 
-@auth_blueprint.route('/auth/admin/edit/<auth_id>', methods=['POST'])
+@auth_blueprint.route('/auth/admin/edit/<auth_id>', methods=['PUT'])
 def admin_edit(auth_id):
 
     # build new admin object
@@ -102,7 +102,7 @@ def admin_edit(auth_id):
     return jsonify(res)
 
 
-@auth_blueprint.route('/auth/admin/delete/<auth_id>', methods=['POST'])
+@auth_blueprint.route('/auth/admin/delete/<auth_id>', methods=['DELETE'])
 def admin_delete(auth_id):
 
     # build new admin object

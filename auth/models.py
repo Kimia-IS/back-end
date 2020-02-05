@@ -37,7 +37,7 @@ class lecturer(db.Model):
             return ret
         except Exception as e:
             ret = {
-                'status': 200,
+                'status': 500,
                 'message': e.args,
             }
             return ret
@@ -74,7 +74,7 @@ class lecturer(db.Model):
                 return ret
         except Exception as e:
             ret = {
-                'status': 200,
+                'status': 500,
                 'message': e.args
             }
             return ret
@@ -98,7 +98,7 @@ class lecturer(db.Model):
                 return ret
         except Exception as e:
             ret = {
-                'status': 200,
+                'status': 500,
                 'message': e.args
             }
             return ret
@@ -127,7 +127,7 @@ class lecturer(db.Model):
                 return ret
         except Exception as e:
             ret = {
-                'status': False,
+                'status': 500,
                 'message': e.args
             }
             return ret
@@ -167,7 +167,7 @@ class admin(db.Model):
             return ret
         except Exception as e:
             ret = {
-                'status': 200,
+                'status': 500,
                 'message': e.args,
             }
             return ret
@@ -204,7 +204,7 @@ class admin(db.Model):
                 return ret
         except Exception as e:
             ret = {
-                'status': False,
+                'status': 500,
                 'message': e.args
             }
             return ret
@@ -228,7 +228,7 @@ class admin(db.Model):
                 return ret
         except Exception as e:
             ret = {
-                'status': 200,
+                'status': 500,
                 'message': e.args
             }
             return ret
@@ -257,7 +257,7 @@ class admin(db.Model):
                 return ret
         except Exception as e:
             ret = {
-                'status': False,
+                'status': 500,
                 'message': e.args
             }
             return ret
