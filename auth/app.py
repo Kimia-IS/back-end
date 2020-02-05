@@ -138,14 +138,26 @@ def admin_login():
     return jsonify(ret)
 
 
-@auth_blueprint.route('/<cat>', methods=['GET'])
-def get_lecturer_admin(cat):
+@auth_blueprint.route('/auth/user', methods=['GET'])
+def get_lecturer_admin():
+    role = int(request.args.get('role'))
+    if (role == 4) or (role == 5) or (role == 6):
+        cat = 'lecturer'
+    elif (role == 1) or (role == 2) or (role == 3):
+        cat = 'admin'
+    else:
+        ret = {
+            'status': 400,
+            'message': 'Role is undefined',
+        }
+        return jsonify(ret)
 
     # check is the ID parameter exist
     if request.args.get('id'):
 
         # call getByID method
         return jsonify(getByID(cat, request.args.get('id')))
+
     else:
 
         # call getAll method
