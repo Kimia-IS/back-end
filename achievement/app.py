@@ -26,10 +26,10 @@ def process_achievements():
     # if method == POST
     elif request.method == 'POST':
         # get data from request json
-        lecturer_nip = request.json['lecturer_nip']
-        title = request.json['title']
-        issuer = request.json['issuer']
-        year = request.json['year']
+        lecturer_nip = request.form['lecturer_nip']
+        title = request.form['title']
+        issuer = request.form['issuer']
+        year = request.form['year']
 
         # get file data into a list
         files = request.files.getlist('achievement_files')
@@ -70,7 +70,7 @@ def process_achievements():
         id = request.args.get('id')
 
         # call the edit method from achievement module
-        res = edit_achievement(id, request.json)
+        res = edit_achievement(id, request.form)
         return jsonify(res)
 
     # if method == DELETE

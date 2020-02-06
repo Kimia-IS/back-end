@@ -29,12 +29,12 @@ def process_research():
         elif request.method == 'POST':
             if request.files:
                 # get data from request json
-                lecturer_nip = request.json['lecturer_nip']
-                title = request.json['title']
-                investor = request.json['investor']
-                year = request.json['year']
-                amount = request.json['amount']
-                position = request.json['position']
+                lecturer_nip = request.form['lecturer_nip']
+                title = request.form['title']
+                investor = request.form['investor']
+                year = request.form['year']
+                amount = request.form['amount']
+                position = request.form['position']
 
                 # get file data into a list
                 files = request.files.getlist('research_files')
@@ -82,7 +82,7 @@ def process_research():
             id = request.args.get('id')
 
             # call the edit method from research module
-            res = edit_research(id, request.json)
+            res = edit_research(id, request.form)
             return jsonify(res)
 
         # if method == DELETE
