@@ -1,6 +1,7 @@
 from flask import request, jsonify, Blueprint
 from finalTask.models import finalTask, finalTask_lecturer, finalTask_file, get_all_final_task, count_final_task, \
-    edit_final_task, edit_final_task_file, edit_final_task_lecturer, deleteTask, deleteTask_file, deleteTask_lecturer
+    edit_final_task, edit_final_task_file, edit_final_task_lecturer, deleteTask, deleteTask_file, deleteTask_lecturer, \
+    get_finalTask_byID
 from announcement import announcement
 import os
 
@@ -20,7 +21,8 @@ def process_final_task():
     # Check request method
     # if request method == GET
     if request.method == 'GET':
-
+        if request.args.get('id'):
+            return jsonify(get_finalTask_byID(request.args.get('id')))
         # return get_all_final_task method from final task module
         return jsonify(get_all_final_task())
 

@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from academic.models import academic, academic_lecturer, get_all_academic_lecturer, get_all_courses
+from academic.models import academic, academic_lecturer, get_all_academic_lecturer, get_all_courses, get_academicLecturer_byID, get_academicCourses_byID
 from ast import literal_eval as make_tuple
 from announcement import announcement
 
@@ -11,6 +11,8 @@ def process_academic_courses():
     # check request method
     # if request method = POST
     if request.method == 'GET':
+        if request.args.get('id'):
+            return jsonify(get_academicCourses_byID(request.args.get('id')))
         # call get all academic courses method from academic module
         return jsonify(get_all_courses())
 
@@ -66,7 +68,8 @@ def process_academic_lecturer():
     # check request method
     # if request method = POST
     if request.method == 'GET':
-
+        if request.args.get('id'):
+            return jsonify(get_academicLecturer_byID(request.args.get('id')))
         # call get all academic lecturer method from academic module
         return jsonify(get_all_academic_lecturer())
 

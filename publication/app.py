@@ -1,6 +1,6 @@
 from flask import request, jsonify, Blueprint
 from publication.models import journal, journalCorrespondingAuthor, patent, other_publication, \
-    get_all_publication_byCat, get_all_publication, get_publication_byID,edit_publication, delete_publication, \
+    get_all_publication_byCat, get_all_publication, get_publication_byID, edit_publication, delete_publication, \
     count_journal
 import os
 

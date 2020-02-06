@@ -206,6 +206,71 @@ class academic_lecturer(db.Model):
             return ret
 
 
+def get_academicCourses_byID(id):
+    try:
+        data = sess.query(academic).filter(academic.id == id).first()
+        if data is not None:
+            res = {
+                'id': data.id,
+                'course_id': data.course_id,
+                'course_name': data.course_name,
+                'total_classes': data.total_classes
+            }
+            ret = {
+                'status': 200,
+                'message': 'This is the selected academic lecturer',
+                'results': res
+            }
+            return ret
+        else:
+            ret ={
+                'status': 200,
+                'message': 'ID is not registered'
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def get_academicLecturer_byID(id):
+    try:
+        data = sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.id == id). \
+            filter(academic.course_id == academic_lecturer.course_id). \
+            filter(lecturer.nip == academic_lecturer.lecturer_nip).first()
+        if data is not None:
+            res = {
+                'id': data.academic_lecturer.id,
+                'course_id': data.academic.course_id,
+                'course_name': data.academic.course_name,
+                'total_credit': data.academic_lecturer.total_credit,
+                'class': data.academic_lecturer.course_class,
+                'lecturer(s)': data.lecturer.name,
+                'lecturer_credit': data.academic_lecturer.lecturer_credit
+            }
+            ret = {
+                'status': 200,
+                'message': 'This is the selected course',
+                'results': res
+            }
+            return ret
+        else:
+            ret ={
+                'status': 200,
+                'message': 'ID is not registered'
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
 def get_all_academic_lecturer():
     try:
         datas = sess.query(academic, lecturer, academic_lecturer).\

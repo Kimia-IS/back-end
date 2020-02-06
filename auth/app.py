@@ -2,7 +2,7 @@ import bcrypt
 import random
 import string
 from flask import request, jsonify, Blueprint
-from auth.models import lecturer, admin, getAll, getByID
+from auth.models import lecturer, admin, getAll, getByID, getAllUsersWithoutSuperAdmin
 
 auth_blueprint = Blueprint('auth_blueprint', __name__)
 
@@ -165,6 +165,7 @@ def get_user_by_id():
             'message': 'Id is undefined',
         }
         return jsonify(ret)
+
 
 @auth_blueprint.route('/auth/users/<cat>', methods=['GET'])
 def get_lecturer_admin(cat):
