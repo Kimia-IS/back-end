@@ -169,12 +169,31 @@ def edit_final_task(id, request):
         selected_final_task = sess.query(finalTask).filter(finalTask.id == id)
         if selected_final_task.first() is not None:
             data_finalTask = {}
-            for k in request.keys():
-                param = k
-                data_finalTask[k] = request[param]
-            edit = selected_final_task.update(data_finalTask, synchronize_session=False)
+            data_finalTask['student_name'] = request['student_name']
+            data_finalTask['student_nim'] = request['student_nim']
+            data_finalTask['student_type'] = request['student_type']
+            data_finalTask['title'] = request['title']
+            data_finalTask['starting_date'] = request['starting_date']
+            data_finalTask['graduation_date'] = request['graduation_date']
+
+            data_finalTaskLecturer = {}
+            data_finalTaskLecturer['lecturer_nip'] = request['lecturer_nip']
+            data_finalTaskLecturer['lecturer_position'] = request['lecturer_position']
+
+            # data_finalTaskFile = {}
+            # data_finalTaskLecturer['file_path'] = request['file_path']
+
+            # for k in request.keys():
+            #     param = k
+            #     data_finalTask[k] = request[param]
+
+            editFinalTask = selected_final_task.update(data_finalTask, synchronize_session=False)
+            editFinalTaskLecturer = edit_final_task_lecturer(id, data_finalTaskLecturer)
+            # editFinalTaskFile = edit_final_task_lecturer(id, data_finalTaskFile)
+
             sess.commit()
-            if edit == 1:
+            if ((editFinalTask == 1) and (editFinalTaskLecturer['status'] == 200)):
+                # and (editFinalTaskFile.status == 200)):
                 ret = {
                     'status': 200,
                     'message': 'Data updated!'
@@ -187,13 +206,13 @@ def edit_final_task(id, request):
             return ret
         else:
             ret = {
-                'status': 200,
+                'status': 400,
                 'message': "Final Task is not registered"
             }
             return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 500,
             'message': e.args,
         }
         return ret
@@ -201,14 +220,14 @@ def edit_final_task(id, request):
 
 def edit_final_task_lecturer(id, request):
     try:
-        print(request)
         selected_final_task_lecturer = sess.query(finalTask_lecturer).filter(finalTask_lecturer.final_task_id == id)
         if selected_final_task_lecturer.first() is not None:
-            data_finalTask = {}
-            for k in request.keys():
-                param = k
-                data_finalTask[k] = request[param]
-            edit = selected_final_task_lecturer.update(data_finalTask, synchronize_session=False)
+            # data_finalTask = {}
+            # for k in request.keys():
+            #     param = k
+            #     data_finalTask[k] = request[param]
+            # edit = selected_final_task_lecturer.update(data_finalTask, synchronize_session=False)
+            edit = selected_final_task_lecturer.update(request, synchronize_session=False)
             sess.commit()
             if edit == 1:
                 ret = {
@@ -223,13 +242,13 @@ def edit_final_task_lecturer(id, request):
             return ret
         else:
             ret = {
-                'status': 200,
+                'status': 400,
                 'message': "Final Task is not registered"
             }
             return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 500,
             'message': e.args,
         }
         return ret
@@ -258,13 +277,13 @@ def edit_final_task_file(id, request):
             return ret
         else:
             ret = {
-                'status': 200,
+                'status': 500,
                 'message': "Final Task is not registered"
             }
             return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 500,
             'message': e.args,
         }
         return ret
