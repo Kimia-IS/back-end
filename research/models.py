@@ -74,22 +74,41 @@ class research_file(db.Model):
 
 def get_all_research():
     try:
-        research_datas = sess.query(research, research_file).filter(research.id == research_file.research_id).all()
+        print('masuk')
+        #research_datas = sess.query(research, research_file).filter(research.id == research_file.research_id).all()
+        research_datas = sess.query(research).all()
 
+        print('research_datas = ', research_datas)
         research_res = []
         for data in research_datas:
+            print('masuk loop')
+            # res = {
+            #     'id': data.research.id,
+            #     'lecturer_nip': data.research.lecturer_nip,
+            #     'title': data.research.title,
+            #     'investor': data.research.investor,
+            #     'amount': data.research.amount,
+            #     'position': data.research.position,
+            #     'year': data.research.year,
+            #     #'term': data.research.term,
+            #     'filepath': data.research.filepath
+            #     #'filepath': data.research_file.filepath
+            # }
             res = {
-                'id': data.research.id,
-                'lecturer_nip': data.research.lecturer_nip,
-                'title': data.research.title,
-                'investor': data.research.investor,
-                'amount': data.research.amount,
-                'position': data.research.position,
-                'year': data.research.year,
-                'term': data.research.term,
-                'filepath': data.research_file_filepath
+                'id': data.id,
+                'lecturer_nip': data.lecturer_nip,
+                'title': data.title,
+                'investor': data.investor,
+                'amount': data.amount,
+                'position': data.position,
+                'year': data.year,
+                #'term': data.term,
+                'filepath': data.filepath
+                #'filepath': data_file.filepath
             }
+            print('res loop = ', res)
             research_res.append(res)
+        print(research_res)
         ret = {
             'status': 200,
             'message': 'These are the registered research',

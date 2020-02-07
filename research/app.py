@@ -19,9 +19,10 @@ def process_research():
         # check the request method
         # if method == GET
         if request.method == 'GET':
-
+            print('1')
             # check is there parameter ID
             if request.args.get('id') is None:
+                print('2')
                 return jsonify(get_all_research())
             return jsonify(get_research_byID(request.args.get('id')))
 

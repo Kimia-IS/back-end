@@ -267,6 +267,7 @@ def getAll(cat):
     try:
         if cat == 'lecturer':
             lecturers = sess.query(lecturer).all()
+            print('lecturers = ', lecturers)
             hasil = []
             for data in lecturers:
                 res = {
