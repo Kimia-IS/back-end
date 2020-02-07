@@ -1,4 +1,4 @@
-from flask import request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint, send_file
 from academic.models import get_byLecturer
 from achievement.models import get_achievement_byID
 from auth.models import getByID
@@ -28,3 +28,11 @@ def get_profile(param):
         'results': res
     }
     return jsonify(ret)
+
+# @general_blueprint.route('/datas/files', methods=['GET'])
+# def show_file():
+#     print(masuk)
+#     path = request.args.get('path')
+#     print(path)
+#     if (path):
+#         return send_file(path)
