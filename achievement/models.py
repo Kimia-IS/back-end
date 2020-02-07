@@ -60,7 +60,7 @@ def get_all_achievements():
             res.append(temp)
         ret = {
             'status': 200,
-            'message': 'This are the registered Achievements',
+            'message': 'These are the registered Achievements',
             'results': res
         }
         return ret
@@ -153,5 +153,37 @@ def delete_achievement(id):
         ret = {
             'status': 200,
             'message': e.args
+        }
+        return ret
+
+
+def get_achievement_byLecturer(nip):
+    try:
+        data = sess.query(achievement).filter(achievement.lecturer_nip == nip).first()
+        if data is not None:
+            res = {
+                'id': data.id,
+                'lecturer_nip': data.lecturer_nip,
+                'title': data.title,
+                'issuer': data.issuer,
+                'year': data.year,
+                'filepath': data.filepath
+            }
+            ret = {
+                'status': 200,
+                'message': 'This is the registered academic lecturer',
+                'results': res
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': 'ID is not registered'
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
         }
         return ret

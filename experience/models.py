@@ -101,6 +101,39 @@ def get_experience_byID(id):
         return ret
 
 
+def get_experience_byLecturer(id):
+    try:
+        data = sess.query(experience).filter(experience.lecturer_nip == id).first()
+        if data is not None:
+            selected_experience = {
+                'id': data.id,
+                'lecturer_nip': data.lecturer_nip,
+                'job_name': data.job_name,
+                'job_type': data.job_type,
+                'year': data.year,
+                'term': data.term,
+                'filepath': data.filepath
+            }
+            ret = {
+                'status': 200,
+                'message': 'This is the '+data.lecturer_nip+' Experience',
+                'results': selected_experience
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': 'ID is not registered'
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
 def edit_experience(id, request):
     try:
         selected_experience = sess.query(experience).filter(experience.id == id).first()

@@ -130,6 +130,45 @@ def get_finalTask_byID(id):
         return ret
 
 
+def get_finalTask_byLecturer(nip):
+    try:
+        data = sess.query(finalTask, finalTask_file, finalTask_lecturer).\
+            filter(finalTask_lecturer.lecturer_nip == nip).filter(finalTask.id == id).\
+            filter(finalTask.id == finalTask_file.final_task_id).filter(finalTask.id == finalTask_lecturer.final_task_id).\
+            first()
+        if data is not None:
+            res = {
+                'final_task_id': data.finalTask.id,
+                'student_name': data.finalTask.student_name,
+                'student_nim': data.finalTask.student_nim,
+                'student_type': data.finalTask.student_type,
+                'title': data.finalTask.title,
+                'lecturer_nip': data.finalTask_lecturer.lecturer_nip,
+                'lecturer_position': data.finalTask_lecturer.lecturer_position,
+                'file_path': data.finalTask_file.file_path,
+                'starting_date': data.finalTask.starting_date,
+                'graduation_date': data.finalTask.graduation_date,
+            }
+            ret = {
+                'status': 200,
+                'message': 'This is the registered finalTask that managed by lecturer '+ nip,
+                'results': res
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': 'nip is not registered'
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
 def get_all_final_task():
     try:
         final_task = sess.query(finalTask, finalTask_file, finalTask_lecturer).\

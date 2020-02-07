@@ -329,7 +329,7 @@ def get_all_courses():
         return ret
 
 
-def get_byLecturer(nip):
+def get_academic_byLecturer(nip):
     try:
         data = sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.lecturer_nip == nip).\
             filter(academic.course_id == academic_lecturer.course_id).\
