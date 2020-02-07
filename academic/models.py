@@ -3,6 +3,7 @@ from auth.models import lecturer
 from sqlalchemy import ForeignKey
 import json
 
+
 class academic(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     course_id = db.Column(db.String(255), unique=True, nullable=False, primary_key=True)
@@ -320,6 +321,41 @@ def get_all_courses():
             'results': res
         }
         return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
+def get_byLecturer(nip):
+    try:
+        data = sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.lecturer_nip == nip).\
+            filter(academic.course_id == academic_lecturer.course_id).\
+            filter(lecturer.nip == academic_lecturer.lecturer_nip).first()
+        if data is not None:
+            res = {
+                'id': data.academic_lecturer.id,
+                'course_id': data.academic.course_id,
+                'course_name': data.academic.course_name,
+                'total_credit': data.academic_lecturer.total_credit,
+                'class': data.academic_lecturer.course_class,
+                'lecturer(s)': data.lecturer.name,
+                'lecturer_credit': data.academic_lecturer.lecturer_credit
+            }
+            ret = {
+                'status': 200,
+                'message': 'This are the registered academic lecturer',
+                'results': res
+            }
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': 'ID is not registered'
+            }
+            return ret
     except Exception as e:
         ret = {
             'status': 200,

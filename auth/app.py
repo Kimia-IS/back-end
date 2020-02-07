@@ -8,8 +8,9 @@ auth_blueprint = Blueprint('auth_blueprint', __name__)
 
 
 def generatePassword():
-    password = string.ascii_letters + string.digits
-    return ''.join(random.choice(password) for i in range(10))
+    # password = string.ascii_letters + string.digits
+    # return ''.join(random.choice(password) for i in range(10))
+    return "password"
 
 
 @auth_blueprint.route('/auth/lecturer/register', methods=['POST'])

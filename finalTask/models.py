@@ -59,7 +59,7 @@ class finalTask_lecturer(db.Model):
             ret = {
                 'status': 200,
                 'message': 'New Final Task Lecturer Registered',
-                'results': new_final_task_lecturer
+                'results': "Sukses"
             }
             return ret
         except Exception as e:

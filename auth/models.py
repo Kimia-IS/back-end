@@ -358,7 +358,7 @@ def getAllUsersWithoutSuperAdmin():
 def getByID(cat, id):
     try:
         if cat == 'lecturer':
-            lecturers = sess.query(lecturer).filter(lecturer.id == id).first()
+            lecturers = sess.query(lecturer).filter(lecturer.nip == id).first()
             res = {
                 'id': lecturers.id,
                 'name': lecturers.name,
@@ -372,7 +372,7 @@ def getByID(cat, id):
                 'message': 'This is lecturer with NIP '+ lecturers.nip
             }
         elif cat == 'admin':
-            admins = sess.query(admin).filter(admin.id == id).first()
+            admins = sess.query(admin).filter(admin.auth_id == id).first()
             res = {
                 'id': admins.id,
                 'name': admins.name,
