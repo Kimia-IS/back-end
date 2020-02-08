@@ -53,7 +53,7 @@ def process_publication(cat):
         # check the request method
         # if method == GET
         if request.method == 'GET':
-
+            print('id = ', request.args.get('id'))
             # check is there parameter ID
             if request.args.get('id') is None:
                 return jsonify(get_all_publication_byCat(cat))

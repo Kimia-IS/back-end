@@ -291,28 +291,73 @@ def get_all_publication_byCat(cat):
 
 def get_publication_byID(cat, id):
     try:
-        selected_publication = sess.query(cat).filter(cat.id == id).first()
+        print('in id = ', id)
         if cat == 'journal':
-            corresponding_author = sess.query(journalCorrespondingAuthor).filter(
-                journalCorrespondingAuthor.journal_id == id).first()
+            selected_publication = sess.query(journal).filter(id == id).first()
+            # corresponding_author = sess.query(journalCorrespondingAuthor).filter(
+            #     journalCorrespondingAuthor.journal_id == id).first()
+            temp = {
+                'id': selected_publication.id,
+                'lecturer_nip': selected_publication.lecturer_nip,
+                'title': selected_publication.title,
+                'issue': selected_publication.issue,
+                'year': selected_publication.year,
+                'number': selected_publication.number,
+                'total_page': selected_publication.total_page,
+                'type': selected_publication.type,
+                'doi': selected_publication.doi,
+                'link': selected_publication.link,
+                'filepath': selected_publication.filepath,
+                'names': selected_publication.names
+            }
             res = {
                 'status': 200,
                 'message': 'This is the requested publication',
-                'result': {
-                    'category': 'journal',
-                    'publication': selected_publication,
-                    'corresponding_author': ast.literal_eval(corresponding_author.names)
-                }
+                # 'result': {
+                #     'category': 'journal',
+                #     'publication': selected_publication,
+                #     'corresponding_author': ast.literal_eval(corresponding_author.names)
+                # }
+                'results': temp
+            }
+        elif cat == 'patent':
+            selected_publication = sess.query(patent).filter(id == id).first()
+            temp = {
+                'id': selected_publication.id,
+                'lecturer_nip': selected_publication.lecturer_nip,
+                'title': selected_publication.title,
+                'status': selected_publication.status,
+                'year': selected_publication.year,
+                'publisher': selected_publication.publisher,
+                'filepath': selected_publication.filepath
+            }
+            res = {
+                'status': 200,
+                'message': 'This is the requested publication',
+                'results': temp
+            }
+        elif cat == 'other':
+            selected_publication = sess.query(other_publication).filter(id == id).first()
+            temp = {
+                'id': selected_publication.id,
+                'lecturer_nip': selected_publication.lecturer_nip,
+                'title': selected_publication.title,
+                'date': selected_publication.date,
+                'publisher': selected_publication.publisher,
+                'filepath': selected_publication.filepath
+            }
+            res = {
+                'status': 200,
+                'message': 'This is the requested publication',
+                'results': temp
             }
         else:
             res = {
-                'status': 200,
-                'message': 'This is the requested publication',
-                'result': {
-                    'category': cat,
-                    'publication': selected_publication
-                }
+                'status': 400,
+                'message': 'Wrong category request'
             }
+
+        print(res)
         return res
     except Exception as e:
         ret = {
