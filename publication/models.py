@@ -8,6 +8,7 @@ class journal(db.Model):
     title = db.Column(db.String(255), unique=True)
     lecturer_nip = db.Column(db.String(255), ForeignKey('lecturer.nip'), unique=False)
     year = db.Column(db.String(5), unique=False)
+    number = db.Column(db.String(255), unique=False)
     issue = db.Column(db.Integer, unique=False, nullable=True)
     type = db.Column(db.String(255), unique=False)
     doi = db.Column(db.String(255), unique=False, nullable=True)
@@ -27,6 +28,7 @@ class journal(db.Model):
                     'title': self.title,
                     'issue': self.issue,
                     'year': self.year,
+                    'number': self.number,
                     'total_page': self.total_page,
                     'type': self.type,
                     'doi': self.doi,

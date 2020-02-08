@@ -74,6 +74,7 @@ def process_publication(cat):
                     title = request.form['title']
                     lecturer_nip = request.form['lecturer_nip']
                     year = request.form['year']
+                    number = request.form['number']
                     issue = request.form['issue']
                     total_page = request.form['total_page']
                     type = request.form['type']
@@ -85,7 +86,7 @@ def process_publication(cat):
                     names = request.form['names']
 
                     # build new journal object
-                    new_publication = journal(title=title, lecturer_nip=lecturer_nip, year=year, issue=issue,
+                    new_publication = journal(title=title, lecturer_nip=lecturer_nip, year=year, number=number, issue=issue,
                                               total_page=total_page, type=type, doi=doi, link=link, filepath=filepath, names=names)
 
                     # call save method
