@@ -360,32 +360,44 @@ def getByID(cat, id):
     try:
         if cat == 'lecturer':
             lecturers = sess.query(lecturer).filter(lecturer.nip == id).first()
-            res = {
-                'id': lecturers.id,
-                'name': lecturers.name,
-                'role': roles[lecturers.role],
-                'nip': lecturers.nip,
-                'email': lecturers.email
-            }
-            ret ={
-                'status': 200,
-                'results': res,
-                'message': 'This is lecturer with NIP '+ lecturers.nip
-            }
+            if lecturers is not None:
+                res = {
+                    'id': lecturers.id,
+                    'name': lecturers.name,
+                    'role': roles[lecturers.role],
+                    'nip': lecturers.nip,
+                    'email': lecturers.email
+                }
+                ret ={
+                    'status': 200,
+                    'results': res,
+                    'message': 'This is lecturer with NIP '+ lecturers.nip
+                }
+            else:
+                ret = {
+                    'status': 200,
+                    'message': 'NIP is not registered'
+                }
         elif cat == 'admin':
             admins = sess.query(admin).filter(admin.auth_id == id).first()
-            res = {
-                'id': admins.id,
-                'name': admins.name,
-                'role': roles[admins.role],
-                'auth_id': admins.auth_id,
-                'email': admins.email
-            }
-            ret = {
-                'status': 200,
-                'results': res,
-                'message': 'This is admin with auth id ' + admins.auth_id
-            }
+            if admins is not None:
+                res = {
+                    'id': admins.id,
+                    'name': admins.name,
+                    'role': roles[admins.role],
+                    'auth_id': admins.auth_id,
+                    'email': admins.email
+                }
+                ret = {
+                    'status': 200,
+                    'results': res,
+                    'message': 'This is admin with auth id ' + admins.auth_id
+                }
+            else:
+                ret = {
+                    'status': 200,
+                    'message': 'ID is not registered'
+                }
         else:
             ret = {
                 'status': 200,
