@@ -216,19 +216,69 @@ def get_all_publication():
 def get_all_publication_byCat(cat):
     try:
         if cat == 'journal':
-            publications = sess.query(journal, journalCorrespondingAuthor). \
-                filter(journal.id == journalCorrespondingAuthor.journal_id).all()
+            print('masukkik journal')
+            # publications = sess.query(journal, journalCorrespondingAuthor). \
+            #    filter(journal.id == journalCorrespondingAuthor.journal_id).all()
+            publications = sess.query(journal).all()
+            res = []
+            for data in publications:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'title': data.title,
+                    'issue': data.issue,
+                    'year': data.year,
+                    'number': data.number,
+                    'total_page': data.total_page,
+                    'type': data.type,
+                    'doi': data.doi,
+                    'link': data.link,
+                    'filepath': data.filepath,
+                    'names': data.names
+                }
+                res.append(temp)
+            print(res)
+        elif cat == 'patent':
+            print('masukkik patent')
+            publications = sess.query(patent).all()
+            res = []
+            for data in publications:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'title': data.title,
+                    'status': data.status,
+                    'year': data.year,
+                    'publisher': data.publisher,
+                    'filepath': data.filepath
+                }
+                res.append(temp)
+            print(res)
+        elif cat == 'other':
+            print('masukkik other_publication')
+            publications = sess.query(other_publication).all()
+            res = []
+            for data in publications:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'title': data.title,
+                    'date': data.date,
+                    'publisher': data.publisher,
+                    'filepath': data.filepath
+                }
+                res.append(temp)
+            print(res)
         else:
-            publications = sess.query(cat).all()
+            publications = 'category is not defined'
 
         res = {
             'status': 200,
             'message': 'These are the registered publications',
-            'results': {
-                cat: publications
-            }
+            'results': res
         }
 
+        print('res = ', res)
         return res
     except Exception as e:
         res = {
