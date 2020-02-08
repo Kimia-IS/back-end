@@ -125,19 +125,21 @@ def get_all_research():
 
 def get_research_byID(id):
     try:
-        research_datas = sess.query(research, research_file).filter(research.id == id). \
-            filter(research.id == research_file.research_id).first()
+        # research_datas = sess.query(research, research_file).filter(research.id == id). \
+        #     filter(research.id == research_file.research_id).first()
+
+        research_datas = sess.query(research).filter(research.id == id).first()
 
         res = {
-            'id': research_datas.research.id,
-            'lecturer_nip': research_datas.research.lecturer_nip,
-            'title': research_datas.research.title,
-            'investor': research_datas.research.investor,
-            'amount': research_datas.research.amount,
-            'position': research_datas.research.position,
+            'id': research_datas.id,
+            'lecturer_nip': research_datas.lecturer_nip,
+            'title': research_datas.title,
+            'investor': research_datas.investor,
+            'amount': research_datas.amount,
+            'position': research_datas.position,
             'year': research_datas.year,
-            'term': research_datas.research.term,
-            'filepath': research_datas.research_file.filepath
+            # 'term': research_datas.term,
+            'filepath': research_datas.filepath
         }
         ret = {
             'status': 200,
@@ -147,7 +149,7 @@ def get_research_byID(id):
         return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 500,
             'message': e.args
         }
         return ret
