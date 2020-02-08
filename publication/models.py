@@ -10,11 +10,12 @@ class journal(db.Model):
     year = db.Column(db.String(5), unique=False)
     number = db.Column(db.String(255), unique=False)
     issue = db.Column(db.Integer, unique=False, nullable=True)
+    total_page = db.Column(db.Integer, unique=False, nullable=True)
     type = db.Column(db.String(255), unique=False)
     doi = db.Column(db.String(255), unique=False, nullable=True)
     link = db.Column(db.String(255), unique=False)
     filepath = db.Column(db.String(255), unique=False)
-    names = db.Column(db.String(255), unique=False)
+    names = db.Column(db.String(255), unique=False, nullable=True)
 
     def save(self):
         global saveJourCorr
@@ -22,8 +23,9 @@ class journal(db.Model):
             check_journal = sess.query(journal).filter(journal.lecturer_nip == self.lecturer_nip). \
                 filter(journal.title == self.title).first()
             if check_journal is None:
+                sess.add(self)
+                sess.commit()
                 new_journal = {
-                    'id': self.id,
                     'lecturer_nip': self.lecturer_nip,
                     'title': self.title,
                     'issue': self.issue,
@@ -33,18 +35,36 @@ class journal(db.Model):
                     'type': self.type,
                     'doi': self.doi,
                     'link': self.link,
-                    'filepath': self.filepath
+                    'filepath': self.filepath,
+                    'names': self.names
                 }
-                savejourCorr = True
-                for name in self.names:
-                    if saveJourCorr:
-                        saveJourCorr = journalCorrespondingAuthor(journal_id=self.id, names=name).save()
-                    else:
-                        return {'status': 200,
-                                'message': 'something went wrong when we try to save corresponding author!'}
+                print('before the sess.add self')
+                # print('before the sess.add new_journal')
+                # sess.add(new_journal)       # masalah broo
+                print('lwaaatt')
+                print('lwaaattasdasd')
+                print('self names = ', self.names)
+                print('id = ', self.id)
+                
+                # savejourCorr = True
+                # for name in self.names:
+                #     if saveJourCorr:
+                #         saveJourCorr = journalCorrespondingAuthor(journal_id=self.id, names=name).save()
+                #     else:
+                #         return {'status': 200,
+                #                 'message': 'something went wrong when we try to save corresponding author!'}
+                if self.names:
+                    names = self.names.split(",")
+                    print('masuk if')
+                    for name in names:
+                        print('masukloop')
+                        print('name = ', name)
+                        journalCorrespondingAuthor(journal_id=self.id, names=name).save()
+                # else:
+                #     return {'status': 200, 'message': 'no corresponding author'}
 
-                sess.add(new_journal)
-                sess.commit()
+                print('lewat')
+                
                 ret = {
                     'status': 200,
                     'message': 'New Journal Registered',
@@ -72,11 +92,12 @@ class journalCorrespondingAuthor(db.Model):
 
     def save(self):
         try:
+            print('masukjournalcoor', self)
             sess.add(self)
             sess.commit()
             return True
         except Exception as e:
-            return False
+            return e
 
 
 class patent(db.Model):
