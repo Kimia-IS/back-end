@@ -293,7 +293,7 @@ def get_publication_byID(cat, id):
     try:
         print('in id = ', id)
         if cat == 'journal':
-            selected_publication = sess.query(journal).filter(id == id).first()
+            selected_publication = sess.query(journal).filter(journal.id == id).first()
             # corresponding_author = sess.query(journalCorrespondingAuthor).filter(
             #     journalCorrespondingAuthor.journal_id == id).first()
             temp = {
@@ -321,7 +321,7 @@ def get_publication_byID(cat, id):
                 'results': temp
             }
         elif cat == 'patent':
-            selected_publication = sess.query(patent).filter(id == id).first()
+            selected_publication = sess.query(patent).filter(patent.id == id).first()
             temp = {
                 'id': selected_publication.id,
                 'lecturer_nip': selected_publication.lecturer_nip,
@@ -337,7 +337,7 @@ def get_publication_byID(cat, id):
                 'results': temp
             }
         elif cat == 'other':
-            selected_publication = sess.query(other_publication).filter(id == id).first()
+            selected_publication = sess.query(other_publication).filter(other_publication.id == id).first()
             temp = {
                 'id': selected_publication.id,
                 'lecturer_nip': selected_publication.lecturer_nip,
@@ -374,7 +374,7 @@ def edit_publication(cat, id, request):
         elif cat == 'patent':
             selected_publication = sess.query(patent).filter(patent.id == id)
         elif cat == 'other':
-            selected_publication = sess.query(other).filter(other.id == id)
+            selected_publication = sess.query(other_publication).filter(other_publication.id == id)
         else:
             ret = {
                 'status': 400,
@@ -476,7 +476,20 @@ def edit_publication(cat, id, request):
 
 def delete_publication(cat, id):
     try:
-        selected_publication = sess.query(cat).filter(cat.id == id).first()
+        # selected_publication = sess.query(cat).filter(cat.id == id).first()
+        if cat == 'journal':
+            print('in')
+            selected_publication = sess.query(journal).filter(journal.id == id).first()
+        elif cat == 'patent':
+            selected_publication = sess.query(patent).filter(patent.id == id).first()
+        elif cat == 'other':
+            selected_publication = sess.query(other_publication).filter(other_publication.id == id).first()
+        else:
+            ret = {
+                'status': 400,
+                'message': "Wrong category"
+            }
+            return ret
         if selected_publication is not None:
             sess.delete(selected_publication)
             sess.commit()
