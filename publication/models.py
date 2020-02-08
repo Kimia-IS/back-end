@@ -369,68 +369,106 @@ def get_publication_byID(cat, id):
 
 def edit_publication(cat, id, request):
     try:
-        if cat != 'journal':
-            selected_publication = sess.query(cat).filter(cat.id == id).first()
-            if selected_publication is not None:
-                data = {}
-                for k in request.keys():
-                    param = k
-                    data[k] = request[param]
-                edit = sess.query(cat).filter(cat.id == id).update(data, synchronize_session=False)
-                sess.commit()
-                if edit == 1:
-                    ret = {
-                        'status': 200,
-                        'message': 'Data updated!'
-                    }
-                else:
-                    ret = {
-                        'status': 500,
-                        'message': "Something's went wrong with our server. Please try again later!"
-                    }
-                return ret
-            else:
-                ret = {
-                    'status': 200,
-                    'message': "Publication is not registered"
-                }
-                return ret
+        if cat == 'journal':
+            selected_publication = sess.query(journal).filter(journal.id == id)
+        elif cat == 'patent':
+            selected_publication = sess.query(patent).filter(patent.id == id)
+        elif cat == 'other':
+            selected_publication = sess.query(other).filter(other.id == id)
         else:
-            selected_journal = sess.query(journal).filter(journal.id == id)
-            if selected_journal is not None:
-                data = {}
-                dataCorr = {}
-                for k in request.keys():
-                    param = k
-                    if param != 'names':
-                        data[k] = request[param]
-                    else:
-                        dataCorr[k] = request[param]
-                edit = sess.query(journal).filter(journal.id == id).update(data, synchronize_session=False)
-                edit = edit and sess.query(journalCorrespondingAuthor).\
-                    filter(journalCorrespondingAuthor.journal_id == selected_journal.first().id).\
-                    update(dataCorr, synchronize_session=False)
-                sess.commit()
-                if edit == 1:
-                    ret = {
-                        'status': 200,
-                        'message': 'Data updated!'
-                    }
-                else:
-                    ret = {
-                        'status': 500,
-                        'message': "Something's went wrong with our server. Please try again later!"
-                    }
-                return ret
-            else:
+            ret = {
+                'status': 400,
+                'message': "Wrong category"
+            }
+            return ret
+
+        if selected_publication is not None:
+            data = {}
+            for k in request.keys():
+                param = k
+                data[k] = request[param]
+            edit = selected_publication.update(data, synchronize_session=False)
+            sess.commit()
+            if edit == 1:
                 ret = {
                     'status': 200,
-                    'message': "Publication is not registered"
+                    'message': 'Data updated!'
                 }
-                return ret
+            else:
+                ret = {
+                    'status': 500,
+                    'message': "Something's went wrong with our server. Please try again later!"
+                }
+        else:
+            ret = {
+                'status': 400,
+                'message': "Publication is not registered"
+            }
+        return ret
+            # if selected_publication is not None:
+            #     data = {}
+            #     for k in request.keys():
+            #         param = k
+            #         data[k] = request[param]
+            #     edit = sess.query(cat).filter(cat.id == id).update(data, synchronize_session=False)
+            #     sess.commit()
+            #     if edit == 1:
+            #         ret = {
+            #             'status': 200,
+            #             'message': 'Data updated!'
+            #         }
+            #     else:
+            #         ret = {
+            #             'status': 500,
+            #             'message': "Something's went wrong with our server. Please try again later!"
+            #         }
+            #     return ret
+            # else:
+            #     ret = {
+            #         'status': 200,
+            #         'message': "Publication is not registered"
+            #     }
+            #     return ret
+        # else:
+        #     selected_journal = sess.query(cat).filter(cat.id == id)
+        #     print('sel journal =', selected_journal)
+        #     if selected_journal is not None:
+        #         # del request['publication_files']    # exclude files
+        #         data = {}
+        #         dataCorr = {}
+        #         for k in request.keys():
+        #             param = k
+        #             data[k] = request[param]
+        #             # if param != 'names':
+        #             #     data[k] = request[param]
+        #             # else:
+        #             #     dataCorr[k] = request[param]
+        #         edit = selected_journal.update(data, synchronize_session=False)
+        #         # edit = sess.query(journal).filter(journal.id == id).update(data, synchronize_session=False)
+        #         # edit = edit and sess.query(journalCorrespondingAuthor).\
+        #         #     filter(journalCorrespondingAuthor.journal_id == selected_journal.first().id).\
+        #         #     update(dataCorr, synchronize_session=False)
+        #         sess.commit()
+        #         if edit == 1:
+        #             ret = {
+        #                 'status': 200,
+        #                 'message': 'Data updated!'
+        #             }
+        #         else:
+        #             ret = {
+        #                 'status': 500,
+        #                 'message': "Something's went wrong with our server. Please try again later!"
+        #             }
+        #         return ret
+        #     else:
+        #         ret = {
+        #             'status': 200,
+        #             'message': "Publication is not registered"
+        #         }
+        #         return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 500,
             'message': e.args,
         }
         return ret
