@@ -163,7 +163,7 @@ class other_publication(db.Model):
                     'id': self.id,
                     'lecturer_nip': self.lecturer_nip,
                     'title': self.title,
-                    'date': self.date,
+                    'year': self.year,
                     'publisher': self.publisher,
                     'filepath': self.filepath
                 }
@@ -263,7 +263,7 @@ def get_all_publication_byCat(cat):
                     'id': data.id,
                     'lecturer_nip': data.lecturer_nip,
                     'title': data.title,
-                    'date': data.date,
+                    'year': data.year,
                     'publisher': data.publisher,
                     'filepath': data.filepath
                 }
@@ -342,7 +342,7 @@ def get_publication_byID(cat, id):
                 'id': selected_publication.id,
                 'lecturer_nip': selected_publication.lecturer_nip,
                 'title': selected_publication.title,
-                'date': selected_publication.date,
+                'year': selected_publication.year,
                 'publisher': selected_publication.publisher,
                 'filepath': selected_publication.filepath
             }
@@ -478,7 +478,6 @@ def delete_publication(cat, id):
     try:
         # selected_publication = sess.query(cat).filter(cat.id == id).first()
         if cat == 'journal':
-            print('in')
             selected_publication = sess.query(journal).filter(journal.id == id).first()
         elif cat == 'patent':
             selected_publication = sess.query(patent).filter(patent.id == id).first()

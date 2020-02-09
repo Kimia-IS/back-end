@@ -120,13 +120,13 @@ def process_publication(cat):
                     # get data from request json
                     title = request.form['title']
                     lecturer_nip = request.form['lecturer_nip']
-                    date = request.form['date']
+                    year = request.form['year']
                     publisher = request.form['publisher']
                     filepath = process_file_upload(cat, request.files.getlist('publication_files'))
 
                     # build new other publication object
                     new_other_publication = other_publication(title=title, lecturer_nip=lecturer_nip,
-                                                              date=date, publisher=publisher, filepath=filepath)
+                                                              year=year, publisher=publisher, filepath=filepath)
 
                     # call save method
                     res = new_other_publication.save()
