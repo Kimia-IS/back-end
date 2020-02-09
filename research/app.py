@@ -5,8 +5,7 @@ import os
 
 research_blueprint = Blueprint('research_blueprint', __name__)
 # Allowed file extension
-ALLOWED_EXTENSIONS = {'docx', 'pdf'}
-
+ALLOWED_EXTENSIONS = {'docx', 'pdf', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
     # Return boolean based on the ALLOWED_EXTENSION list

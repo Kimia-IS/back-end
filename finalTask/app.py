@@ -6,7 +6,7 @@ import os
 
 final_task_blueprint = Blueprint('final_task_blueprint', __name__)
 # Allowed file extension
-ALLOWED_EXTENSIONS = {'docx', 'pdf'}
+ALLOWED_EXTENSIONS = {'docx', 'pdf', 'jpg', 'jpeg'}
 
 global saved_id
 # function to check the file extension

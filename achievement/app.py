@@ -4,7 +4,7 @@ import os
 
 achievement_blueprint = Blueprint('achievement_blueprint', __name__)
 # Allowed file extension
-ALLOWED_EXTENSIONS = {'docx', 'pdf'}
+ALLOWED_EXTENSIONS = {'docx', 'pdf', 'jpg', 'jpeg'}
 
 
 def allowed_file(filename):

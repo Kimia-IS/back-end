@@ -6,7 +6,7 @@ import os
 
 publication_blueprint = Blueprint('publication_bluepint', __name__)
 # Allowed file extension
-ALLOWED_EXTENSIONS = {'docx', 'pdf'}
+ALLOWED_EXTENSIONS = {'docx', 'pdf', 'jpg', 'jpeg'}
 
 
 def allowed_file(filename):
