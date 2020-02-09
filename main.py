@@ -8,6 +8,7 @@ from experience.app import experience_blueprint
 from publication.app import publication_blueprint
 from research.app import research_blueprint
 from socres.app import socres_blueprint
+from organization.app import organization_blueprint
 from announcement import announcement_blueprint
 from general_needs import general_blueprint
 from db_config import db
@@ -24,6 +25,7 @@ app.register_blueprint(experience_blueprint)
 app.register_blueprint(publication_blueprint)
 app.register_blueprint(research_blueprint)
 app.register_blueprint(socres_blueprint)
+app.register_blueprint(organization_blueprint)
 app.register_blueprint(announcement_blueprint)
 app.register_blueprint(general_blueprint)
 app.run(debug = True) # host = '0.0.0.0' for local Docker running
