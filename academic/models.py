@@ -156,7 +156,7 @@ class academic_lecturer(db.Model):
                 for k in request.keys():
                     param = k
                     data[k] = request[param]
-                edit = sess.query(academic).filter(academic_lecturer.id == id).update(data, synchronize_session=False)
+                edit = sess.query(academic_lecturer).filter(academic_lecturer.id == id).update(data, synchronize_session=False)
                 sess.commit()
                 if edit == 1:
                     ret = {
