@@ -123,6 +123,44 @@ def get_all_research():
         return ret
 
 
+def get_research_byLecturer(id):
+    try:
+        # research_datas = sess.query(research, research_file).filter(research.id == id). \
+        #     filter(research.id == research_file.research_id).first()
+
+        research_datas = sess.query(research).filter(research.lecturer_nip == id).first()
+        if research_datas is not None:
+            res = {
+                'id': research_datas.id,
+                'lecturer_nip': research_datas.lecturer_nip,
+                'title': research_datas.title,
+                'investor': research_datas.investor,
+                'amount': research_datas.amount,
+                'position': research_datas.position,
+                'year': research_datas.year,
+                # 'term': research_datas.term,
+                'filepath': research_datas.filepath
+            }
+            ret = {
+                'status': 200,
+                'message': 'These are the registered research',
+                'results': res
+            }
+            return ret
+        else:
+            res = {
+                'status': 200,
+                'message': 'NIP is not registered'
+            }
+            return res
+    except Exception as e:
+        ret = {
+            'status': 500,
+            'message': e.args
+        }
+        return ret
+
+
 def get_research_byID(id):
     try:
         # research_datas = sess.query(research, research_file).filter(research.id == id). \

@@ -4,8 +4,9 @@ from achievement.models import get_achievement_byLecturer
 from auth.models import getByID
 from experience.models import get_experience_byLecturer
 from finalTask.models import get_finalTask_byLecturer
-from publication.models import get_publication_byID
-from research.models import get_research_byID
+from publication.models import get_publication_byLecturer
+from research.models import get_research_byLecturer
+from organization.models import get_organization_byLecturer
 from db_config import sess
 import os
 
@@ -14,12 +15,13 @@ general_blueprint = Blueprint('general_blueprint', __name__)
 
 @general_blueprint.route('/profile/<param>', methods=['GET'])
 def get_profile(param):
-    tables = ['academic', 'achivement', 'profile', 'experience', 'finalTask', 'publication', 'research', 'socres']
+    tables = ['academic', 'achievement', 'profile', 'experience', 'organization', 'publication', 'research', 'socres']
     category = param.split(':')[0]
     id = param.split(':')[1]
     res = []
 
     if category == 'lecturer':
+        # return get_finalTask_byLecturer(id)
         for data in tables:
             hasil = search_profile(data, id)
             if hasil != "not found":
@@ -50,7 +52,18 @@ def search_profile(cat, id):
         res = get_experience_byLecturer(id)
     elif cat == 'finalTask':
         res = get_finalTask_byLecturer(id)
+    elif cat == 'journal' or cat == 'patent' or cat == 'otherpub':
+        res = get_publication_byLecturer(cat, id)
+    elif cat == 'research':
+        res = get_research_byLecturer(id)
+    elif cat == 'organization':
+        res = get_organization_byLecturer(id)
+    else:
+        res = {
+            'message': 'not'
+        }
     if "not" not in res['message']:
+        print(res)
         return res['results']
     else:
         return "not found"

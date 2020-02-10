@@ -171,7 +171,7 @@ def get_organization_byLecturer(nip):
             }
             ret = {
                 'status': 200,
-                'message': 'This is the registered academic lecturer',
+                'message': "This is the registered Lecturer's Organization",
                 'results': res
             }
             return ret

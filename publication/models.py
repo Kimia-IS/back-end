@@ -289,6 +289,102 @@ def get_all_publication_byCat(cat):
         return res
 
 
+def get_publication_byLecturer(cat, id):
+    try:
+        print('in id = ', id)
+        if cat == 'journal':
+            selected_publication = sess.query(journal).filter(journal.lecturer_nip == id).first()
+            # corresponding_author = sess.query(journalCorrespondingAuthor).filter(
+            #     journalCorrespondingAuthor.journal_id == id).first()
+            if selected_publication is not None:
+                temp = {
+                    'id': selected_publication.id,
+                    'lecturer_nip': selected_publication.lecturer_nip,
+                    'title': selected_publication.title,
+                    'issue': selected_publication.issue,
+                    'year': selected_publication.year,
+                    'number': selected_publication.number,
+                    'total_page': selected_publication.total_page,
+                    'type': selected_publication.type,
+                    'doi': selected_publication.doi,
+                    'link': selected_publication.link,
+                    'filepath': selected_publication.filepath,
+                    'names': selected_publication.names
+                }
+                res = {
+                    'status': 200,
+                    'message': 'This is the requested publication',
+                    # 'result': {
+                    #     'category': 'journal',
+                    #     'publication': selected_publication,
+                    #     'corresponding_author': ast.literal_eval(corresponding_author.names)
+                    # }
+                    'results': temp
+                }
+            else:
+                res = {
+                    'status': 200,
+                    'message': 'NIP is not registered'
+                }
+        elif cat == 'patent':
+            selected_publication = sess.query(patent).filter(patent.lecturer_nip == id).first()
+            if selected_publication is not None:
+                temp = {
+                    'id': selected_publication.id,
+                    'lecturer_nip': selected_publication.lecturer_nip,
+                    'title': selected_publication.title,
+                    'status': selected_publication.status,
+                    'year': selected_publication.year,
+                    'publisher': selected_publication.publisher,
+                    'filepath': selected_publication.filepath
+                }
+                res = {
+                    'status': 200,
+                    'message': 'This is the requested publication',
+                    'results': temp
+                }
+            else:
+                res = {
+                    'status': 200,
+                    'message': 'NIP is not registered'
+                }
+        elif cat == 'otherpub':
+            selected_publication = sess.query(other_publication).filter(other_publication.lecturer_nip == id).first()
+            if selected_publication is not None:
+                temp = {
+                    'id': selected_publication.id,
+                    'lecturer_nip': selected_publication.lecturer_nip,
+                    'title': selected_publication.title,
+                    'year': selected_publication.year,
+                    'publisher': selected_publication.publisher,
+                    'filepath': selected_publication.filepath
+                }
+                res = {
+                    'status': 200,
+                    'message': 'This is the requested publication',
+                    'results': temp
+                }
+            else:
+                res = {
+                    'status': 200,
+                    'message': 'NIP is not registered'
+                }
+        else:
+            res = {
+                'status': 400,
+                'message': 'Wrong category request'
+            }
+
+        print(res)
+        return res
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args,
+        }
+        return ret
+
+
 def get_publication_byID(cat, id):
     try:
         print('in id = ', id)
