@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint, send_file
-from academic.models import get_academic_byLecturer
+from academic.models import get_academic_byLecturer, academic
 from achievement.models import get_achievement_byLecturer
 from auth.models import getByID
 from experience.models import get_experience_byLecturer
@@ -7,10 +7,55 @@ from finalTask.models import get_finalTask_byLecturer
 from publication.models import get_publication_byLecturer
 from research.models import get_research_byLecturer
 from organization.models import get_organization_byLecturer
+import pandas as pd
 from db_config import sess
 import os
 
 general_blueprint = Blueprint('general_blueprint', __name__)
+
+
+@general_blueprint.route('/upload/<cat>', methods=['POST'])
+def upload_bulk(cat):
+    file = request.files.get('bulk_file')
+    # if file is not None:
+    #     print(file)
+    #     return "ADA FILE"
+    bulk = pd.read_csv(file)
+    success = 0
+    total = 0
+    res = []
+    for data in bulk.itertuples():
+        res.append(data[1].split(';')[0])
+        new_academic = academic(course_id=data[1].split(';')[0], course_name=data[1].split(';')[1],
+                                total_classes=data[1].split(';')[2])
+        results = new_academic.save()
+        total = total + 1
+    ret = {
+        'status': 200,
+        'message': str(total) + " rows executed",
+    }
+    # ret = []
+    # if cat == 'course':
+    #     for data in bulk.iterrows():
+    #         new_academic = academic(course_id=data[1].course_id, course_name=data[1].course_name,
+    #                                 total_classes=data[1].total_classes)
+    #         results = new_academic.save()
+    #         if "registered" in results['message']:
+    #             success = success + 1
+    #
+    #         total = total+1
+    #     ret = {
+    #         'status': 200,
+    #         'message': str(success)+" of "+str(total)+" rows affected",
+    #     }
+    return jsonify(ret)
+    # file = "https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv"
+    # bulk = pd.read_csv(file)
+    # res = []
+    # for data in bulk.iterrows():
+    #     res.append(data[1].crim)
+    #
+    # return str(res)
 
 
 @general_blueprint.route('/profile/<param>', methods=['GET'])
