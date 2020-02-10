@@ -4,7 +4,6 @@
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/general_needs.py" beforeDir="false" afterPath="$PROJECT_DIR$/general_needs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +184,7 @@
       <workItem from="1581002748173" duration="386000" />
       <workItem from="1581004144727" duration="6716000" />
       <workItem from="1581045532817" duration="7940000" />
-      <workItem from="1581334513883" duration="7813000" />
+      <workItem from="1581334513883" duration="9997000" />
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>
