@@ -7,6 +7,7 @@ from finalTask.models import get_finalTask_byLecturer, finalTask
 from publication.models import get_publication_byLecturer, journal, patent, other_publication
 from research.models import get_research_byLecturer, research
 from organization.models import get_organization_byLecturer, organization
+from socres.models import get_socres_byLecturer, socres
 import pandas as pd
 import os
 
@@ -56,24 +57,30 @@ def download_file():
 
 @general_blueprint.route('/profile/<param>', methods=['GET'])
 def get_profile(param):
-    tables = ['academic', 'achievement', 'profile', 'experience', 'organization', 'publication', 'research', 'socres']
+    tables = ['academic', 'achievement', 'profile', 'experience', 'finalTask', 'organization', 'journal', 'patent', 'otherpub', 'research', 'socres']
     category = param.split(':')[0]
     id = param.split(':')[1]
-    res = []
+    res = {}
+    print('masuk')
+    print('param = ', param)
+    print('category =', category)
+    print('id =', id)
 
     if category == 'lecturer':
         # return get_finalTask_byLecturer(id)
         for data in tables:
             hasil = search_profile(data, id)
+            print('hasil =', hasil)
             if hasil != "not found":
-                res.append(hasil)
+                res[data] = hasil
+                #res.append(hasil)
     elif category == 'admin':
         hasil = getByID(category, id)
         if "not" not in hasil['message']:
             res.append(hasil['results'])
         else:
             res.append('data not found for given ID')
-
+    print('res =', res)
     ret = {
         'status': 200,
         'message': 'Here are the results for id '+id,
@@ -83,6 +90,7 @@ def get_profile(param):
 
 
 def search_profile(cat, id):
+    print('search_profile, cat=', cat, ' id=', id)
     if cat == 'academic':
         res = get_academic_byLecturer(id)
     elif cat == 'achievement':
@@ -93,19 +101,31 @@ def search_profile(cat, id):
         res = get_experience_byLecturer(id)
     elif cat == 'finalTask':
         res = get_finalTask_byLecturer(id)
-    elif cat == 'journal' or cat == 'patent' or cat == 'otherpub':
-        res = get_publication_byLecturer(cat, id)
+    # elif cat == 'journal' or cat == 'patent' or cat == 'otherpub':
+    elif cat == 'journal':
+        res = get_publication_byLecturer('journal', id)
+    elif cat == 'patent':
+        res = get_publication_byLecturer('patent', id)
+    elif cat == 'otherpub':
+        res = get_publication_byLecturer('other', id)
     elif cat == 'research':
         res = get_research_byLecturer(id)
     elif cat == 'organization':
         res = get_organization_byLecturer(id)
+    elif cat == 'socres':
+        res = get_socres_byLecturer(id)
     else:
         res = {
             'message': 'not'
         }
+    print('res search_profile =', res)
     if "not" not in res['message']:
         print(res)
-        return res['results']
+        # content = {
+        #     cat: res['results']
+        # }
+        # return content
+        return res
     else:
         return "not found"
 # @general_blueprint.route('/datas/files', methods=['GET'])

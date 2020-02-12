@@ -159,16 +159,19 @@ def delete_achievement(id):
 
 def get_achievement_byLecturer(nip):
     try:
-        data = sess.query(achievement).filter(achievement.lecturer_nip == nip).first()
-        if data is not None:
-            res = {
-                'id': data.id,
-                'lecturer_nip': data.lecturer_nip,
-                'title': data.title,
-                'issuer': data.issuer,
-                'year': data.year,
-                'filepath': data.filepath
-            }
+        datas = sess.query(achievement).filter(achievement.lecturer_nip == nip).all()
+        if datas is not None:
+            res = []
+            for data in datas:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'title': data.title,
+                    'issuer': data.issuer,
+                    'year': data.year,
+                    'filepath': data.filepath
+                }
+                res.append(temp)
             ret = {
                 'status': 200,
                 'message': 'This is the registered academic lecturer',

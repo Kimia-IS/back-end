@@ -112,23 +112,26 @@ def get_socres_byID(id):
 
 def get_socres_byLecturer(id):
     try:
-        data = sess.query(socres).filter(socres.lecturer_nip == id).first()
-        if data is not None:
-            selected_socres = {
-                'id': data.id,
-                'lecturer_nip': data.lecturer_nip,
-                'title': data.title,
-                'investor': data.investor,
-                'year': data.year,
-                'amount': data.amount,
-                'position': data.position,
-                'filepath': data.filepath,
-                'other_parties': data.other_parties,
-            }
+        datas = sess.query(socres).filter(socres.lecturer_nip == id).all()
+        if datas is not None:
+            res = []
+            for data in datas:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'title': data.title,
+                    'investor': data.investor,
+                    'year': data.year,
+                    'amount': data.amount,
+                    'position': data.position,
+                    'filepath': data.filepath,
+                    'other_parties': data.other_parties,
+                }
+                res.append(temp)
             ret = {
                 'status': 200,
-                'message': 'This is the '+data.lecturer_nip+' socres',
-                'results': selected_socres
+                'message': 'This is the  socres',
+                'results': res
             }
             return ret
         else:

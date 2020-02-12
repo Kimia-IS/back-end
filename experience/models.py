@@ -103,21 +103,24 @@ def get_experience_byID(id):
 
 def get_experience_byLecturer(id):
     try:
-        data = sess.query(experience).filter(experience.lecturer_nip == id).first()
-        if data is not None:
-            selected_experience = {
-                'id': data.id,
-                'lecturer_nip': data.lecturer_nip,
-                'job_name': data.job_name,
-                'job_type': data.job_type,
-                'year': data.year,
-                'term': data.term,
-                'filepath': data.filepath
-            }
+        datas = sess.query(experience).filter(experience.lecturer_nip == id).all()
+        if datas is not None:
+            res = []
+            for data in datas:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'job_name': data.job_name,
+                    'job_type': data.job_type,
+                    'year': data.year,
+                    'term': data.term,
+                    'filepath': data.filepath
+                }
+                res.append(temp)
             ret = {
                 'status': 200,
-                'message': 'This is the '+data.lecturer_nip+' Experience',
-                'results': selected_experience
+                'message': 'This is the Experience',
+                'results': res
             }
             return ret
         else:

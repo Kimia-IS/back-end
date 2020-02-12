@@ -132,26 +132,29 @@ def get_finalTask_byID(id):
 
 def get_finalTask_byLecturer(nip):
     try:
-        data = sess.query(finalTask, finalTask_file, finalTask_lecturer).\
+        datas = sess.query(finalTask, finalTask_file, finalTask_lecturer).\
             filter(finalTask_lecturer.lecturer_nip == nip).filter(finalTask.id == id).\
             filter(finalTask.id == finalTask_file.final_task_id).filter(finalTask.id == finalTask_lecturer.final_task_id).\
-            first()
-        if data is not None:
-            res = {
-                'final_task_id': data.finalTask.id,
-                'student_name': data.finalTask.student_name,
-                'student_nim': data.finalTask.student_nim,
-                'student_type': data.finalTask.student_type,
-                'title': data.finalTask.title,
-                'lecturer_nip': data.finalTask_lecturer.lecturer_nip,
-                'lecturer_position': data.finalTask_lecturer.lecturer_position,
-                'file_path': data.finalTask_file.file_path,
-                'starting_date': data.finalTask.starting_date,
-                'graduation_date': data.finalTask.graduation_date,
-            }
+            all()
+        if datas is not None:
+            res = []
+            for data in datas:
+                temp = {
+                    'final_task_id': data.finalTask.id,
+                    'student_name': data.finalTask.student_name,
+                    'student_nim': data.finalTask.student_nim,
+                    'student_type': data.finalTask.student_type,
+                    'title': data.finalTask.title,
+                    'lecturer_nip': data.finalTask_lecturer.lecturer_nip,
+                    'lecturer_position': data.finalTask_lecturer.lecturer_position,
+                    'file_path': data.finalTask_file.file_path,
+                    'starting_date': data.finalTask.starting_date,
+                    'graduation_date': data.finalTask.graduation_date,
+                }
+                res.append(temp)
             ret = {
                 'status': 200,
-                'message': 'This is the registered finalTask that managed by lecturer '+ nip,
+                'message': 'This is the registered finalTask that managed by lecturer ',
                 'results': res
             }
             return ret

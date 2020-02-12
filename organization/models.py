@@ -159,16 +159,19 @@ def delete_organization(id):
 
 def get_organization_byLecturer(nip):
     try:
-        data = sess.query(organization).filter(organization.lecturer_nip == nip).first()
-        if data is not None:
-            res = {
-                'id': data.id,
-                'lecturer_nip': data.lecturer_nip,
-                'organization_name': data.organization_name,
-                'position': data.position,
-                'year': data.year,
-                'filepath': data.filepath
-            }
+        datas = sess.query(organization).filter(organization.lecturer_nip == nip).all()
+        if datas is not None:
+            res = []
+            for data in datas:
+                temp = {
+                    'id': data.id,
+                    'lecturer_nip': data.lecturer_nip,
+                    'organization_name': data.organization_name,
+                    'position': data.position,
+                    'year': data.year,
+                    'filepath': data.filepath
+                }
+                res.append(temp)
             ret = {
                 'status': 200,
                 'message': "This is the registered Lecturer's Organization",

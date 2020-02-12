@@ -291,26 +291,28 @@ def get_all_publication_byCat(cat):
 
 def get_publication_byLecturer(cat, id):
     try:
-        print('in id = ', id)
         if cat == 'journal':
-            selected_publication = sess.query(journal).filter(journal.lecturer_nip == id).first()
+            datas = sess.query(journal).filter(journal.lecturer_nip == id).all()
             # corresponding_author = sess.query(journalCorrespondingAuthor).filter(
             #     journalCorrespondingAuthor.journal_id == id).first()
-            if selected_publication is not None:
-                temp = {
-                    'id': selected_publication.id,
-                    'lecturer_nip': selected_publication.lecturer_nip,
-                    'title': selected_publication.title,
-                    'issue': selected_publication.issue,
-                    'year': selected_publication.year,
-                    'number': selected_publication.number,
-                    'total_page': selected_publication.total_page,
-                    'type': selected_publication.type,
-                    'doi': selected_publication.doi,
-                    'link': selected_publication.link,
-                    'filepath': selected_publication.filepath,
-                    'names': selected_publication.names
-                }
+            if datas is not None:
+                obj = []
+                for data in datas:
+                    temp = {
+                        'id': data.id,
+                        'lecturer_nip': data.lecturer_nip,
+                        'title': data.title,
+                        'issue': data.issue,
+                        'year': data.year,
+                        'number': data.number,
+                        'total_page': data.total_page,
+                        'type': data.type,
+                        'doi': data.doi,
+                        'link': data.link,
+                        'filepath': data.filepath,
+                        'names': data.names
+                    }
+                    obj.append(temp)
                 res = {
                     'status': 200,
                     'message': 'This is the requested publication',
@@ -319,7 +321,7 @@ def get_publication_byLecturer(cat, id):
                     #     'publication': selected_publication,
                     #     'corresponding_author': ast.literal_eval(corresponding_author.names)
                     # }
-                    'results': temp
+                    'results': obj
                 }
             else:
                 res = {
@@ -327,21 +329,24 @@ def get_publication_byLecturer(cat, id):
                     'message': 'NIP is not registered'
                 }
         elif cat == 'patent':
-            selected_publication = sess.query(patent).filter(patent.lecturer_nip == id).first()
-            if selected_publication is not None:
-                temp = {
-                    'id': selected_publication.id,
-                    'lecturer_nip': selected_publication.lecturer_nip,
-                    'title': selected_publication.title,
-                    'status': selected_publication.status,
-                    'year': selected_publication.year,
-                    'publisher': selected_publication.publisher,
-                    'filepath': selected_publication.filepath
-                }
+            datas = sess.query(patent).filter(patent.lecturer_nip == id).all()
+            if datas is not None:
+                obj = []
+                for data in datas:
+                    temp = {
+                        'id': data.id,
+                        'lecturer_nip': data.lecturer_nip,
+                        'title': data.title,
+                        'status': data.status,
+                        'year': data.year,
+                        'publisher': data.publisher,
+                        'filepath': data.filepath
+                    }
+                    obj.append(res)
                 res = {
                     'status': 200,
                     'message': 'This is the requested publication',
-                    'results': temp
+                    'results': obj
                 }
             else:
                 res = {
@@ -349,20 +354,23 @@ def get_publication_byLecturer(cat, id):
                     'message': 'NIP is not registered'
                 }
         elif cat == 'otherpub':
-            selected_publication = sess.query(other_publication).filter(other_publication.lecturer_nip == id).first()
-            if selected_publication is not None:
-                temp = {
-                    'id': selected_publication.id,
-                    'lecturer_nip': selected_publication.lecturer_nip,
-                    'title': selected_publication.title,
-                    'year': selected_publication.year,
-                    'publisher': selected_publication.publisher,
-                    'filepath': selected_publication.filepath
-                }
+            datas = sess.query(other_publication).filter(other_publication.lecturer_nip == id).all()
+            if datas is not None:
+                obj = []
+                for data in datas:
+                    temp = {
+                        'id': data.id,
+                        'lecturer_nip': data.lecturer_nip,
+                        'title': data.title,
+                        'year': data.year,
+                        'publisher': data.publisher,
+                        'filepath': data.filepath
+                    }
+                    obj.append(temp)
                 res = {
                     'status': 200,
                     'message': 'This is the requested publication',
-                    'results': temp
+                    'results': obj
                 }
             else:
                 res = {

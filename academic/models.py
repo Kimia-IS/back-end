@@ -331,24 +331,28 @@ def get_all_courses():
 
 def get_academic_byLecturer(nip):
     try:
-        data = sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.lecturer_nip == nip).\
+        datas = sess.query(academic, lecturer, academic_lecturer).filter(academic_lecturer.lecturer_nip == nip).\
             filter(academic.course_id == academic_lecturer.course_id).\
-            filter(lecturer.nip == academic_lecturer.lecturer_nip).first()
-        if data is not None:
-            res = {
-                'id': data.academic_lecturer.id,
-                'course_id': data.academic.course_id,
-                'course_name': data.academic.course_name,
-                'total_credit': data.academic_lecturer.total_credit,
-                'class': data.academic_lecturer.course_class,
-                'lecturer(s)': data.lecturer.name,
-                'lecturer_credit': data.academic_lecturer.lecturer_credit
-            }
+            filter(lecturer.nip == academic_lecturer.lecturer_nip).all()
+        if datas is not None:
+            res = []
+            for data in datas:
+                temp = {
+                    'id': data.academic_lecturer.id,
+                    'course_id': data.academic.course_id,
+                    'course_name': data.academic.course_name,
+                    'total_credit': data.academic_lecturer.total_credit,
+                    'class': data.academic_lecturer.course_class,
+                    'lecturer(s)': data.lecturer.name,
+                    'lecturer_credit': data.academic_lecturer.lecturer_credit
+                }
+                res.append(temp)
             ret = {
                 'status': 200,
                 'message': 'This are the registered academic lecturer',
                 'results': res
             }
+            print('\nres get_academic_byLecturer =', res, '\n')
             return ret
         else:
             ret = {
