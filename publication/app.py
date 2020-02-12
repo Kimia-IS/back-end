@@ -79,7 +79,7 @@ def process_publication(cat):
                     type = request.form['type']
                     doi = request.form['doi']
                     link = request.form['link']
-                    filepath = process_file_upload(nip=lecturer_nip, cat, request.files.getlist('publication_files'))
+                    filepath = process_file_upload(nip=lecturer_nip, cat=cat, files=request.files.getlist('publication_files'))
 
                     # data for corresponding author
                     names = request.form['names']
@@ -101,7 +101,7 @@ def process_publication(cat):
                     status = request.form['status']
                     publisher = request.form['publisher']
                     year = request.form['year']
-                    filepath = process_file_upload(nip=lecturer_nip, cat, request.files.getlist('publication_files'))
+                    filepath = process_file_upload(nip=lecturer_nip, cat=cat, files=request.files.getlist('publication_files'))
 
                     # build new patent object
                     new_patent = patent(lecturer_nip=lecturer_nip, title=title, status=status, publisher=publisher,
@@ -118,7 +118,7 @@ def process_publication(cat):
                     lecturer_nip = request.form['lecturer_nip']
                     year = request.form['year']
                     publisher = request.form['publisher']
-                    filepath = process_file_upload(nip=lecturer_nip, cat, request.files.getlist('publication_files'))
+                    filepath = process_file_upload(nip=lecturer_nip, cat=cat, files=request.files.getlist('publication_files'))
 
                     # build new other publication object
                     new_other_publication = other_publication(title=title, lecturer_nip=lecturer_nip,
