@@ -44,7 +44,6 @@ def process_final_task():
             # call save method from final task object
             res = new_final_task.save()
             saved_id = res['results']['id']
-            print(saved_id)
             new_final_task_lecturer = finalTask_lecturer(final_task_id=saved_id, lecturer_nip=lecturer_nip,
                                                          lecturer_position=lecturer_position)
             new_final_task_lecturer.save()

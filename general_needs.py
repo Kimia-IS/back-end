@@ -61,16 +61,11 @@ def get_profile(param):
     category = param.split(':')[0]
     id = param.split(':')[1]
     res = {}
-    print('masuk')
-    print('param = ', param)
-    print('category =', category)
-    print('id =', id)
 
     if category == 'lecturer':
         # return get_finalTask_byLecturer(id)
         for data in tables:
             hasil = search_profile(data, id)
-            print('hasil =', hasil)
             if hasil != "not found":
                 res[data] = hasil
                 #res.append(hasil)
@@ -80,7 +75,6 @@ def get_profile(param):
             res.append(hasil['results'])
         else:
             res.append('data not found for given ID')
-    print('res =', res)
     ret = {
         'status': 200,
         'message': 'Here are the results for id '+id,
@@ -90,7 +84,6 @@ def get_profile(param):
 
 
 def search_profile(cat, id):
-    print('search_profile, cat=', cat, ' id=', id)
     if cat == 'academic':
         res = get_academic_byLecturer(id)
     elif cat == 'achievement':
@@ -118,9 +111,7 @@ def search_profile(cat, id):
         res = {
             'message': 'not'
         }
-    print('res search_profile =', res)
     if "not" not in res['message']:
-        print(res)
         # content = {
         #     cat: res['results']
         # }

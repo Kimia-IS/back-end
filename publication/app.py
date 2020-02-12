@@ -53,7 +53,6 @@ def process_publication(cat):
         # check the request method
         # if method == GET
         if request.method == 'GET':
-            print('id = ', request.args.get('id'))
             # check is there parameter ID
             if request.args.get('id') is None:
                 return jsonify(get_all_publication_byCat(cat))
@@ -61,17 +60,13 @@ def process_publication(cat):
 
         # if method == POST
         elif request.method == 'POST':
-            print('1')
             # if request file exist
             if request.files:
-                print('2')
                 # if category == journal
                 if cat == 'journal':
-                    print('3')
 
                     # get expected id from existing data to store it into task lecturer & file
                     temp_id = count_journal() + 1
-                    print(request.form)
                     # get data from request json
                     title = request.form['title']
                     lecturer_nip = request.form['lecturer_nip']
@@ -86,7 +81,6 @@ def process_publication(cat):
 
                     # data for corresponding author
                     names = request.form['names']
-                    print('names = ', names)
 
                     # build new journal object
                     new_publication = journal(title=title, lecturer_nip=lecturer_nip, year=year, number=number, issue=issue,

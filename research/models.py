@@ -74,14 +74,11 @@ class research_file(db.Model):
 
 def get_all_research():
     try:
-        print('masuk')
         #research_datas = sess.query(research, research_file).filter(research.id == research_file.research_id).all()
         research_datas = sess.query(research).all()
 
-        print('research_datas = ', research_datas)
         research_res = []
         for data in research_datas:
-            print('masuk loop')
             # res = {
             #     'id': data.research.id,
             #     'lecturer_nip': data.research.lecturer_nip,
@@ -106,9 +103,7 @@ def get_all_research():
                 'filepath': data.filepath
                 #'filepath': data_file.filepath
             }
-            print('res loop = ', res)
             research_res.append(res)
-        print(research_res)
         ret = {
             'status': 200,
             'message': 'These are the registered research',

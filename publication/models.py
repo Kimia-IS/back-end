@@ -38,13 +38,6 @@ class journal(db.Model):
                     'filepath': self.filepath,
                     'names': self.names
                 }
-                print('before the sess.add self')
-                # print('before the sess.add new_journal')
-                # sess.add(new_journal)       # masalah broo
-                print('lwaaatt')
-                print('lwaaattasdasd')
-                print('self names = ', self.names)
-                print('id = ', self.id)
                 
                 # savejourCorr = True
                 # for name in self.names:
@@ -55,15 +48,10 @@ class journal(db.Model):
                 #                 'message': 'something went wrong when we try to save corresponding author!'}
                 if self.names:
                     names = self.names.split(",")
-                    print('masuk if')
                     for name in names:
-                        print('masukloop')
-                        print('name = ', name)
                         journalCorrespondingAuthor(journal_id=self.id, names=name).save()
                 # else:
                 #     return {'status': 200, 'message': 'no corresponding author'}
-
-                print('lewat')
                 
                 ret = {
                     'status': 200,
@@ -92,7 +80,6 @@ class journalCorrespondingAuthor(db.Model):
 
     def save(self):
         try:
-            print('masukjournalcoor', self)
             sess.add(self)
             sess.commit()
             return True
@@ -216,7 +203,6 @@ def get_all_publication():
 def get_all_publication_byCat(cat):
     try:
         if cat == 'journal':
-            print('masukkik journal')
             # publications = sess.query(journal, journalCorrespondingAuthor). \
             #    filter(journal.id == journalCorrespondingAuthor.journal_id).all()
             publications = sess.query(journal).all()
@@ -237,9 +223,7 @@ def get_all_publication_byCat(cat):
                     'names': data.names
                 }
                 res.append(temp)
-            print(res)
         elif cat == 'patent':
-            print('masukkik patent')
             publications = sess.query(patent).all()
             res = []
             for data in publications:
@@ -253,9 +237,7 @@ def get_all_publication_byCat(cat):
                     'filepath': data.filepath
                 }
                 res.append(temp)
-            print(res)
         elif cat == 'other':
-            print('masukkik other_publication')
             publications = sess.query(other_publication).all()
             res = []
             for data in publications:
@@ -268,7 +250,6 @@ def get_all_publication_byCat(cat):
                     'filepath': data.filepath
                 }
                 res.append(temp)
-            print(res)
         else:
             publications = 'category is not defined'
 
@@ -278,7 +259,6 @@ def get_all_publication_byCat(cat):
             'results': res
         }
 
-        print('res = ', res)
         return res
     except Exception as e:
         res = {
@@ -383,7 +363,6 @@ def get_publication_byLecturer(cat, id):
                 'message': 'Wrong category request'
             }
 
-        print(res)
         return res
     except Exception as e:
         ret = {
@@ -395,7 +374,6 @@ def get_publication_byLecturer(cat, id):
 
 def get_publication_byID(cat, id):
     try:
-        print('in id = ', id)
         if cat == 'journal':
             selected_publication = sess.query(journal).filter(journal.id == id).first()
             # corresponding_author = sess.query(journalCorrespondingAuthor).filter(
@@ -461,7 +439,6 @@ def get_publication_byID(cat, id):
                 'message': 'Wrong category request'
             }
 
-        print(res)
         return res
     except Exception as e:
         ret = {

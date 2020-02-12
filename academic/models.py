@@ -352,7 +352,6 @@ def get_academic_byLecturer(nip):
                 'message': 'This are the registered academic lecturer',
                 'results': res
             }
-            print('\nres get_academic_byLecturer =', res, '\n')
             return ret
         else:
             ret = {
