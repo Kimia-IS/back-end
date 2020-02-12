@@ -54,11 +54,13 @@ def process_research():
                         # make a directory if it doesn't exist
                         os.makedirs('datas/files/research')
 
+                    filename = lecturer_nip + '_' + file.filename.replace(' ', '_')
+
                     # save file to /datas/files/finalTasks
-                    file.save(os.path.join('datas/files/research', file.filename))
+                    file.save(os.path.join('datas/files/research', filename))
 
                     # append the path to filepath list
-                    filepath.append('datas/files/research/' + file.filename)
+                    filepath.append('datas/files/research/' + filename)
 
                 # build new research method
                 new_research = research(lecturer_nip=lecturer_nip, year=year, title=title, investor=investor,

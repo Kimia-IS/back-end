@@ -65,11 +65,13 @@ def process_final_task():
                     # make a directory if it doesn't exist
                     os.makedirs('datas/files/finalTasks')
 
+                filename = lecturer_nip + '_' + file.filename.replace(' ', '_')
+
                 # save file to /datas/files/finalTasks
-                file.save(os.path.join('datas/files/finalTasks', file.filename))
+                file.save(os.path.join('datas/files/finalTasks', filename))
 
                 # append the path to filepath list
-                filepath.append('datas/files/finalTasks/' + file.filename)
+                filepath.append('datas/files/finalTasks/' + filename)
 
             # build new final task file object
             new_final_task_file = finalTask_file(final_task_id=saved_id, file_path=str(filepath))

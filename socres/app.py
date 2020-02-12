@@ -55,11 +55,13 @@ def process_socres():
                     # make a directory if it doesn't exist
                     os.makedirs('datas/files/socres')
 
+                filename = lecturer_nip + '_' + file.filename.replace(' ', '_')
+
                 # save file to /datas/files/finalTasks
-                file.save(os.path.join('datas/files/socres', file.filename))
+                file.save(os.path.join('datas/files/socres', filename))
 
                 # append the path to filepath list
-                filepath.append('datas/files/socres/' + file.filename)
+                filepath.append('datas/files/socres/' + filename)
 
             # build new socres method
             new_socres = socres(lecturer_nip=lecturer_nip, title=title, investor=investor, year=year, amount=amount, position=position,

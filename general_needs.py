@@ -32,12 +32,20 @@ def upload_bulk(cat):
         elif cat == 'academicLecturer':
             academic_lecturer(course_id=data[1].split(';')[0], course_class=data[1].split(';')[1], lecturer_nip=data[1].split(';')[2],
                               lecturer_credit=data[1].split(';')[3], total_credit=data[1].split(';')[4]).save()
-        elif cat == 'admin':
-            admin(name=data[1].split(';')[0], role=data[1].split(';')[1], auth_id=data[1].split(';')[2],
-                  password=data[1].split(';')[3], email=data[1].split(';')[4]).save()
-        elif cat == 'lecturer':
-            lecturer(name=data[1].split(';')[0], role=data[1].split(';')[1], nip=data[1].split(';')[2],
-                     password=data[1].split(';')[3], email=data[1].split(';')[4]).save()
+        elif cat == 'account':
+            temp_role = int(data[1].split(';')[1])
+            if (temp_role == 4) or (temp_role == 5) or (temp_role == 6):
+                cat_role = 'lecturer'
+            elif (temp_role == 1) or (temp_role == 2) or (temp_role == 3):
+                cat_role = 'admin'
+            if cat_role == 'admin':
+                admin(name=data[1].split(';')[0], role=data[1].split(';')[1], auth_id=data[1].split(';')[2],
+                      password=data[1].split(';')[3], email=data[1].split(';')[4]).save()
+            elif cat_role == 'lecturer':
+                lecturer(name=data[1].split(';')[0], role=data[1].split(';')[1], nip=data[1].split(';')[2],
+                         password=data[1].split(';')[3], email=data[1].split(';')[4]).save()
+            # else:
+            #     return jsonify({'status': 400, 'message': 'No role'})
         total = total + 1
     ret = {
         'status': 200,
@@ -46,10 +54,10 @@ def upload_bulk(cat):
     return jsonify(ret)
 
 
-@general_blueprint.route('/download', methods=['POST'])
+@general_blueprint.route('/download', methods=['GET'])
 def download_file():
     try:
-        filepath = request.form['filepath']
+        filepath = request.args.get('filepath')
         return send_file(filepath, as_attachment=True)
     except Exception as e:
         return str(e)

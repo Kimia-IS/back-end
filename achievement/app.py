@@ -51,11 +51,13 @@ def process_achievements():
                 # make a directory if it doesn't exist
                 os.makedirs('datas/files/achievements')
 
+            filename = lecturer_nip + '_' + file.filename.replace(' ', '_')
+
             # save file to /datas/files/finalTasks
-            file.save(os.path.join('datas/files/achievements', file.filename))
+            file.save(os.path.join('datas/files/achievements', filename))
 
             # append the path to filepath list
-            filepath.append('datas/files/achievements/' + file.filename)
+            filepath.append('datas/files/achievements/' + filename)
 
         # build new achievement method
         new_achievement = achievement(lecturer_nip=lecturer_nip, title=title, issuer=issuer, year=year, filepath=str(filepath))

@@ -53,11 +53,13 @@ def process_experiences():
                     # make a directory if it doesn't exist
                     os.makedirs('datas/files/experiences')
 
+                filename = lecturer_nip + '_' + file.filename.replace(' ', '_')
+
                 # save file to /datas/files/finalTasks
-                file.save(os.path.join('datas/files/experiences', file.filename))
+                file.save(os.path.join('datas/files/experiences', filename))
 
                 # append the path to filepath list
-                filepath.append('datas/files/experiences/' + file.filename)
+                filepath.append('datas/files/experiences/' + filename)
 
             # build new experience method
             new_experience = experience(lecturer_nip=lecturer_nip, job_name=job_name, job_type=job_type, year=year,

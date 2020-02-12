@@ -14,7 +14,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def process_file_upload(cat, files):
+def process_file_upload(nip, cat, files):
     # loop over the file list
     filepath = []
     for file in files:
@@ -32,11 +32,13 @@ def process_file_upload(cat, files):
             # make a directory if it doesn't exist
             os.makedirs('datas/files/publications/'+cat)
 
+        filename = nip + '_' + file.filename.replace(' ', '_')
+
         # save file to /datas/files/finalTasks
-        file.save(os.path.join('datas/files/publications/'+cat, file.filename))
+        file.save(os.path.join('datas/files/publications/'+cat, filename))
 
         # append the path to filepath list
-        filepath.append('datas/files/publications/'+cat+'/' + file.filename)
+        filepath.append('datas/files/publications/'+cat+'/' + filename)
 
     # return the filepath
     return str(filepath)
@@ -77,7 +79,7 @@ def process_publication(cat):
                     type = request.form['type']
                     doi = request.form['doi']
                     link = request.form['link']
-                    filepath = process_file_upload(cat, request.files.getlist('publication_files'))
+                    filepath = process_file_upload(nip=lecturer_nip, cat, request.files.getlist('publication_files'))
 
                     # data for corresponding author
                     names = request.form['names']
@@ -99,7 +101,7 @@ def process_publication(cat):
                     status = request.form['status']
                     publisher = request.form['publisher']
                     year = request.form['year']
-                    filepath = process_file_upload(cat, request.files.getlist('publication_files'))
+                    filepath = process_file_upload(nip=lecturer_nip, cat, request.files.getlist('publication_files'))
 
                     # build new patent object
                     new_patent = patent(lecturer_nip=lecturer_nip, title=title, status=status, publisher=publisher,
@@ -116,7 +118,7 @@ def process_publication(cat):
                     lecturer_nip = request.form['lecturer_nip']
                     year = request.form['year']
                     publisher = request.form['publisher']
-                    filepath = process_file_upload(cat, request.files.getlist('publication_files'))
+                    filepath = process_file_upload(nip=lecturer_nip, cat, request.files.getlist('publication_files'))
 
                     # build new other publication object
                     new_other_publication = other_publication(title=title, lecturer_nip=lecturer_nip,

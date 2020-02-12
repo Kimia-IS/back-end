@@ -51,11 +51,13 @@ def process_organizations():
                 # make a directory if it doesn't exist
                 os.makedirs('datas/files/organizations')
 
+            filename = lecturer_nip + '_' + file.filename.replace(' ', '_')
+
             # save file to /datas/files/finalTasks
-            file.save(os.path.join('datas/files/organizations', file.filename))
+            file.save(os.path.join('datas/files/organizations', filename))
 
             # append the path to filepath list
-            filepath.append('datas/files/organizations/' + file.filename)
+            filepath.append('datas/files/organizations/' + filename)
 
         # build new organization method
         new_organization = organization(lecturer_nip=lecturer_nip, organization_name=organization_name, position=position, year=year, filepath=str(filepath))
