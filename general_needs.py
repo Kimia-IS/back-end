@@ -10,6 +10,7 @@ from organization.models import get_organization_byLecturer, organization
 from socres.models import get_socres_byLecturer, socres
 import pandas as pd
 import os
+import bcrypt
 
 general_blueprint = Blueprint('general_blueprint', __name__)
 
@@ -40,10 +41,10 @@ def upload_bulk(cat):
                 cat_role = 'admin'
             if cat_role == 'admin':
                 admin(name=data[1].split(';')[0], role=data[1].split(';')[1], auth_id=data[1].split(';')[2],
-                      password=data[1].split(';')[3], email=data[1].split(';')[4]).save()
+                      password=bcrypt.hashpw(data[1].split(';')[3].encode('utf-8'), bcrypt.gensalt()), email=data[1].split(';')[4]).save()
             elif cat_role == 'lecturer':
                 lecturer(name=data[1].split(';')[0], role=data[1].split(';')[1], nip=data[1].split(';')[2],
-                         password=data[1].split(';')[3], email=data[1].split(';')[4]).save()
+                         password=bcrypt.hashpw(data[1].split(';')[3].encode('utf-8'), bcrypt.gensalt()), email=data[1].split(';')[4]).save()
             # else:
             #     return jsonify({'status': 400, 'message': 'No role'})
         total = total + 1

@@ -53,18 +53,19 @@ def lecturer_delete(nip):
 
 @auth_blueprint.route('/auth/lecturer/login', methods=['POST'])
 def lecturer_login():
-
+    print('masuk auth login lecturer')
     # build new lecturer object
     selected_lecturer = lecturer()
 
     # get response from login lecturer method
     res = selected_lecturer.login(request.json['password'], request.json['nip'])
+    print(res['results'])
 
     # if found, loggin in
     if res['status']:
         ret = {
             'status': 200,
-            'message': 'Berhasil Log In '+res['lecturer'].name
+            'message': 'Berhasil Log In '#+res['lecturer'].name
         }
         return jsonify(ret)
 
