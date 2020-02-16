@@ -1,8 +1,126 @@
 from db_config import db, sess
-from sqlalchemy import ForeignKey
+from flask import session as logged_in
+import secrets
 import bcrypt
 
 roles = ['', 'Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'Dosen', 'Kaprodi']
+
+
+def logout():
+    try:
+        print(logged_in)
+        if logged_in['status']:
+            logged_in.clear()
+            ret ={
+                'status': 200,
+                'message': 'Log out Success',
+                'results': logged_in.get('user')
+            }
+            print(logged_in)
+            return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': 'You are not logged in!'
+            }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
+def sessionCheck():
+    # res = logged_in.get('user')
+    # return res
+    if 'status' not in logged_in:
+        res ={
+            'status': False,
+            'token': 999,
+            'user': None
+        }
+    else:
+        res = {
+            'status': logged_in.get('status'),
+            'token': logged_in.get('token'),
+            'user': logged_in.get('user')
+        }
+    return res
+
+
+def login(cat, id, password):
+    try:
+        if 'status' not in logged_in:
+            logged_in['status'] = False
+            logged_in['token'] = 999
+            logged_in['user'] = None
+        if not logged_in['status']:
+            if cat != 'lecturer' and cat != 'admin':
+                ret = {
+                    'status': 200,
+                    'message': 'wrong category'
+                }
+                return ret
+            if cat == 'lecturer':
+                checkuser = sess.query(lecturer).filter(lecturer.nip == id).first()
+            else:
+                checkuser = sess.query(admin).filter(admin.auth_id == id).first()
+            if checkuser is not None:
+                if bcrypt.checkpw(password.encode('utf-8'), checkuser.password.encode('utf-8')):
+                    if cat == 'lecturer':
+                        user = {
+                            'nip': checkuser.nip,
+                            'email': checkuser.email,
+                            'name': checkuser.name
+                        }
+                    else:
+                        user = {
+                            'auth_id': checkuser.auth_id,
+                            'email': checkuser.email,
+                            'name': checkuser.name
+                        }
+                    logged_in['status'] = True
+                    logged_in['token'] = secrets.token_hex(16)[0:30]
+                    logged_in['user'] = user
+                    sessions = {
+                        'token': logged_in.get('token'),
+                        'user': logged_in.get('user')
+                    }
+                    ret = {
+                        'status': True,
+                        'message': 'Login successful',
+                        'results': sessions
+                    }
+
+                    return ret
+                else:
+                    ret = {
+                        'status': False,
+                        'message': "You've entered the wrong password"
+                    }
+                    return ret
+            else:
+                ret = {
+                    'status': 200,
+                    'message': 'ID is not registered'
+                }
+                return ret
+        else:
+            ret = {
+                'status': 200,
+                'message': "You've logged in with token "+str(logged_in['token'])
+            }
+            return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
 class lecturer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
@@ -20,10 +138,7 @@ class lecturer(db.Model):
                     'message': "NIP already registered, try again another NIP"
                 }
                 return ret
-            sess.add(self)
-            sess.commit()
             new_lecturer = {
-                'id': self.id,
                 'name': self.name,
                 'role': self.role,
                 'nip': self.nip,
@@ -34,10 +149,12 @@ class lecturer(db.Model):
                 'message': 'Lecturer Registered',
                 'results': new_lecturer
             }
+            sess.add(self)
+            sess.commit()
             return ret
         except Exception as e:
             ret = {
-                'status': 500,
+                'status': 200,
                 'message': e.args,
             }
             return ret
@@ -93,35 +210,6 @@ class lecturer(db.Model):
             else:
                 ret = {
                     'status': 200,
-                    'message': "NIP is not registered"
-                }
-                return ret
-        except Exception as e:
-            ret = {
-                'status': 500,
-                'message': e.args
-            }
-            return ret
-
-    def login(self, password, nip):
-        try:
-            selected_lecturer = sess.query(lecturer).filter(lecturer.nip == nip).first()
-            if selected_lecturer is not None:
-                if bcrypt.checkpw(password.encode('utf-8'), selected_lecturer.password.encode('utf-8')):
-                    ret = {
-                        'status': True,
-                        'message': 'Login successful',
-                        'results': selected_lecturer
-                    }
-                    return ret
-                ret = {
-                    'status': False,
-                    'message': "You've entered wrong password!"
-                }
-                return ret
-            else:
-                ret = {
-                    'status': False,
                     'message': "NIP is not registered"
                 }
                 return ret
@@ -223,35 +311,6 @@ class admin(db.Model):
             else:
                 ret = {
                     'status': 200,
-                    'message': "Auth_ID is not registered"
-                }
-                return ret
-        except Exception as e:
-            ret = {
-                'status': 500,
-                'message': e.args
-            }
-            return ret
-
-    def login(self, password, auth_id):
-        try:
-            selected_admin = sess.query(admin).filter(admin.auth_id == auth_id).first()
-            if selected_admin is not None:
-                if bcrypt.checkpw(password.encode('utf-8'), selected_admin.password.encode('utf-8')):
-                    ret = {
-                        'status': True,
-                        'message': 'Login successful',
-                        'results': selected_admin
-                    }
-                    return ret
-                ret = {
-                    'status': False,
-                    'message': "You've entered wrong password!"
-                }
-                return ret
-            else:
-                ret = {
-                    'status': False,
                     'message': "Auth_ID is not registered"
                 }
                 return ret

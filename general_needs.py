@@ -69,7 +69,7 @@ def get_profile(param):
     tables = ['academic', 'achievement', 'profile', 'experience', 'finalTask', 'organization', 'journal', 'patent', 'otherpub', 'research', 'socres']
     category = param.split(':')[0]
     id = param.split(':')[1]
-    res = {}
+    res = []
 
     if category == 'lecturer':
         # return get_finalTask_byLecturer(id)
