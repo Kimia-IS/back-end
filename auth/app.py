@@ -71,8 +71,12 @@ def lecturer_login(cat):
 
     # get response from login lecturer method
     res = login(cat, request.json['id'], request.json['password'])
+    # res = {
+    #     'status': False
+    # }
     print(res)
-
+    # if res['status']:
+    #     request.headers.add('authorization_token', res['results']['token'])
     return jsonify(res)
 
 

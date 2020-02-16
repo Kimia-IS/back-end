@@ -32,7 +32,7 @@ app.register_blueprint(socres_blueprint)
 app.register_blueprint(organization_blueprint)
 app.register_blueprint(announcement_blueprint)
 app.register_blueprint(general_blueprint)
-app.permanent_session_lifetime = datetime.timedelta(minutes=60)
+app.permanent_session_lifetime = datetime.timedelta(minutes=1)
 CORS(app)
 
 app.run(debug = True) # host = '0.0.0.0' for local Docker running
