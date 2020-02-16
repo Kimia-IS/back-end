@@ -82,7 +82,7 @@ def login(cat, id, password):
                             'name': checkuser.name
                         }
                     logged_in['status'] = True
-                    logged_in['token'] = secrets.token_hex(16)[0:30]
+                    logged_in['token'] = secrets.token_hex(16)[0:100]
                     logged_in['user'] = user
                     sessions = {
                         'token': logged_in.get('token'),

@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8976b4e2-2839-49e5-840b-091e07119d13" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth/models.py" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+=======
+>>>>>>> 90c94fe391c36afe5d8a9cd3421b6763abbb84f0
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,8 +188,12 @@
       <workItem from="1581004144727" duration="6716000" />
       <workItem from="1581045532817" duration="7940000" />
       <workItem from="1581334513883" duration="10699000" />
+<<<<<<< HEAD
       <workItem from="1581767216630" duration="10803000" />
       <workItem from="1581828732025" duration="1400000" />
+=======
+      <workItem from="1581767216630" duration="10690000" />
+>>>>>>> 90c94fe391c36afe5d8a9cd3421b6763abbb84f0
     </task>
     <task id="LOCAL-00001" summary="python dependencies">
       <created>1575796348241</created>

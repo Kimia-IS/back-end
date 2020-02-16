@@ -11,7 +11,28 @@ def generatePassword():
 
 @auth_blueprint.route('/auth/check', methods=['POST'])
 def check_auth():
-    return jsonify(sessionCheck())
+    if request.headers.get('token') is not None:
+        token = request.headers.get('token')
+        if token == sessionCheck()['token']:
+            res = {
+                'status': 202,
+                'token_verification': True,
+                'message': 'You are authorized to access this data'
+            }
+        else:
+            res = {
+                'status': 203,
+                'token_verification': False,
+                'message': 'You are not authorized to access this data'
+            }
+        return jsonify(res)
+    else:
+        res = {
+            'status': 203,
+            'token_verification': False,
+            'message': 'Need token'
+        }
+        return jsonify(res)
     # return str(sessionCheck())
 
 
@@ -70,13 +91,8 @@ def lecturer_delete(nip):
 def lecturer_login(cat):
 
     # get response from login lecturer method
-    res = login(cat, request.json['id'], request.json['password'])
-    # res = {
-    #     'status': False
-    # }
-    print(res)
-    # if res['status']:
-    #     request.headers.add('authorization_token', res['results']['token'])
+    res = login(cat, request.form['id'], request.form['password'])
+
     return jsonify(res)
 
 
