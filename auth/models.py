@@ -9,7 +9,7 @@ roles = ['', 'Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'D
 def logout():
     try:
         print(logged_in)
-        if logged_in['status']:
+        if logged_in.get('status'):
             logged_in.clear()
             ret ={
                 'status': 200,
@@ -20,23 +20,32 @@ def logout():
             return ret
         else:
             ret = {
-                'status': 200,
+                'status': 400,
                 'message': 'You are not logged in!'
             }
         return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 400,
             'message': e.args
         }
         return ret
 
+def getToken():
+    print(logged_in.get('token') + '  oi')
+    return logged_in.get('token')
+
+def getUser():
+    print(logged_in.get('user'))
+    print('-')
+    return logged_in.get('user')
 
 def sessionCheck():
     # res = logged_in.get('user')
     # return res
-    if 'status' not in logged_in:
-        res ={
+    print('token =',logged_in.get('token'))
+    if logged_in.get('status') == False:
+        res = {
             'status': False,
             'token': 999,
             'user': None
@@ -56,7 +65,7 @@ def login(cat, id, password):
             logged_in['status'] = False
             logged_in['token'] = 999
             logged_in['user'] = None
-        if not logged_in['status']:
+        if not logged_in.get('status'):
             if cat != 'lecturer' and cat != 'admin':
                 ret = {
                     'status': 200,
@@ -73,13 +82,15 @@ def login(cat, id, password):
                         user = {
                             'nip': checkuser.nip,
                             'email': checkuser.email,
-                            'name': checkuser.name
+                            'name': checkuser.name,
+                            'role': checkuser.role
                         }
                     else:
                         user = {
                             'auth_id': checkuser.auth_id,
                             'email': checkuser.email,
-                            'name': checkuser.name
+                            'name': checkuser.name,
+                            'role': checkuser.role
                         }
                     logged_in['status'] = True
                     logged_in['token'] = secrets.token_hex(16)[0:100]
@@ -94,21 +105,25 @@ def login(cat, id, password):
                         'message': 'Login successful',
                         'results': sessions
                     }
-
+                    print('ret =', ret['results']['token'])
+                    print(str(logged_in.get('token')) + '   1')
                     return ret
                 else:
+                    print(str(logged_in.get('token')) + '   2')
                     ret = {
                         'status': False,
                         'message': "You've entered the wrong password"
                     }
                     return ret
             else:
+                print(str(logged_in.get('token')) + '   3')
                 ret = {
                     'status': 200,
                     'message': 'ID is not registered'
                 }
                 return ret
         else:
+            print(str(logged_in.get('token')) + '   4')
             ret = {
                 'status': 200,
                 'message': "You've logged in with token "+str(logged_in['token'])
@@ -119,6 +134,7 @@ def login(cat, id, password):
             'status': 200,
             'message': e.args
         }
+        print(str(logged_in.get('token')) + '   5')
         return ret
 
 

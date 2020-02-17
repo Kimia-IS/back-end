@@ -1,6 +1,6 @@
 import bcrypt
 from flask import request, jsonify, Blueprint
-from auth.models import lecturer, admin, getAll, getByID, getAllUsersWithoutSuperAdmin, login, logout, sessionCheck
+from auth.models import lecturer, admin, getAll, getByID, getAllUsersWithoutSuperAdmin, login, logout, sessionCheck, getToken, getUser
 
 auth_blueprint = Blueprint('auth_blueprint', __name__)
 
@@ -8,16 +8,26 @@ auth_blueprint = Blueprint('auth_blueprint', __name__)
 def generatePassword():
     return "password"
 
+@auth_blueprint.route('/auth/get-token', methods=['GET'])
+def get_token():
+    token = getToken()
+    user = getUser()
+    print(token + ' oii')
+    print(user)
+    return jsonify({'token': token, 'user': user})
 
 @auth_blueprint.route('/auth/check', methods=['POST'])
 def check_auth():
-    if request.headers.get('token') is not None:
-        token = request.headers.get('token')
+    if request.form['token'] is not None:
+        token = request.form['token']
+        print('token =', token)
+        print('sessionCheck() =', sessionCheck())
         if token == sessionCheck()['token']:
             res = {
                 'status': 202,
                 'token_verification': True,
-                'message': 'You are authorized to access this data'
+                'message': 'You are authorized to access this data',
+                'payload': sessionCheck()
             }
         else:
             res = {
@@ -39,6 +49,7 @@ def check_auth():
 @auth_blueprint.route('/auth/logout', methods=['POST'])
 def process_logout():
     res = logout()
+    print('res =', res)
     return jsonify(res)
 
 
@@ -89,6 +100,8 @@ def lecturer_delete(nip):
 
 @auth_blueprint.route('/auth/login/<cat>', methods=['POST'])
 def lecturer_login(cat):
+
+    print('request =', request.form['id'])
 
     # get response from login lecturer method
     res = login(cat, request.form['id'], request.form['password'])
