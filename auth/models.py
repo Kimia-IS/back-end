@@ -59,6 +59,74 @@ def sessionCheck():
     return res
 
 
+def getByID_login_alternative(cat, id, password):
+    try:
+        if cat == 'lecturer':
+            lecturers = sess.query(lecturer).filter(lecturer.nip == id).first()
+            if lecturers is not None:
+                if bcrypt.checkpw(password.encode('utf-8'), lecturers.password.encode('utf-8')):
+                    res = {
+                        'id': lecturers.id,
+                        'name': lecturers.name,
+                        'role': roles[lecturers.role],
+                        'nip': lecturers.nip,
+                        'email': lecturers.email
+                    }
+                    ret ={
+                        'status': 200,
+                        'results': res,
+                        'message': 'This is lecturer with NIP '+ lecturers.nip
+                    }
+                else:
+                    ret = {
+                        'status': 200,
+                        'message': 'Wrong Password'
+                    }
+            else:
+                ret = {
+                    'status': 200,
+                    'message': 'NIP is not registered'
+                }
+        elif cat == 'admin':
+            admins = sess.query(admin).filter(admin.auth_id == id).first()
+            if admins is not None:
+                if bcrypt.checkpw(password.encode('utf-8'), admins.password.encode('utf-8')):
+                    res = {
+                        'id': admins.id,
+                        'name': admins.name,
+                        'role': roles[admins.role],
+                        'auth_id': admins.auth_id,
+                        'email': admins.email
+                    }
+                    ret = {
+                        'status': 200,
+                        'results': res,
+                        'message': 'This is admin with auth id ' + admins.auth_id
+                    }
+                else:
+                    ret = {
+                        'status': 200,
+                        'message': 'Wrong Password'
+                    }
+            else:
+                ret = {
+                    'status': 200,
+                    'message': 'ID is not registered'
+                }
+        else:
+            ret = {
+                'status': 200,
+                'message': 'Category not recognized'
+            }
+        return ret
+    except Exception as e:
+        ret = {
+            'status': 200,
+            'message': e.args
+        }
+        return ret
+
+
 def login(cat, id, password):
     try:
         if 'status' not in logged_in:

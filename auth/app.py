@@ -1,12 +1,19 @@
 import bcrypt
 from flask import request, jsonify, Blueprint
-from auth.models import lecturer, admin, getAll, getByID, getAllUsersWithoutSuperAdmin, login, logout, sessionCheck, getToken, getUser
+from auth.models import lecturer, admin, getAll, getByID, getAllUsersWithoutSuperAdmin, login, logout, sessionCheck, getToken, getUser, getByID_login_alternative
 
 auth_blueprint = Blueprint('auth_blueprint', __name__)
 
 
 def generatePassword():
     return "password"
+
+
+@auth_blueprint.route('/auth/login/alternative/<cat>', methods=['POST'])
+def alternative_login(cat):
+    res = getByID_login_alternative(cat, request.form['id'], request.form['password'])
+    return jsonify(res)
+
 
 @auth_blueprint.route('/auth/get-token', methods=['GET'])
 def get_token():
