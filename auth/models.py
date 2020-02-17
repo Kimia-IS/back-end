@@ -84,6 +84,7 @@ def login(cat, id, password):
                     logged_in['status'] = True
                     logged_in['token'] = secrets.token_hex(16)[0:100]
                     logged_in['user'] = user
+                    logged_in.modified = True
                     sessions = {
                         'token': logged_in.get('token'),
                         'user': logged_in.get('user')
