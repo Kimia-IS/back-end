@@ -93,7 +93,7 @@ def login(cat, id, password):
                             'role': checkuser.role
                         }
                     logged_in['status'] = True
-                    logged_in['token'] = secrets.token_hex(16)[0:100]
+                    logged_in['token'] = checkuser.token
                     logged_in['user'] = user
                     logged_in.modified = True
                     sessions = {
@@ -145,6 +145,7 @@ class lecturer(db.Model):
     nip = db.Column(db.String(255), primary_key=True, unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
+    token = db.Column(db.String(255), unique=True, nullable=True)
 
     def save(self):
         try:
