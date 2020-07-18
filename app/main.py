@@ -12,7 +12,7 @@ from organization.app import organization_blueprint
 from announcement import announcement_blueprint
 from general_needs import general_blueprint
 import datetime
-from db_config import db
+
 # from flask_jwt_extended import JWTManager				# 1
 
 app = Flask(__name__)
@@ -35,4 +35,4 @@ app.register_blueprint(general_blueprint)
 app.permanent_session_lifetime = datetime.timedelta(minutes=60)
 CORS(app)
 
-app.run(debug = True) # host = '0.0.0.0' for local Docker running
+app.run(debug=True, host='0.0.0.0') # host = '0.0.0.0' for local Docker running

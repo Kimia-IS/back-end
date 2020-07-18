@@ -1,15 +1,14 @@
 from flask import request, jsonify, Blueprint, send_file
 from academic.models import get_academic_byLecturer, academic, academic_lecturer
-from achievement.models import get_achievement_byLecturer, achievement
+from achievement.models import get_achievement_byLecturer
 from auth.models import getByID, admin, lecturer
-from experience.models import get_experience_byLecturer, experience
-from finalTask.models import get_finalTask_byLecturer, finalTask
-from publication.models import get_publication_byLecturer, journal, patent, other_publication
-from research.models import get_research_byLecturer, research
-from organization.models import get_organization_byLecturer, organization
-from socres.models import get_socres_byLecturer, socres
+from experience.models import get_experience_byLecturer
+from finalTask.models import get_finalTask_byLecturer
+from publication.models import get_publication_byLecturer
+from research.models import get_research_byLecturer
+from organization.models import get_organization_byLecturer
+from socres.models import get_socres_byLecturer
 import pandas as pd
-import os
 import bcrypt
 
 general_blueprint = Blueprint('general_blueprint', __name__)

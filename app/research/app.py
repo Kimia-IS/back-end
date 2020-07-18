@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from research.models import research, research_file, get_all_research, get_research_byID, edit_research, \
+from research.models import research, get_all_research, get_research_byID, edit_research, \
     edit_research_file, delete_research
 import os
 

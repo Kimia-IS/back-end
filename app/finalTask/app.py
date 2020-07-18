@@ -1,6 +1,5 @@
 from flask import request, jsonify, Blueprint
-from finalTask.models import finalTask, finalTask_lecturer, finalTask_file, get_all_final_task, count_final_task, \
-    edit_final_task, edit_final_task_file, edit_final_task_lecturer, deleteTask, deleteTask_file, deleteTask_lecturer, \
+from finalTask.models import finalTask, finalTask_lecturer, finalTask_file, get_all_final_task, edit_final_task, edit_final_task_file, edit_final_task_lecturer, deleteTask, deleteTask_file, deleteTask_lecturer, \
     get_finalTask_byID
 import os
 

@@ -2,7 +2,6 @@ from flask import request, jsonify, Blueprint
 from academic.models import academic, academic_lecturer, get_all_academic_lecturer, get_all_courses, \
     get_academicLecturer_byID, get_academicCourses_byID
 from ast import literal_eval as make_tuple
-from announcement import announcement
 
 academic_blueprint = Blueprint('academic_blueprint', __name__)
 

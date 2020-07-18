@@ -1,6 +1,5 @@
 from db_config import db, sess
 from flask import session as logged_in
-import secrets
 import bcrypt
 
 roles = ['', 'Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'Dosen', 'Kaprodi']

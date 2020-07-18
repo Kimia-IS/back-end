@@ -1,7 +1,6 @@
 from db_config import db, sess
 from auth.models import lecturer
 from sqlalchemy import ForeignKey
-import json
 
 
 class academic(db.Model):

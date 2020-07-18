@@ -1,6 +1,5 @@
 from db_config import db, sess
 from sqlalchemy import ForeignKey
-import ast
 
 
 class journal(db.Model):
