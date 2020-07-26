@@ -2,6 +2,7 @@ from db_config import db, sess
 from flask import session as logged_in
 import bcrypt
 
+
 roles = ['', 'Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'Dosen', 'Kaprodi']
 
 
@@ -553,3 +554,7 @@ def getByID(cat, id):
             'message': e.args
         }
         return ret
+
+
+def do_export():
+    return sess
