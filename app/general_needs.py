@@ -1,15 +1,17 @@
 from flask import request, jsonify, Blueprint, send_file
 from academic.models import get_academic_byLecturer, academic, academic_lecturer
-from achievement.models import get_achievement_byLecturer
+from achievement.models import get_achievement_byLecturer, achievement
 from auth.models import getByID, admin, lecturer, do_export
-from experience.models import get_experience_byLecturer
-from finalTask.models import get_finalTask_byLecturer
-from publication.models import get_publication_byLecturer
-from research.models import get_research_byLecturer
-from organization.models import get_organization_byLecturer
-from socres.models import get_socres_byLecturer
+from experience.models import get_experience_byLecturer, experience
+from finalTask.models import get_finalTask_byLecturer, finalTask, finalTask_lecturer, finalTask_file
+from publication.models import get_publication_byLecturer, journal, journalCorrespondingAuthor, patent, other_publication
+from research.models import get_research_byLecturer, research, research_file
+from organization.models import get_organization_byLecturer, organization
+from socres.models import get_socres_byLecturer, socres
 import pandas as pd
 import bcrypt
+from flask_excel import make_response_from_tables
+import pyexcel.ext.xls
 
 general_blueprint = Blueprint('general_blueprint', __name__)
 
@@ -137,4 +139,27 @@ def export_db():
             'message': 'You have to specify model name'
         }
         return jsonify(res)
-    return do_export(request.args.get('model'))
+    sess = do_export()
+    model = request.args.get('model')
+    if model == 'admin':
+        return make_response_from_tables(sess, [admin], 'xlsx', file_name='data')
+    elif model == 'lecturer':
+        return make_response_from_tables(sess, [lecturer], 'xlsx', file_name='data')
+    elif model == 'academic_lecturer':
+        return make_response_from_tables(sess, [academic_lecturer], 'xlsx', file_name='data')
+    elif model == 'achievement':
+        return make_response_from_tables(sess, [achievement], 'xlsx', file_name='data')
+    elif model == 'academic':
+        return make_response_from_tables(sess, [academic], 'xlsx', file_name='data')
+    elif model == 'experience':
+        return make_response_from_tables(sess, [experience], 'xlsx', file_name='data')
+    elif model == 'finalTask':
+        return make_response_from_tables(sess, [finalTask, finalTask_lecturer, finalTask_file], 'xlsx', file_name='data')
+    elif model == 'organization':
+        return make_response_from_tables(sess, [organization], 'xlsx', file_name='data')
+    elif model == 'publication':
+        return make_response_from_tables(sess, [journal, journalCorrespondingAuthor, patent, other_publication], 'xlsx', file_name='data')
+    elif model == 'research':
+        return make_response_from_tables(sess, [research, research_file], 'xlsx', file_name='data')
+    elif model == 'socres':
+        return make_response_from_tables(sess, [socres], 'xlsx', file_name='data')

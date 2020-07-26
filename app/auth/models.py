@@ -1,8 +1,7 @@
 from db_config import db, sess
 from flask import session as logged_in
 import bcrypt
-from flask_excel import make_response_from_tables
-import pyexcel.ext.xls
+
 
 roles = ['', 'Super Admin', 'Admin Akademik', 'Admin Non-Akademik', 'Tendik', 'Dosen', 'Kaprodi']
 
@@ -557,5 +556,5 @@ def getByID(cat, id):
         return ret
 
 
-def do_export(model):
-    return make_response_from_tables(sess, [admin], 'xlsx', file_name='admin')
+def do_export():
+    return sess
