@@ -1,7 +1,7 @@
 from flask import request, jsonify, Blueprint, send_file
 from academic.models import get_academic_byLecturer, academic, academic_lecturer
 from achievement.models import get_achievement_byLecturer
-from auth.models import getByID, admin, lecturer
+from auth.models import getByID, admin, lecturer, do_export
 from experience.models import get_experience_byLecturer
 from finalTask.models import get_finalTask_byLecturer
 from publication.models import get_publication_byLecturer
@@ -127,10 +127,14 @@ def search_profile(cat, id):
         return res
     else:
         return "not found"
-# @general_blueprint.route('/datas/files', methods=['GET'])
-# def show_file():
-#     print(masuk)
-#     path = request.args.get('path')
-#     print(path)
-#     if (path):
-#         return send_file(path)
+
+
+@general_blueprint.route('/export', methods=['GET'])
+def export_db():
+    if request.args.get('model') is None:
+        res = {
+            'status': 400,
+            'message': 'You have to specify model name'
+        }
+        return jsonify(res)
+    return do_export(request.args.get('model'))

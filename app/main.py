@@ -11,11 +11,13 @@ from socres.app import socres_blueprint
 from organization.app import organization_blueprint
 from announcement import announcement_blueprint
 from general_needs import general_blueprint
+from flask_excel import init_excel
 import datetime
 
 # from flask_jwt_extended import JWTManager				# 1
 
 app = Flask(__name__)
+init_excel(app)
 app.secret_key = "GB981UA7YT91"
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
