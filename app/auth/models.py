@@ -35,8 +35,6 @@ def getToken():
     return logged_in.get('token')
 
 def getUser():
-    print(logged_in.get('user'))
-    print('-')
     return logged_in.get('user')
 
 def sessionCheck():

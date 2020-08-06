@@ -15,39 +15,50 @@ def allowed_file(filename):
 
 
 def process_file_upload(nip, cat, files):
-    # loop over the file list
-    filepath = []
-    for file in files:
+    try:
+        # loop over the file list
+        filepath = []
+        for file in files:
 
-        # if the extension not allowed
-        if not allowed_file(file.filename):
-            ret = {
-                'status': 200,
-                'message': 'File Extension must be PDF or DOCX!'
-            }
-            return jsonify(ret)
+            # if the extension not allowed
+            if not allowed_file(file.filename):
+                ret = {
+                    'status': 200,
+                    'message': 'File Extension must be PDF or DOCX!'
+                }
+                return jsonify(ret)
 
-        # check the directory to save the file
-        if not os.path.exists('datas/files/publications/'+cat):
-            # make a directory if it doesn't exist
-            os.makedirs('datas/files/publications/'+cat)
+            # check the directory to save the file
+            if not os.path.exists('datas/files/publications/'+cat):
+                # make a directory if it doesn't exist
+                os.makedirs('datas/files/publications/'+cat)
 
-        filename = nip + '_' + file.filename.replace(' ', '_')
+            filename = nip + '_' + file.filename.replace(' ', '_')
 
-        # save file to /datas/files/finalTasks
-        file.save(os.path.join('datas/files/publications/'+cat, filename))
+            # save file to /datas/files/finalTasks
+            file.save(os.path.join('datas/files/publications/'+cat, filename))
 
-        # append the path to filepath list
-        filepath.append('datas/files/publications/'+cat+'/' + filename)
+            # append the path to filepath list
+            filepath.append('datas/files/publications/'+cat+'/' + filename)
 
-    # return the filepath
-    return str(filepath)
+        # return the filepath
+        return str(filepath)
+    except Exception as e:
+        res = {
+            'message': e.args
+        }
+        return res
 
 
 @publication_blueprint.route('/publication', methods=['GET'])
 def get_pub():
-    return jsonify(get_all_publication())
-
+    try:
+        return jsonify(get_all_publication())
+    except Exception as e:
+        res = {
+            'message': e.args
+        }
+        return res
 
 @publication_blueprint.route('/publication/<cat>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def process_publication(cat):
