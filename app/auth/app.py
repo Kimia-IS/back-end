@@ -19,39 +19,47 @@ def alternative_login(cat):
 def get_token():
     token = getToken()
     user = getUser()
-    print(token + ' oii')
-    print(user)
+    if user is None or token is None:
+        return jsonify({
+            'status': 400,
+            'message': 'You have to logged in first to access this resources',
+        }), 400
     return jsonify({'token': token, 'user': user})
 
 @auth_blueprint.route('/auth/check', methods=['POST'])
 def check_auth():
-    if request.form['token'] is not None:
-        token = request.form['token']
-        print('token =', token)
-        print('sessionCheck() =', sessionCheck())
-        if token == sessionCheck()['token']:
-            res = {
-                'status': 202,
-                'token_verification': True,
-                'message': 'You are authorized to access this data',
-                'payload': sessionCheck()
-            }
+    try:
+        if request.form['token'] is not None:
+            token = request.form['token']
+            print('token =', token)
+            print('sessionCheck() =', sessionCheck())
+            if token == sessionCheck()['token']:
+                res = {
+                    'status': 202,
+                    'token_verification': True,
+                    'message': 'You are authorized to access this data',
+                    'payload': sessionCheck()
+                }
+            else:
+                res = {
+                    'status': 203,
+                    'token_verification': False,
+                    'message': 'You are not authorized to access this data'
+                }
+            return jsonify(res), 200
         else:
             res = {
                 'status': 203,
                 'token_verification': False,
-                'message': 'You are not authorized to access this data'
+                'message': 'Need token'
             }
-        return jsonify(res)
-    else:
+            return jsonify(res), 203
+    except Exception as e:
         res = {
-            'status': 203,
-            'token_verification': False,
-            'message': 'Need token'
+            'status': 400,
+            'message': e.args
         }
-        return jsonify(res)
-    # return str(sessionCheck())
-
+        return jsonify(res), 400
 
 @auth_blueprint.route('/auth/logout', methods=['POST'])
 def process_logout():
