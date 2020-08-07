@@ -1,6 +1,7 @@
 app/datas/
 .idea
 .idea/
+/.vscode
 __pycache__
 __pycache__/
 venv

@@ -124,79 +124,85 @@ class announcement(db.Model):
 
 @announcement_blueprint.route('/announcements/<cat>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def process_announcements(cat):
-    # check request method
-    # if request method = POST
-    if request.method == 'GET':
+    try:
+        # check request method
+        # if request method = POST
+        if request.method == 'GET':
 
-        # build new announcement object
-        announcement_object = announcement()
+            # build new announcement object
+            announcement_object = announcement()
 
-        # call the getAll method from announcement object
-        ret = announcement_object.getAll()
-        return jsonify(ret)
-
-    # if request method = POST
-    elif request.method == 'POST':
-
-        # get data from json request
-        title = request.json['title']
-        content = request.json['content']
-        author = request.json['author']
-        if cat == 'academic':
-            module = 1
-        elif cat == 'achievement':
-            module = 2
-        elif cat == 'experience':
-            module = 3
-        elif cat == 'finalTask':
-            module = 4
-        elif cat == 'publication':
-            module = 5
-        elif cat == 'research':
-            module = 6
-        elif cat == 'socres':
-            module = 7
-        else:
-            ret = {
-                'status': 200,
-                'message': 'module not found'
-            }
+            # call the getAll method from announcement object
+            ret = announcement_object.getAll()
             return jsonify(ret)
-        created_at = date.today()
 
-        # build new announcement object with initial value
-        new_announcement = announcement(title=title, content=content, author=author, module=module,
-                                        created_at=created_at)
+        # if request method = POST
+        elif request.method == 'POST':
 
-        # call the save method from announcement object
-        ret = new_announcement.save()
-        return jsonify(ret)
+            # get data from json request
+            title = request.json['title']
+            content = request.json['content']
+            author = request.json['author']
+            if cat == 'academic':
+                module = 1
+            elif cat == 'achievement':
+                module = 2
+            elif cat == 'experience':
+                module = 3
+            elif cat == 'finalTask':
+                module = 4
+            elif cat == 'publication':
+                module = 5
+            elif cat == 'research':
+                module = 6
+            elif cat == 'socres':
+                module = 7
+            else:
+                ret = {
+                    'status': 200,
+                    'message': 'module not found'
+                }
+                return jsonify(ret)
+            created_at = date.today()
 
-    # if request method = PUT
-    elif request.method == 'PUT':
+            # build new announcement object with initial value
+            new_announcement = announcement(title=title, content=content, author=author, module=module,
+                                            created_at=created_at)
 
-        # get id from query
-        id = request.args.get('id')
+            # call the save method from announcement object
+            ret = new_announcement.save()
+            return jsonify(ret)
 
-        # build new announcement object
-        announcement_object = announcement()
+        # if request method = PUT
+        elif request.method == 'PUT':
 
-        # call the edit method from announcement object
-        ret = announcement_object.edit(id, request.form)
-        return jsonify(ret)
+            # get id from query
+            id = request.args.get('id')
 
-    # if request method = DELETE
-    elif request.method == 'DELETE':
-        # get id from query
-        id = request.args.get('id')
+            # build new announcement object
+            announcement_object = announcement()
 
-        # build new announcement object
-        announcement_object = announcement()
+            # call the edit method from announcement object
+            ret = announcement_object.edit(id, request.form)
+            return jsonify(ret)
 
-        # call the delete method from announcement object
-        ret = announcement_object.delete(id)
-        return jsonify(ret)
+        # if request method = DELETE
+        elif request.method == 'DELETE':
+            # get id from query
+            id = request.args.get('id')
 
-    # if request method is unknown
-    else:
-        return jsonify({'status': 500, 'message': 'Sorry, your request method is not recognized!'})
+            # build new announcement object
+            announcement_object = announcement()
+
+            # call the delete method from announcement object
+            ret = announcement_object.delete(id)
+            return jsonify(ret)
+
+        # if request method is unknown
+        else:
+            return jsonify({'status': 500, 'message': 'Sorry, your request method is not recognized!'})
+    except Exception as e:
+        res = {
+            'message': e.args
+        }
+        return res
