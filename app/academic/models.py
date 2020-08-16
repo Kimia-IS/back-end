@@ -300,6 +300,10 @@ def get_all_academic_lecturer():
             'message': e.args,
         }
         return ret
+    finally:
+        print("BEFORE: ", sess)
+        sess.close()
+        print("AFTER: ", sess)
 
 
 def get_all_courses():

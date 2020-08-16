@@ -228,6 +228,7 @@ CREATE TABLE `journal` (
   `title` varchar(255) NOT NULL,
   `lecturer_nip` varchar(255) NOT NULL,
   `year` varchar(5) NOT NULL,
+  `number` varchar(255) NULL,
   `issue` varchar(255) NOT NULL,
   `total_page` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
@@ -646,91 +647,6 @@ ALTER TABLE `social_responsibility_other_parties`
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
---
--- Ketidakleluasaan untuk tabel `academic_lecturer`
---
-ALTER TABLE `academic_lecturer`
-  ADD CONSTRAINT `academic_lecturer_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `id` FOREIGN KEY (`course_id`) REFERENCES `academic` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `achievement`
---
-ALTER TABLE `achievement`
-  ADD CONSTRAINT `achievement_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `experience`
---
-ALTER TABLE `experience`
-  ADD CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `final_task_file`
---
-ALTER TABLE `final_task_file`
-  ADD CONSTRAINT `final_task_file_ibfk_1` FOREIGN KEY (`final_task_id`) REFERENCES `final_task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `final_task_lecturer`
---
-ALTER TABLE `final_task_lecturer`
-  ADD CONSTRAINT `final_task_lecturer_ibfk_1` FOREIGN KEY (`final_task_id`) REFERENCES `final_task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `final_task_lecturer_ibfk_2` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `journal`
---
-ALTER TABLE `journal`
-  ADD CONSTRAINT `journal_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `organization`
---
-ALTER TABLE `organization`
-  ADD CONSTRAINT `organization_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `other_publication`
---
-ALTER TABLE `other_publication`
-  ADD CONSTRAINT `other_publication_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `patent`
---
-ALTER TABLE `patent`
-  ADD CONSTRAINT `patent_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `research`
---
-ALTER TABLE `research`
-  ADD CONSTRAINT `research_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `research_file`
---
-ALTER TABLE `research_file`
-  ADD CONSTRAINT `research_file_ibfk_1` FOREIGN KEY (`research_id`) REFERENCES `research` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `social_responsibility`
---
-ALTER TABLE `social_responsibility`
-  ADD CONSTRAINT `social_responsibility_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `social_responsibility_file`
---
-ALTER TABLE `social_responsibility_file`
-  ADD CONSTRAINT `social_responsibility_file_ibfk_1` FOREIGN KEY (`socres_id`) REFERENCES `social_responsibility` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `social_responsibility_other_parties`
---
-ALTER TABLE `social_responsibility_other_parties`
-  ADD CONSTRAINT `social_responsibility_other_parties_ibfk_1` FOREIGN KEY (`socres_id`) REFERENCES `social_responsibility` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
