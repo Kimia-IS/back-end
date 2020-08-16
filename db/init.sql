@@ -66,14 +66,7 @@ ALTER TABLE `journal`
 --
 -- Constraints for dumped tables
 --
-<<<<<<< HEAD
 
---
--- Constraints for table `journal`
---
-ALTER TABLE `journal`
-  ADD CONSTRAINT `journal_ibfk_1` FOREIGN KEY (`lecturer_nip`) REFERENCES `lecturer` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
 ALTER TABLE `social_responsibility_file`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
@@ -83,11 +76,6 @@ ALTER TABLE `social_responsibility_file`
 ALTER TABLE `social_responsibility_other_parties`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
-
->>>>>>> a166e76aa964d6a62fead9b0d6225561a8df8fd3
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
