@@ -39,6 +39,8 @@ class announcement(db.Model):
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
     def save(self):
         try:
@@ -57,11 +59,14 @@ class announcement(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
     def edit(self, id, request):
         try:
@@ -91,11 +96,14 @@ class announcement(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': False,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
     def delete(self, id):
         try:
@@ -115,11 +123,14 @@ class announcement(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 @announcement_blueprint.route('/announcements/<cat>', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -202,7 +213,10 @@ def process_announcements(cat):
         else:
             return jsonify({'status': 500, 'message': 'Sorry, your request method is not recognized!'})
     except Exception as e:
+        sess.rollback()
         res = {
             'message': e.args
         }
         return res
+    finally:
+        sess.close()

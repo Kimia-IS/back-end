@@ -33,11 +33,14 @@ class academic(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
     def edit(self, academic_id, request):
         try:
@@ -67,11 +70,14 @@ class academic(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
     def delete(self, academic_id):
         try:
@@ -91,11 +97,14 @@ class academic(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 class academic_lecturer(db.Model):
@@ -141,11 +150,14 @@ class academic_lecturer(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
     def edit(self, id, request):
         try:
@@ -175,11 +187,14 @@ class academic_lecturer(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
     def delete(self, id):
         try:
@@ -199,11 +214,14 @@ class academic_lecturer(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 def get_academicCourses_byID(id):
@@ -234,6 +252,8 @@ def get_academicCourses_byID(id):
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_academicLecturer_byID(id):
@@ -269,6 +289,8 @@ def get_academicLecturer_byID(id):
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_all_academic_lecturer():
@@ -300,6 +322,8 @@ def get_all_academic_lecturer():
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_all_courses():
@@ -326,6 +350,8 @@ def get_all_courses():
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_academic_byLecturer(nip):
@@ -364,3 +390,5 @@ def get_academic_byLecturer(nip):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()

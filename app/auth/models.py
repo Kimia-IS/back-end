@@ -119,9 +119,11 @@ def getByID_login_alternative(cat, id, password):
     except Exception as e:
         ret = {
             'status': 200,
-            'message': e.args
+            'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def login(cat, id, password):
@@ -197,10 +199,11 @@ def login(cat, id, password):
     except Exception as e:
         ret = {
             'status': 200,
-            'message': e.args
+            'message': e.args,
         }
-        print(str(logged_in.get('token')) + '   5')
         return ret
+    finally:
+            sess.close()
 
 
 class lecturer(db.Model):
@@ -236,11 +239,14 @@ class lecturer(db.Model):
             sess.commit()
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
     def edit(self, nip, request):
         try:
@@ -273,11 +279,14 @@ class lecturer(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
-                'status': 500,
-                'message': e.args
+                'status': 200,
+                'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
     def delete(self, nip):
         try:
@@ -297,11 +306,14 @@ class lecturer(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
-                'status': 500,
-                'message': e.args
+                'status': 200,
+                'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
 
 class admin(db.Model):
@@ -337,11 +349,14 @@ class admin(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
-                'status': 500,
+                'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
     def edit(self, auth_id, request):
         try:
@@ -374,11 +389,14 @@ class admin(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
-                'status': 500,
-                'message': e.args
+                'status': 200,
+                'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
     def delete(self, auth_id):
         try:
@@ -398,11 +416,14 @@ class admin(db.Model):
                 }
                 return ret
         except Exception as e:
+            sess.rollback()
             ret = {
-                'status': 500,
-                'message': e.args
+                'status': 200,
+                'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
 
 def getAll(cat):
@@ -450,9 +471,11 @@ def getAll(cat):
     except Exception as e:
         ret = {
             'status': 200,
-            'message': e.args
+            'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def getAllUsersWithoutSuperAdmin():
@@ -491,10 +514,12 @@ def getAllUsersWithoutSuperAdmin():
         return ret
     except Exception as e:
         ret = {
-            'status': 500,
-            'message': e.args
+            'status': 200,
+            'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def getByID(cat, id):
@@ -548,9 +573,11 @@ def getByID(cat, id):
     except Exception as e:
         ret = {
             'status': 200,
-            'message': e.args
+            'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def do_export():

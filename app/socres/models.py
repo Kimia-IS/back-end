@@ -44,11 +44,14 @@ class socres(db.Model):
                 }
             return ret
         except Exception as e:
+            sess.rollback()
             ret ={
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 def get_all_socres():
@@ -80,6 +83,8 @@ def get_all_socres():
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_socres_byID(id):
@@ -108,6 +113,8 @@ def get_socres_byID(id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_socres_byLecturer(id):
@@ -146,6 +153,8 @@ def get_socres_byLecturer(id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_socres(id, request):
@@ -176,11 +185,14 @@ def edit_socres(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def delete_socres(id):
@@ -201,8 +213,11 @@ def delete_socres(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
