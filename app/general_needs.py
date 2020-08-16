@@ -182,7 +182,10 @@ def export_db():
         elif model == 'socres':
             return make_response_from_tables(sess, [socres], 'xlsx', file_name='data')
     except Exception as e:
+        sess.rollback()
         res = {
             'message': e.args
         }
         return res
+    finally:
+        sess.close()

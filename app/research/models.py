@@ -43,11 +43,14 @@ class research(db.Model):
                 }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 class research_file(db.Model):
@@ -65,11 +68,14 @@ class research_file(db.Model):
             }
             return res
         except Exception as e:
+            sess.rollback()
             res = {
                 'status': 200,
                 'message': e.args
             }
             return res
+        finally:
+            sess.close()
 
 
 def get_all_research():
@@ -79,18 +85,6 @@ def get_all_research():
 
         research_res = []
         for data in research_datas:
-            # res = {
-            #     'id': data.research.id,
-            #     'lecturer_nip': data.research.lecturer_nip,
-            #     'title': data.research.title,
-            #     'investor': data.research.investor,
-            #     'amount': data.research.amount,
-            #     'position': data.research.position,
-            #     'year': data.research.year,
-            #     #'term': data.research.term,
-            #     'filepath': data.research.filepath
-            #     #'filepath': data.research_file.filepath
-            # }
             res = {
                 'id': data.id,
                 'lecturer_nip': data.lecturer_nip,
@@ -116,13 +110,12 @@ def get_all_research():
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_research_byLecturer(id):
     try:
-        # research_datas = sess.query(research, research_file).filter(research.id == id). \
-        #     filter(research.id == research_file.research_id).first()
-
         datas = sess.query(research).filter(research.lecturer_nip == id).all()
         if datas is not None:
             res = []
@@ -157,6 +150,8 @@ def get_research_byLecturer(id):
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_research_byID(id):
@@ -189,6 +184,8 @@ def get_research_byID(id):
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_research(id, request):
@@ -219,11 +216,14 @@ def edit_research(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_research_file(id, filepath):
@@ -253,11 +253,14 @@ def edit_research_file(id, filepath):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def delete_research(id):
@@ -278,8 +281,11 @@ def delete_research(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()

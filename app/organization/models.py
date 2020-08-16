@@ -37,11 +37,14 @@ class organization(db.Model):
                 }
             return ret
         except Exception as e:
+            sess.rollback()
             ret ={
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 def get_all_organizations():
@@ -70,6 +73,8 @@ def get_all_organizations():
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def get_organization_byID(id):
@@ -95,6 +100,8 @@ def get_organization_byID(id):
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def edit_organization(id, request):
@@ -125,11 +132,14 @@ def edit_organization(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def delete_organization(id):
@@ -150,11 +160,14 @@ def delete_organization(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+            sess.close()
 
 
 def get_organization_byLecturer(nip):
@@ -190,3 +203,5 @@ def get_organization_byLecturer(nip):
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()

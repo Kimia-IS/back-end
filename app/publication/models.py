@@ -64,11 +64,14 @@ class journal(db.Model):
                 }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 class journalCorrespondingAuthor(db.Model):
@@ -83,7 +86,10 @@ class journalCorrespondingAuthor(db.Model):
             sess.commit()
             return True
         except Exception as e:
+            sess.rollback()
             return e
+        finally:
+            sess.close()
 
 
 class patent(db.Model):
@@ -123,11 +129,14 @@ class patent(db.Model):
                 }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 class other_publication(db.Model):
@@ -165,11 +174,14 @@ class other_publication(db.Model):
                 }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args
             }
             return ret
+        finally:
+            sess.close()
 
 
 def get_all_publication():
@@ -197,6 +209,8 @@ def get_all_publication():
         }
 
         return res
+    finally:
+        sess.close()
 
 
 def get_all_publication_byCat(cat):
@@ -266,6 +280,8 @@ def get_all_publication_byCat(cat):
         }
 
         return res
+    finally:
+        sess.close()
 
 
 def get_publication_byLecturer(cat, id):
@@ -369,6 +385,8 @@ def get_publication_byLecturer(cat, id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_publication_byID(cat, id):
@@ -445,6 +463,8 @@ def get_publication_byID(cat, id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_publication(cat, id, request):
@@ -485,73 +505,15 @@ def edit_publication(cat, id, request):
                 'message': "Publication is not registered"
             }
         return ret
-            # if selected_publication is not None:
-            #     data = {}
-            #     for k in request.keys():
-            #         param = k
-            #         data[k] = request[param]
-            #     edit = sess.query(cat).filter(cat.id == id).update(data, synchronize_session=False)
-            #     sess.commit()
-            #     if edit == 1:
-            #         ret = {
-            #             'status': 200,
-            #             'message': 'Data updated!'
-            #         }
-            #     else:
-            #         ret = {
-            #             'status': 500,
-            #             'message': "Something's went wrong with our server. Please try again later!"
-            #         }
-            #     return ret
-            # else:
-            #     ret = {
-            #         'status': 200,
-            #         'message': "Publication is not registered"
-            #     }
-            #     return ret
-        # else:
-        #     selected_journal = sess.query(cat).filter(cat.id == id)
-        #     print('sel journal =', selected_journal)
-        #     if selected_journal is not None:
-        #         # del request['publication_files']    # exclude files
-        #         data = {}
-        #         dataCorr = {}
-        #         for k in request.keys():
-        #             param = k
-        #             data[k] = request[param]
-        #             # if param != 'names':
-        #             #     data[k] = request[param]
-        #             # else:
-        #             #     dataCorr[k] = request[param]
-        #         edit = selected_journal.update(data, synchronize_session=False)
-        #         # edit = sess.query(journal).filter(journal.id == id).update(data, synchronize_session=False)
-        #         # edit = edit and sess.query(journalCorrespondingAuthor).\
-        #         #     filter(journalCorrespondingAuthor.journal_id == selected_journal.first().id).\
-        #         #     update(dataCorr, synchronize_session=False)
-        #         sess.commit()
-        #         if edit == 1:
-        #             ret = {
-        #                 'status': 200,
-        #                 'message': 'Data updated!'
-        #             }
-        #         else:
-        #             ret = {
-        #                 'status': 500,
-        #                 'message': "Something's went wrong with our server. Please try again later!"
-        #             }
-        #         return ret
-        #     else:
-        #         ret = {
-        #             'status': 200,
-        #             'message': "Publication is not registered"
-        #         }
-        #         return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 500,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def delete_publication(cat, id):
@@ -584,11 +546,14 @@ def delete_publication(cat, id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def count_journal():
