@@ -37,11 +37,13 @@ class achievement(db.Model):
                 }
             return ret
         except Exception as e:
-            ret ={
+            ret = {
                 'status': 200,
-                'message': e.args
+                'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
 
 def get_all_achievements():
@@ -70,6 +72,8 @@ def get_all_achievements():
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def get_achievement_byID(id):
@@ -95,6 +99,8 @@ def get_achievement_byID(id):
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def edit_achievement(id, request):
@@ -125,11 +131,14 @@ def edit_achievement(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def delete_achievement(id):
@@ -150,11 +159,14 @@ def delete_achievement(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
-            'message': e.args
+            'message': e.args,
         }
         return ret
+    finally:
+            sess.close()
 
 
 def get_achievement_byLecturer(nip):
@@ -190,3 +202,5 @@ def get_achievement_byLecturer(nip):
             'message': e.args,
         }
         return ret
+    finally:
+            sess.close()

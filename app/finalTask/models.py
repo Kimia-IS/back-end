@@ -32,11 +32,14 @@ class finalTask(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
 
 class finalTask_lecturer(db.Model):
@@ -63,11 +66,14 @@ class finalTask_lecturer(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
 
 class finalTask_file(db.Model):
@@ -92,11 +98,14 @@ class finalTask_file(db.Model):
             }
             return ret
         except Exception as e:
+            sess.rollback()
             ret = {
                 'status': 200,
                 'message': e.args,
             }
             return ret
+        finally:
+            sess.close()
 
 
 def get_finalTask_byID(id):
@@ -128,6 +137,8 @@ def get_finalTask_byID(id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_finalTask_byLecturer(nip):
@@ -170,6 +181,8 @@ def get_finalTask_byLecturer(nip):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_all_final_task():
@@ -204,6 +217,8 @@ def get_all_final_task():
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_final_task(id, request):
@@ -253,11 +268,14 @@ def edit_final_task(id, request):
             }
             return ret
     except Exception as e:
+        sess.rolback()
         ret = {
             'status': 500,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_final_task_lecturer(id, request):
@@ -289,11 +307,14 @@ def edit_final_task_lecturer(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 500,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_final_task_file(id, request):
@@ -324,11 +345,14 @@ def edit_final_task_file(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 500,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def deleteTask(id):
@@ -349,11 +373,14 @@ def deleteTask(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def deleteTask_lecturer(id):
@@ -374,11 +401,14 @@ def deleteTask_lecturer(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def deleteTask_file(id):
@@ -400,11 +430,14 @@ def deleteTask_file(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
 
 
 def count_final_task():

@@ -39,11 +39,14 @@ class experience(db.Model):
                 }
             return ret
         except Exception as e:
-            ret ={
+            sess.rollback()
+            ret = {
                 'status': 200,
-                'message': e.args
+                'message': e.args,
             }
             return ret
+        finally:
+                sess.close()
 
 
 def get_all_experiences():
@@ -73,6 +76,8 @@ def get_all_experiences():
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_experience_byID(id):
@@ -99,6 +104,8 @@ def get_experience_byID(id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def get_experience_byLecturer(id):
@@ -135,6 +142,8 @@ def get_experience_byLecturer(id):
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def edit_experience(id, request):
@@ -165,11 +174,14 @@ def edit_experience(id, request):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args,
         }
         return ret
+    finally:
+        sess.close()
 
 
 def delete_experience(id):
@@ -190,8 +202,11 @@ def delete_experience(id):
             }
             return ret
     except Exception as e:
+        sess.rollback()
         ret = {
             'status': 200,
             'message': e.args
         }
         return ret
+    finally:
+        sess.close()
