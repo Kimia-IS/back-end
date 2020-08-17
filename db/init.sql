@@ -1,9 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Aug 16, 2020 at 02:41 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -226,6 +220,7 @@ CREATE TABLE `journal` (
   `title` varchar(255) NOT NULL,
   `lecturer_nip` varchar(255) NOT NULL,
   `year` varchar(5) NOT NULL,
+  `names` varchar(255) DEFAULT NULL,
   `number` varchar(255) NOT NULL,
   `issue` varchar(255) NOT NULL,
   `total_page` int(11) NOT NULL,
@@ -335,6 +330,7 @@ CREATE TABLE `research` (
   `investor` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
   `position` varchar(255) NOT NULL,
+  `term` varchar(255) DEFAULT NULL,
   `filepath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -363,6 +359,7 @@ CREATE TABLE `social_responsibility` (
   `year` varchar(5) NOT NULL,
   `investor` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
+  `position` varchar(255) DEFAULT NULL,
   `filepath` varchar(255) NOT NULL,
   `other_parties` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

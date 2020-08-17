@@ -20,9 +20,6 @@ general_blueprint = Blueprint('general_blueprint', __name__)
 def upload_bulk(cat):
     try:
         file = request.files.get('bulk_file')
-        # if file is not None:
-        #     print(file)
-        #     return "ADA FILE"
         bulk = pd.read_csv(file)
         success = 0
         total = 0
@@ -75,16 +72,16 @@ def get_profile(param):
     try:
         tables = ['academic', 'achievement', 'profile', 'experience', 'finalTask', 'organization', 'journal', 'patent', 'otherpub', 'research', 'socres']
         category = param.split(':')[0]
+        print(category)
         id = param.split(':')[1]
         res = []
 
         if category == 'lecturer':
-            # return get_finalTask_byLecturer(id)
             for data in tables:
                 hasil = search_profile(data, id)
                 if hasil != "not found":
-                    res[data] = hasil
-                    #res.append(hasil)
+                    # res[data] = hasil
+                    res.append(hasil)
         elif category == 'admin':
             hasil = getByID(category, id)
             if "not" not in hasil['message']:
@@ -134,10 +131,6 @@ def search_profile(cat, id):
                 'message': 'not'
             }
         if "not" not in res['message']:
-            # content = {
-            #     cat: res['results']
-            # }
-            # return content
             return res
         else:
             return "not found"

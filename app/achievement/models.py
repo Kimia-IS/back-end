@@ -186,7 +186,7 @@ def get_achievement_byLecturer(nip):
                 res.append(temp)
             ret = {
                 'status': 200,
-                'message': 'This is the registered academic lecturer',
+                'message': 'These are the registered achievements by lecturer',
                 'results': res
             }
             return ret
