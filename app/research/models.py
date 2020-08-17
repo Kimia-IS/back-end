@@ -10,6 +10,7 @@ class research(db.Model):
     investor = db.Column(db.String(255), unique=False)
     amount = db.Column(db.String(255), unique=False)
     position = db.Column(db.String(255), unique=False)
+    term = db.Column(db.String(255), unique=False)
     filepath = db.Column(db.String(255), unique=False)
 
     def save(self):

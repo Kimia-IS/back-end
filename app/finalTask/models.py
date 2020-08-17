@@ -144,7 +144,7 @@ def get_finalTask_byID(id):
 def get_finalTask_byLecturer(nip):
     try:
         datas = sess.query(finalTask, finalTask_file, finalTask_lecturer).\
-            filter(finalTask_lecturer.lecturer_nip == nip).filter(finalTask.id == id).\
+            filter(finalTask_lecturer.lecturer_nip == nip).filter(finalTask.id == finalTask_lecturer.id).\
             filter(finalTask.id == finalTask_file.final_task_id).filter(finalTask.id == finalTask_lecturer.final_task_id).\
             all()
         if datas is not None:
@@ -171,13 +171,13 @@ def get_finalTask_byLecturer(nip):
             return ret
         else:
             ret = {
-                'status': 200,
+                'status': 400,
                 'message': 'nip is not registered'
             }
             return ret
     except Exception as e:
         ret = {
-            'status': 200,
+            'status': 400,
             'message': e.args,
         }
         return ret

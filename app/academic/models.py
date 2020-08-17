@@ -374,7 +374,7 @@ def get_academic_byLecturer(nip):
                 res.append(temp)
             ret = {
                 'status': 200,
-                'message': 'This are the registered academic lecturer',
+                'message': 'These are the registered academic lecturer',
                 'results': res
             }
             return ret

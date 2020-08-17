@@ -80,10 +80,10 @@ def process_final_task():
                 return jsonify(res)
             except Exception as e:
                 ret = {
-                    'status': 500,
+                    'status': 400,
                     'message': e.args,
                 }
-                return ret
+                return jsonify(ret), 400
 
         # if method == PUT
         elif request.method == 'PUT':
